@@ -1,0 +1,10 @@
+.wrapper {
+  min-height: 100vh;
+}
+.content {
+  min-height: 100vh;
+  margin: 0 auto -70px;  /*See at Footer/Style.module.css - .footer*/
+}
+.footer_pusher {
+  height: 70px;  /*See at Footer/Style.module.css - .footer*/
+}
