@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {tableSort} from "../../Redux/Actions/tasks_actions";
+import {
+  tableSort,
+  setTasks,
+} from "../../Redux/Actions/tasks_actions";
 import TaskTable from "./TaskTable";
 
 
@@ -15,7 +18,12 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    sortTable: (sortField) => {dispatch(tableSort(sortField))},
+    sortTable: (sortField) => {
+      dispatch(tableSort(sortField))
+    },
+    setTasks: (tasks) => {
+      dispatch(setTasks(tasks))
+    }
   }
 }
 

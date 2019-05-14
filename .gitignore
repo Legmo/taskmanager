@@ -2,6 +2,7 @@
 
 # developer tmp files
 /works.js
+/ToDo.js
 
 # dependencies
 /node_modules

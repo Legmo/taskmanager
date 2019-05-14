@@ -1,8 +1,22 @@
 import React from 'react';
+import * as axios from "axios";
 import Paginator_Container from "../Paginator/Container";
 import style from './style.module.css'
 
 const TaskTable = (props) => {
+  console.log(props);
+
+  //TODO: side effect. We need to use class component here
+  if (props.tasks.length < 3) {
+    axios.get('https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=15')
+    .then(response => {
+      // debugger
+      // let tasks;
+      props.setTasks(response.data.message.tasks)
+    });
+    console.log('after axios')
+  }
+
   let sortDirection = props.sortDirection;
   // console.log(props);
 
@@ -38,32 +52,32 @@ const TaskTable = (props) => {
       <div>
         <table className={"table sort_"+sortDirection}>
           <thead className="thead-light">
-            <tr>
-              {/*{tableHeaders}*/}
-              <th onClick={onSortTable} id="id">
-                ID
-                <span className="indicator"></span>
-              </th>
-              <th onClick={onSortTable} id="username">
-                Пользователь
-                <span className="indicator"></span>
-              </th>
-              <th onClick={onSortTable} id="email">
-                Email
-                <span className="indicator"></span>
-              </th>
-              <th onClick={onSortTable} id="text">
-                Задача
-                <span className="indicator"></span>
-              </th>
-              <th onClick={onSortTable} id="status">
-                Статус
-                <span className="indicator"></span>
-              </th>
-            </tr>
+          <tr>
+            {/*{tableHeaders}*/}
+            <th onClick={onSortTable} id="id">
+              ID
+              <span className="indicator"></span>
+            </th>
+            <th onClick={onSortTable} id="username">
+              Пользователь
+              <span className="indicator"></span>
+            </th>
+            <th onClick={onSortTable} id="email">
+              Email
+              <span className="indicator"></span>
+            </th>
+            <th onClick={onSortTable} id="text">
+              Задача
+              <span className="indicator"></span>
+            </th>
+            <th onClick={onSortTable} id="status">
+              Статус
+              <span className="indicator"></span>
+            </th>
+          </tr>
           </thead>
           <tbody>
-            {tableElements}
+          {tableElements}
           </tbody>
         </table>
         <Paginator_Container/>

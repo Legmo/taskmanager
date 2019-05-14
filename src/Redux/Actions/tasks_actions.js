@@ -5,6 +5,7 @@ export const UPDATE_MAIL_TEXT =        'UPDATE-NEW-MAIL-TEXT';
 export const UPDATE_AUTHOR_TEXT =      'UPDATE-NEW-AUTHOR-TEXT';
 export const UPDATE_TASK_STATUS =      'UPDATE-TASK-STATUS';
 export const TABLE_SORT =              'TABLE-SORT';
+export const SET_TASKS =               'SET-TASKS';
 
 export const addTask = () => ({
   type: ADD_TASK,
@@ -34,4 +35,8 @@ export const updateTaskStatus = (status, id) => ({
 export const tableSort = (sort_field) => ({
   type: TABLE_SORT,
   sortField: sort_field,
+});
+export const setTasks = (tasks) => ({
+  type: SET_TASKS,
+  tasks: tasks,
 });
