@@ -12,13 +12,101 @@
 }
 
 <БЛИЖАЙШИЕ /> {
-  - Перевести часть компонент в классовые {
-    - какие именно?
-        - AddTaskForm
-        - TaskTable
-        - TaskTableAdmin
-        - в методе ComponentDidMount вызывать AJAX и прочие сайд-эффекты
+  - Правильно реализовать поиск сущности с конкретным ID по всему стэйту {
+    - https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
+    - reducer-task - правильно прописать изменение объекта в UPDATE_TASK_TEXT и UPDATE_TASK_STATUS
+    ОТ ВЕРЫ {
+      Я бы не стала создавать кучу объектов. Если нужно обязательно копирование, то поначалу бы так сделала.
+
+          let stateCopy = {...state}
+      let tasks = stateCopy['message']['tasks']
+      for (let i=0;i<tasks.length;i++){
+
+        if (tasks[i]['id'] == taskId){
+          tasks[i]['text'] = newString;
+        }
+      }
+      В питоне бы такое проканало. в js, возможно, придется делать как-то так.
+
+      for (let i=0;i<stateCopy['message']['tasks'].length;i++){
+
+        if (stateCopy['message']['tasks'][i]['id'] == taskId){
+          stateCopy['message']['tasks'][i]['text'] = newString;
+        }
+      }
+
+      Хотя в es6, кажется, должно быть решение поизящней.
+
+      for (let i=0;i<stateCopy.message.tasks.length;i++){
+
+        if (stateCopy.message.tasks[i].id == taskId){
+          stateCopy.message.tasks[i].text = newString;
+        }
+      }
+
+      Кстати, попробуй этот вариант без строк:
+
+          stateCopy.message = {...state.message};
+      stateCopy.message.tasks = [...state.message.tasks];
+
+      Может сработает.
+    }
   }
+  - Reducer - как менять массив объектов {
+    - https://www.youtube.com/watch?v=ceSZUZZaW30
+  }
+
+
+  - Править копирование стэйта {
+    let stateCopy = {
+      ...state,
+      messages: {...state.messages}
+    }
+
+    вместо
+    let stateCopy = {
+      ...state,
+    }
+    StateCopy.newMessagesBody = action.body
+    делаем
+    return {
+      ...state,
+      newMessagesBody = action.body
+    }
+
+
+    вместо
+    let stateCopy = {
+      ...state
+    }
+    let body = stateNewMessages.body
+    StateCopy.newMessagesBody = ''
+    StateCopy.messages.push({id:6, message: body})
+    делаем {
+      let body = stateNewMessages.body
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+      {id:6, message: body}
+    }
+      newMessagesBody = '',
+    }
+    }
+  }
+  - Добавление данных через спред-оператор {
+    let variable = {
+      ...state,
+      action.new_data
+  }
+  }
+  - Прописать правильный ReadMe проекта {
+    - Вначале на русском, потом перевести.
+    - Учебный проект,
+    - Функциональность + чем реализовано (какой роутер и т.д.),
+    - Технологический стэк (версия React & т.д.)
+  }
+  +
   - Обмен данными с бэкендом {
     - Получение и вывод задач при инициализации приложения. Вынести из App в Redux
     - Пуш новых задач и изменений старых
@@ -27,6 +115,7 @@
       https://www.youtube.com/watch?v=yOcR_flZ0vo&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=8
           }
     - Пагинация
+        https://github.com/it-kamasutra/react-way-of-samurai/blob/master/src/components/Users/UsersContainer.jsx
 
     https://www.youtube.com/watch?v=ceSZUZZaW30&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=50
         Разбираться, надо ли нам в setTasks м подобных полностью затираьт стэйт и презаписывать его, или надо добавлять данные к существующему стэйту?
@@ -65,92 +154,6 @@
     http://jsraccoon.ru/react-sort-and-search
 
         }
-  - Править копирование стэйта {
-      let stateCopy = {
-        ...state,
-        messages: {...state.messages}
-      }
-
-      вместо
-      let stateCopy = {
-        ...state,
-      }
-      StateCopy.newMessagesBody = action.body
-      делаем
-      return {
-        ...state,
-        newMessagesBody = action.body
-      }
-
-
-      вместо
-      let stateCopy = {
-        ...state
-      }
-      let body = stateNewMessages.body
-      StateCopy.newMessagesBody = ''
-      StateCopy.messages.push({id:6, message: body})
-      делаем {
-        let body = stateNewMessages.body
-        return {
-          ...state,
-          messages: {
-            ...state.messages,
-        {id:6, message: body}
-      }
-        newMessagesBody = '',
-      }
-      }
-  }
-  - Правильно реализовать поиск сущности с конкретным ID по всему стэйту {
-      - https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
-      - reducer-task - правильно прописать изменение объекта в UPDATE_TASK_TEXT и UPDATE_TASK_STATUS
-      ОТ ВЕРЫ {
-        Я бы не стала создавать кучу объектов. Если нужно обязательно копирование, то поначалу бы так сделала.
-
-            let stateCopy = {...state}
-        let tasks = stateCopy['message']['tasks']
-        for (let i=0;i<tasks.length;i++){
-
-          if (tasks[i]['id'] == taskId){
-            tasks[i]['text'] = newString;
-          }
-        }
-        В питоне бы такое проканало. в js, возможно, придется делать как-то так.
-
-        for (let i=0;i<stateCopy['message']['tasks'].length;i++){
-
-          if (stateCopy['message']['tasks'][i]['id'] == taskId){
-            stateCopy['message']['tasks'][i]['text'] = newString;
-          }
-        }
-
-        Хотя в es6, кажется, должно быть решение поизящней.
-
-        for (let i=0;i<stateCopy.message.tasks.length;i++){
-
-          if (stateCopy.message.tasks[i].id == taskId){
-            stateCopy.message.tasks[i].text = newString;
-          }
-        }
-
-        Кстати, попробуй этот вариант без строк:
-
-            stateCopy.message = {...state.message};
-        stateCopy.message.tasks = [...state.message.tasks];
-
-        Может сработает.
-      }
-  }
-  - Reducer - как менять массив объектов {
-      https://www.youtube.com/watch?v=ceSZUZZaW30
-  }
-  - Добавление данных через спред-оператор {
-      let variable = {
-        ...state,
-        action.new_data
-    }
-  }
   - Проверить, откуда вызывается функция соритировки данных. Из самой компоненты, либо снаружи {
       http://abcinblog.blogspot.com/2019/02/react-i.html
 
@@ -162,12 +165,6 @@
     - https://habr.com/ru/post/329996/
     - https://toster.ru/q/355686
   }
-  - Прописать правильный ReadMe проекта {
-        - Вначале на русском, потом перевести.
-        - Учебный проект,
-        - Функциональность + чем реализовано (какой роутер и т.д.),
-        - Технологический стэк (версия React & т.д.)
-}
 }
 
 <ПРОЧЕЕ /> {
@@ -176,6 +173,7 @@
   - Админка - экранирование текста задачи
   - объединить задачи UpdateTaskText & UpdateNewTaskText в редусере. Реально?
   - объявлять переменные не так: let variable = ""; а так: let variable;
+  - разобраться с thunk. Например, в TaskTable можно было бы вынести <tbody> в отдельную перемнную/метод (tableElements). Но, для этого надо реализовать нормальную асинхронность
 }
 
 <В_КОНЦЕ /> {
@@ -224,6 +222,8 @@
   - Сортировка - клик по стрелке обрабатывать как клик по табличке
   - Сделать синонимами пути / и /index. react-router-dom - При входе загружать сразу первую страницу
   - Избавиться от страницы admin?
+  - У меня в трёх разных компонентах исполььзуется одинаковый код для запроса на сервер (ComponentDidMount) - хорошо бы его вынести
+  - В таблице админа (может и в обычной) работаю с методами типа document.getElementById - это нормально?
 }
 
 <РЕКОМЕНДАЦИИ /> {

@@ -1,26 +1,26 @@
 import React from 'react';
 
-const AddTaskForm = (props) => {
+class AddTaskForm extends React.Component {
 
-  let onTaskTextChange = (event) => {
+  onTaskTextChange = (event) => {
     let text = event.target.value;
     let id =  event.target.id;
-    props.updateNewTaskText(text, id);
+    this.props.updateNewTaskText(text, id);
   }
 
-  let onNameChange = (event) => {
+  onNameChange = (event) => {
     let name = event.target.value;
-    props.updateAuthorText(name);
+    this.props.updateAuthorText(name);
   }
 
-  let onMailChange = (event) => {
+  onMailChange = (event) => {
     let mail = event.target.value;
-    props.updateMailText(mail);
+    this.props.updateMailText(mail);
   }
 
-  let addNewTask = (event) => {
+  addNewTask = (event) => {
     event.preventDefault();
-    props.addTask();
+    this.props.addTask();
     // var textarea = event.target.getElementsByTagName('textarea');
 
     //textareaValue
@@ -31,46 +31,49 @@ const AddTaskForm = (props) => {
     alert('Задача отправлена');
   }
 
-  return (
-      <div>
-        <form onSubmit={addNewTask}>
-          <div className="form-group">
+  render() {
+    return (
+        <div>
+          <form onSubmit={this.addNewTask}>
+            <div className="form-group">
             <textarea
-                onClick={onTaskTextChange}
-                onChange={onTaskTextChange}
+                onClick={this.onTaskTextChange}
+                onChange={this.onTaskTextChange}
                 rows="7"
                 id="task_text"
                 name="taskText"
                 className="form-control"
                 placeholder="Текст задачи"
                 required></textarea>
-          </div>
-          <div className="form-group">
-            <input
-                onChange={onNameChange}
-                type="text"
-                id="author_name"
-                name="author_name"
-                className="form-control"
-                placeholder="Ваше имя"
-                required />
-          </div>
-          <div className="form-group">
-            <input
-                onChange={onMailChange}
-                type="email"
-                id="email"
-                name="email"
-                className="form-control"
-                placeholder="Email"
-                required />
-          </div>
-          <button
-              type="submit"
-              className="btn btn-primary">Отправить задачу</button>
-        </form>
-      </div>
-  )
+            </div>
+            <div className="form-group">
+              <input
+                  onChange={this.onNameChange}
+                  type="text"
+                  id="author_name"
+                  name="author_name"
+                  className="form-control"
+                  placeholder="Ваше имя"
+                  required/>
+            </div>
+            <div className="form-group">
+              <input
+                  onChange={this.onMailChange}
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="form-control"
+                  placeholder="Email"
+                  required/>
+            </div>
+            <button
+                type="submit"
+                className="btn btn-primary">Отправить задачу
+            </button>
+          </form>
+        </div>
+    )
+  }
 }
 
 

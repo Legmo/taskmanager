@@ -6,36 +6,15 @@ import {
   UPDATE_MAIL_TEXT,
   UPDATE_TASK_STATUS,
   TABLE_SORT,
-  SET_TASKS,
+  SET_TASKS, GET_TASKS,
 } from '../Actions/tasks_actions'
 import _ from "lodash";
 
 
 const initialState = {
+    "isLoading": false,
     "message": {
-      "tasks": [
-        {
-          "id": 1,
-          "username": "Test User",
-          "email": "test_user_1@example.com",
-          "text": "Hello, world!",
-          "status": 10,
-        },
-        {
-          "id": 31,
-          "username": "A Test User 2",
-          "email": "test_user_2@example.com",
-          "text": "Hello from user 2!",
-          "status": 0,
-        },
-/*        {
-          "id": 4,
-          "username": "Test User 3",
-          "email": "test_user_3@example.com",
-          "text": "Hello from user 3!",
-          "status": 0,
-        }*/
-      ],
+      "tasks": [],
       "total_task_count": "579"
     },
     "new_task": {},
@@ -188,7 +167,6 @@ const tasks_reducer = (state = initialState, action) => {
         ...state,
         message: {
           ...state.message,
-          // tasks: [...state.message.tasks, ...action.tasks],
           tasks: action.tasks,
         },
       };

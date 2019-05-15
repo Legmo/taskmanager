@@ -3,24 +3,26 @@ import * as axios from "axios";
 import Paginator_Container from "../Paginator/Container";
 import style from './style.module.css'
 
-const TaskTable = (props) => {
-  console.log(props);
+class TaskTable extends React.Component {
 
-  //TODO: side effect. We need to use class component here
-  if (props.tasks.length < 3) {
-    axios.get('https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=15')
-    .then(response => {
-      // debugger
-      // let tasks;
-      props.setTasks(response.data.message.tasks)
-    });
-    console.log('after axios')
+  constructor(props) {
+    super(props);
+    this.props.tasks.isLoading = true;
   }
 
-  let sortDirection = props.sortDirection;
-  // console.log(props);
+  componentDidMount() {
+    if(this.props.tasks.isLoading) {
+      axios.get('https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=15')
+      .then(response => {
+        this.props.setTasks(response.data.message.tasks)
+      });
+      this.props.tasks.isLoading = false;
+    }
+  }
 
-  let onSortTable = (event) => {
+  sortDirection = this.props.sortDirection;
+
+  onSortTable = (event) => {
     let sortField = event.target.id;
 
     //Table sorting - add/change indicator
@@ -28,61 +30,81 @@ const TaskTable = (props) => {
     if (firstActiveTh) {firstActiveTh.classList.remove("active_col");}
     document.getElementById(sortField).classList.add("active_col");
 
-    // console.log(sortField);
-    props.sortTable(sortField);
-  }
+    this.props.sortTable(sortField);
+}
 
-  const tableElements = props.tasks.map((props) => {
+/*
+  //AJAX. I think we ned to use thunk here
 
-    let status_text =  (props.status != 0) ? "решено" : "открыто"
-    let status_color =  (props.status != 0) ? "success" : "danger" //todo - KISS
+  tableElements = this.props.tasks.map((task) => {
+    let status_text = (this.props.tasks.status != 0) ? "решено" : "открыто"
+    let status_color = (this.props.tasks.status != 0) ? "success" : "danger" //todo - KISS
 
     return (
-        <tr className={style.table_row} key={props.id}>
-          <th scope="row">{props.id}</th>
-          <td>{props.username}</td>
-          <td>{props.email}</td>
-          <td>{props.text}</td>
-          <td className={'text-'+status_color}>{status_text}</td>
+        <tr className={style.table_row} key={task.id}>
+          <th scope="row">{task.id}</th>
+          <td>{task.username}</td>
+          <td>{task.email}</td>
+          <td>{task.text}</td>
+          <td className={'text-' + status_color}>{status_text}</td>
         </tr>
     )
   })
+*/
 
-  return (
-      <div>
-        <table className={"table sort_"+sortDirection}>
-          <thead className="thead-light">
-          <tr>
-            {/*{tableHeaders}*/}
-            <th onClick={onSortTable} id="id">
-              ID
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="username">
-              Пользователь
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="email">
-              Email
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="text">
-              Задача
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="status">
-              Статус
-              <span className="indicator"></span>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          {tableElements}
-          </tbody>
-        </table>
-        <Paginator_Container/>
-      </div>
-  )
+  render() {
+    return (
+        <div>
+          <table className={"table sort_"+this.sortDirection}>
+            <thead className="thead-light">
+            <tr>
+              {/*{tableHeaders}*/}
+              <th onClick={this.onSortTable} id="id">
+                ID
+                <span className="indicator"></span>
+              </th>
+              <th onClick={this.onSortTable} id="username">
+                Пользователь
+                <span className="indicator"></span>
+              </th>
+              <th onClick={this.onSortTable} id="email">
+                Email
+                <span className="indicator"></span>
+              </th>
+              <th onClick={this.onSortTable} id="text">
+                Задача
+                <span className="indicator"></span>
+              </th>
+              <th onClick={this.onSortTable} id="status">
+                Статус
+                <span className="indicator"></span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+              {
+                this.props.tasks.map((task) => {
+                  let status_text = (task.status != 0) ? "решено" : "открыто"
+                  let status_color = (task.status != 0) ? "success" : "danger" //todo - KISS
+
+                  return (
+                      <tr className={style.table_row} key={task.id}>
+                        <th scope="row">{task.id}</th>
+                        <td>{task.username}</td>
+                        <td>{task.email}</td>
+                        <td>{task.text}</td>
+                        <td className={'text-' + status_color}>{status_text}</td>
+                      </tr>
+                  )
+                })
+              }
+            </tbody>
+          </table>
+          <Paginator_Container/>
+        </div>
+    )
+  }
+
 }
 
 export default TaskTable;

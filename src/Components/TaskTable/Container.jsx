@@ -9,10 +9,11 @@ import TaskTable from "./TaskTable";
 
 let mapStateToProps = (state) => {
   return {
-    tasks:  state.tasks.message.tasks, //TODO: разбираться с messages
+    isLoading:      state.tasks.isLoading,
+    tasks:          state.tasks.message.tasks, //TODO: разбираться с messages
     table_headers:  state.tasks.table_headers,
-    sortField: state.tasks.sortField,
-    sortDirection: state.tasks.sortDirection
+    sortField:      state.tasks.sortField,
+    sortDirection:  state.tasks.sortDirection
   }
 }
 
