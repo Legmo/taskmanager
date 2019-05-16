@@ -17,7 +17,6 @@ class TaskTableAdmin extends React.Component {
       axios.get('https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=15')
           .then(response => {
             this.props.setTasks(response.data.message.tasks)
-            // this.props.setTasks(response.data.message.tasks)
           });
       this.props.tasks.isLoading = false;
     }
@@ -124,7 +123,8 @@ class TaskTableAdmin extends React.Component {
 */
 
   render() {
-    if(this.isLoggedUser) {
+    // if(this.isLoggedUser) {
+    if(true) {
         return (
             <div>
               <form>

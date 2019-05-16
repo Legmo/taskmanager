@@ -6,7 +6,7 @@ import {
   UPDATE_MAIL_TEXT,
   UPDATE_TASK_STATUS,
   TABLE_SORT,
-  SET_TASKS, GET_TASKS,
+  SET_TASKS,
 } from '../Actions/tasks_actions'
 import _ from "lodash";
 
@@ -74,10 +74,17 @@ const tasks_reducer = (state = initialState, action) => {
         },
       };
 
-      //ToDo: FIX IT!!!!
       let newString = action.newTaskText;
       let taskId = action.taskId;
 
+      stateCopy.message.tasks.map((task) => {
+        if(task.id == taskId) {
+          console.log(task.id);
+          task.text = newString;
+        }
+      })
+
+/*
       if (stateCopy.message.tasks[0].id == taskId) {
         stateCopy.message.tasks[0].text = newString;
       }
@@ -87,6 +94,7 @@ const tasks_reducer = (state = initialState, action) => {
       else {
         stateCopy.message.tasks[2].text = newString;
       }
+*/
 
       return stateCopy;
     }
@@ -121,19 +129,16 @@ const tasks_reducer = (state = initialState, action) => {
         },
       };
 
-      //ToDo: FIX IT!!!!
       let newStatus = action.newStatus;
       let taskId = action.taskId;
 
-      if (stateCopy.message.tasks[0].id == taskId) {
-        stateCopy.message.tasks[0].status = newStatus;
-      }
-      else if (stateCopy.message.tasks[1].id == taskId) {
-        stateCopy.message.tasks[1].status = newStatus;
-      }
-      else {
-        stateCopy.message.tasks[2].status = newStatus;
-      }
+      stateCopy.message.tasks.map((task) => {
+         if(task.id == taskId) {
+           console.log(task.id);
+           task.status = newStatus;
+        }
+      })
+
       return stateCopy;
     }
     case TABLE_SORT: {

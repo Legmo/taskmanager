@@ -4,7 +4,9 @@ import TaskTableAdmin from "./TaskTableAdmin";
 import {
   tableSort,
   updateTaskText,
-  updateTaskStatus } from "../../Redux/Actions/tasks_actions";
+  updateTaskStatus,
+  setTasks
+} from "../../Redux/Actions/tasks_actions";
 
 let mapStateToProps = (state) => {
   return {
@@ -21,7 +23,8 @@ let mapDispatchToProps = (dispatch) => {
   return {
     sortTable: (sortField) => {dispatch(tableSort(sortField))},
     updateTaskText: (text, id) => {dispatch(updateTaskText(text, id))},
-    updateTaskStatus: (status, id) => {dispatch(updateTaskStatus(status, id))}
+    updateTaskStatus: (status, id) => {dispatch(updateTaskStatus(status, id))},
+    setTasks: (tasks) => {dispatch(setTasks(tasks))}
   }
 }
 
