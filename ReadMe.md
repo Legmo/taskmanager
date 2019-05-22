@@ -1,7 +1,7 @@
 # Task manager
 
-##Оглавление
 <a name="table_of_contents"></a>
+## Оглавление
 - Русский
   - [Техническое задание](#ru_task)
   - [Стэк технологий](#ru_stack)
@@ -11,10 +11,10 @@
   - [Technologies stack](#en_stack)
   - [Basic console commands](#en_commands)
 
-## Техническое задание
 <a name="ru_task"></a>
-Необходимо создать приложение-задачник.   
-В приложении нужно использовать React и Redux.   
+## Техническое задание
+Необходимо создать приложение-задачник.<br>
+В приложении нужно использовать React и Redux.<br>
 К дизайну особых требований нет.
 
 **Общая структура приложения**
@@ -40,8 +40,8 @@
 
 :arrow_up: [Оглавление](#table_of_contents)    
 
-## Стэк технологий
 <a name="ru_stack"></a>
+## Стэк технологий
 - React 16
 - Redux 4
 - React Router DOM 5
@@ -54,9 +54,8 @@
    
 :arrow_up: [Оглавление](#table_of_contents)    
 
-## Основные команды консоли
 <a name="ru_commands"></a>
-
+## Основные команды консоли
 Находясь в директории проекта вы можете использовать эти команды:
 
 ### `npm start`
@@ -79,8 +78,7 @@
 
 ### Больше информации
 
-Более подробную информацию вы можете получить здесь [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
+Более подробную информацию вы можете получить здесь [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).<br>
 Изучение React стоит начать с [документации React](https://ru.reactjs.org/).
    
 
@@ -88,11 +86,11 @@
 
 ____
 
-## Technical task
 <a name="en_task"></a>
-It is necessary to  create a simple task manager application.
-In the application we need to use React and Redux.
-There are no special requirements for design.
+## Technical task
+It is necessary to  create a simple task manager application.<br>
+In the application we need to use React and Redux.<br>
+There are no special requirements for design.<br>
 
 **General application structure**
 - Start page   
@@ -117,8 +115,8 @@ There are no special requirements for design.
 
 :arrow_up: [Оглавление](#table_of_contents)    
 
-## Technologies stack
 <a name="en_stack"></a>
+## Technologies stack
 - React 16
 - Redux 4
 - React Router DOM 5
@@ -131,9 +129,8 @@ This project on [GitHub](https://github.com/Legmo/taskmanager).
    
 :arrow_up: [Оглавление](#table_of_contents)    
 
-## Basic console commands
 <a name="en_commands"></a>
-
+## Basic console commands
 In the project directory, you can run:
 
 ### `npm start`
@@ -155,7 +152,7 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### Learn More
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).<br>
 To learn React, check out the [React documentation](https://reactjs.org/).
    
 
