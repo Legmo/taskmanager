@@ -42,13 +42,14 @@
 
 <a name="ru_stack"></a>
 ## Стэк технологий
-- React 16
-- Redux 4
-- React Router DOM 5
-- Axios 0.18
-- Bootstrap 4
-- Semantic UI React 0.86
-- Lodash 4 
+- [React JS](https://ru.reactjs.org/) 16
+- [Redux](https://redux.js.org/) 4
+- [React-Redux](https://react-redux.js.org/) 6
+- [React Router DOM](https://github.com/ReactTraining/react-router#readme) 5
+- [Axios](https://github.com/axios/axios#readme) 0.18
+- [Bootstrap](https://getbootstrap.com/) 4
+- [Semantic UI React](https://react.semantic-ui.com/) 0.86
+- [Lodash](https://lodash.com/) 4 
           
 Этот проект на [GitHub](https://github.com/Legmo/taskmanager).
    
@@ -117,13 +118,14 @@ There are no special requirements for design.<br>
 
 <a name="en_stack"></a>
 ## Technologies stack
-- React 16
-- Redux 4
-- React Router DOM 5
-- Axios 0.18
-- Bootstrap 4
-- Semantic UI React 0.86
-- Lodash 4 
+- [React JS](https://reactjs.org/) 16
+- [Redux](https://redux.js.org/) 4
+- [React-Redux](https://react-redux.js.org/) 6
+- [React Router DOM](https://github.com/ReactTraining/react-router#readme) 5
+- [Axios](https://github.com/axios/axios#readme) 0.18
+- [Bootstrap](https://getbootstrap.com/) 4
+- [Semantic UI React](https://react.semantic-ui.com/) 0.86
+- [Lodash](https://lodash.com/) 4 
           
 This project on [GitHub](https://github.com/Legmo/taskmanager).
    
