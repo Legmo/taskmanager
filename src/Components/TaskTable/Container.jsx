@@ -6,7 +6,6 @@ import {
 } from "../../Redux/Actions/tasks_actions";
 import TaskTable from "./TaskTable";
 
-
 let mapStateToProps = (state) => {
   return {
     isLoading:      state.tasks.isLoading,
@@ -17,17 +16,9 @@ let mapStateToProps = (state) => {
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    sortTable: (sortField) => {
-      dispatch(tableSort(sortField))
-    },
-    setTasks: (tasks) => {
-      dispatch(setTasks(tasks))
-    }
-  }
-}
-
-const TaskTableContainer = connect(mapStateToProps, mapDispatchToProps)(TaskTable);
+const TaskTableContainer = connect(mapStateToProps, {//mapDispatchToProps
+  tableSort,
+  setTasks
+})(TaskTable);
 
 export default TaskTableContainer;

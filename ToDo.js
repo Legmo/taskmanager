@@ -5,13 +5,50 @@
   - читать книгу про React (Пацианский М)
   - изучать axios
   - читать про классовые компоненты
-  - читать про хуки
   - Досмотреть видео Monsters
   +
   - Смотреть новое видео IT-Kamasutra
 }
 
 <БЛИЖАЙШИЕ /> {
+  - Прописать правильный ReadMe проекта {
+    - Вначале на русском, потом перевести.
+    - Учебный проект,
+    - Функциональность + чем реализовано (какой роутер и т.д.),
+    - Технологический стэк (версия React & т.д.)
+  }
+  - Проверить работу переключателя  "Войти/Выйти" в шапке
+  - Реализовать разные варианты return по условию {
+      function Greeting(props) {
+        const isLoggedIn = props.isLoggedIn;
+        if (isLoggedIn) {
+          return <UserGreeting />;
+        }
+        return <GuestGreeting />;
+      }
+    }
+  - Объявлять переменные не так: let variable = ""; а так: let variable;
+  - Вввести && вместо IF {
+    function Mailbox(props) {
+      const unreadMessages = props.unreadMessages;
+      return (
+          <div>
+            <h1>Здравствуйте!</h1>
+            {unreadMessages.length > 0 &&
+            <h2>
+              У вас {unreadMessages.length} непрочитанных сообщений.
+            </h2>
+            }
+          </div>
+      );
+    }
+  }
+  - реализовать кнопку Login/Logout {
+    https://ru.reactjs.org/docs/conditional-rendering.html
+  }
+  - Проверить работу map
+  - Вынести AJAX-запрос в промежуточную контейнеруню компоненту https://www.youtube.com/watch?v=D0kB1IvCKrI
+  - Pagination - https://www.youtube.com/watch?v=ap8HxJPwJhY
   - Правильно реализовать поиск сущности с конкретным ID по всему стэйту {
     - https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
     - reducer-task - правильно прописать изменение объекта в UPDATE_TASK_TEXT и UPDATE_TASK_STATUS
@@ -55,8 +92,6 @@
   - Reducer - как менять массив объектов {
     - https://www.youtube.com/watch?v=ceSZUZZaW30
   }
-
-
   - Править копирование стэйта {
     let stateCopy = {
       ...state,
@@ -100,12 +135,11 @@
       action.new_data
   }
   }
-  - Прописать правильный ReadMe проекта {
-    - Вначале на русском, потом перевести.
-    - Учебный проект,
-    - Функциональность + чем реализовано (какой роутер и т.д.),
-    - Технологический стэк (версия React & т.д.)
-  }
+  - Сделать loader на время подгрузки AJAX {
+    https://www.youtube.com/watch?v=qE8ThPt1EIM
+        http://abcinblog.blogspot.com/2019/02/react-i.html
+            http://jsraccoon.ru/react-sort-and-search - подумать о том, что будет происходить, если мы не получили данные.
+                }
   +
   - Обмен данными с бэкендом {
     - Получение и вывод задач при инициализации приложения. Вынести из App в Redux
@@ -165,6 +199,7 @@
     - https://habr.com/ru/post/329996/
     - https://toster.ru/q/355686
   }
+  - Проверить все ToDo
 }
 
 <ПРОЧЕЕ /> {
@@ -172,31 +207,28 @@
   - Прикрутить их редактор кода, проверить права
   - Админка - экранирование текста задачи
   - объединить задачи UpdateTaskText & UpdateNewTaskText в редусере. Реально?
-  - объявлять переменные не так: let variable = ""; а так: let variable;
   - разобраться с thunk. Например, в TaskTable можно было бы вынести <tbody> в отдельную перемнную/метод (tableElements). Но, для этого надо реализовать нормальную асинхронность
+  - переписать на хуки
 }
 
 <В_КОНЦЕ /> {
-  - Сделать loader на время подгрузки AJAX {
-    http://abcinblog.blogspot.com/2019/02/react-i.html
-        http://jsraccoon.ru/react-sort-and-search - подумать о том, что будет происходить, если мы не получили данные.
-            }
+
   - Стрелки-индикаторы на шапке таблицы можно добавлять с помощью модуля bem-cn {
-    https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
-        }
+      https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
+    }
   - Использование react-router-redux (надо ли?) {
-    https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
-        }
+      https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
+    }
   - Смена состояния кнопки Войти-Выйти - вынести из чистой компоненты? В контейнер? В Redux?
   - Чистить {
-    - убрать все лишние todo,
-    - комментарии,
-    - консоль-логи
-    - проверить все импорты
-    - убрать подвал (перенести в hotquotes)
-    - убрать чекбоксы?
-    - убрать кнопку "Сохранить" в админке?
-}
+      - убрать все лишние todo,
+      - комментарии,
+      - консоль-логи
+      - проверить все импорты
+      - убрать подвал (перенести в hotquotes)
+      - убрать чекбоксы?
+      - убрать кнопку "Сохранить" в админке?
+  }
   - Валидируем любой пользовательский ввод - https://bootstrap-4.ru/docs/4.0/components/forms/
   - Экранируем вывод
   - Favicon - их лого

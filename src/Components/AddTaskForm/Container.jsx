@@ -16,15 +16,11 @@ let mapStateToProps = (state) => {
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addTask: () => {dispatch(addTask())},
-    updateNewTaskText: (text, id) => {dispatch(updateNewTaskText(text))},
-    updateMailText: (mail) => {dispatch(updateMailText(mail))},
-    updateAuthorText: (name) => {dispatch(updateAuthorText(name))},
-  }
-}
-
-const AddTaskForm_Container = connect(mapStateToProps, mapDispatchToProps)(AddTaskForm);
+const AddTaskForm_Container = connect(mapStateToProps, {//mapDispatchToProps
+  addTask,
+  updateNewTaskText,
+  updateMailText,
+  updateAuthorText
+})(AddTaskForm);
 
 export default AddTaskForm_Container;

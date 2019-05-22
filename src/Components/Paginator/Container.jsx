@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {isPagination} from "../../Redux/Actions/tasks_table_actions";
 import Paginator from "./Paginator";
 
-
 let mapStateToProps = (state) => {
   return {
     actualPage: state.tables.actualPage,
@@ -11,12 +10,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    isPagination: (inf) => {dispatch(isPagination(inf))},
-  }
-}
-
-const Paginator_Container = connect(mapStateToProps, mapDispatchToProps)(Paginator);
+const Paginator_Container = connect(mapStateToProps, {isPagination})(Paginator);
 
 export default Paginator_Container;

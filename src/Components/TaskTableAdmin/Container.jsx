@@ -19,15 +19,11 @@ let mapStateToProps = (state) => {
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    sortTable: (sortField) => {dispatch(tableSort(sortField))},
-    updateTaskText: (text, id) => {dispatch(updateTaskText(text, id))},
-    updateTaskStatus: (status, id) => {dispatch(updateTaskStatus(status, id))},
-    setTasks: (tasks) => {dispatch(setTasks(tasks))}
-  }
-}
-
-const TaskTableAdmin_Container = connect(mapStateToProps, mapDispatchToProps)(TaskTableAdmin);
+const TaskTableAdmin_Container = connect(mapStateToProps,{//mapDispatchToProps
+  tableSort,
+  updateTaskText,
+  updateTaskStatus,
+  setTasks
+})(TaskTableAdmin);
 
 export default TaskTableAdmin_Container;
