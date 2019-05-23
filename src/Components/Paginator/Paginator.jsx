@@ -7,7 +7,6 @@ const Paginator = (props) => {
 
   return (
     <div className="text-center pt-3">
-      {/*<Pagination defaultActivePage={actualPage} totalPages={totalPages} />*/}
       <Pagination
           defaultActivePage={actualPage}
           firstItem={null}
@@ -16,10 +15,8 @@ const Paginator = (props) => {
           secondary
           totalPages={totalPages}
       />
-
     </div>
   )
-
 }
 
 export default Paginator;

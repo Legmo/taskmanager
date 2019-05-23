@@ -3,15 +3,12 @@ import style from './style.module.css'
 import {NavLink} from 'react-router-dom';
 
 const Navigation = (props) => {
-  let adminLinkText = (props.login) ? "Выйти" : "Войти";
-  let adminLinkURL = (props.login) ? "/index" : "/login";
-  let taskListLinkURL = (props.login) ? "/admin" : "/index";
+  let taskListLinkURL = props.login ? "/admin" : "/index";
+  let adminLinkURL    = props.login ? "/index" : "/login";
+  let adminLinkText   = props.login ? "Выйти" : "Войти";
 
   let isLogout = () => {
-    if (props.login === true) {
-      let loginLogout = !props.login;
-      props.isLogout(loginLogout);
-    }
+    props.login && props.isLogout(!props.login);
   }
 
   return (

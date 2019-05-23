@@ -21,7 +21,6 @@ class AddTaskForm extends React.Component {
   addNewTask = (event) => {
     event.preventDefault();
     this.props.addTask();
-    // var textarea = event.target.getElementsByTagName('textarea');
 
     //textareaValue
     event.target.elements.taskText.value = '';

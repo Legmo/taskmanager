@@ -6,10 +6,11 @@ import {
 } from "../../Redux/Actions/tasks_actions";
 import TaskTable from "./TaskTable";
 
+
 let mapStateToProps = (state) => {
   return {
     isLoading:      state.tasks.isLoading,
-    tasks:          state.tasks.message.tasks, //TODO: разбираться с messages
+    tasks:          state.tasks.message.tasks,
     table_headers:  state.tasks.table_headers,
     sortField:      state.tasks.sortField,
     sortDirection:  state.tasks.sortDirection

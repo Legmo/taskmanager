@@ -1,146 +1,19 @@
-
-<ГЛОБАЛЬНО /> {
-  - читать документацию
-  - читать книгу O'Reilly
-  - читать книгу про React (Пацианский М)
-  - изучать axios
-  - читать про классовые компоненты
-  - Досмотреть видео Monsters
-  +
-  - Смотреть новое видео IT-Kamasutra
-}
+import TaskTableAdmin from "./src/Components/TaskTableAdmin/TaskTableAdmin";
 
 <БЛИЖАЙШИЕ /> {
-  - Прописать правильный ReadMe проекта {
-    - Вначале на русском, потом перевести.
-    - Учебный проект,
-    - Функциональность + чем реализовано (какой роутер и т.д.),
-    - Технологический стэк (версия React & т.д.)
-  }
-  - Проверить работу переключателя  "Войти/Выйти" в шапке
-  - Реализовать разные варианты return по условию {
-      function Greeting(props) {
-        const isLoggedIn = props.isLoggedIn;
-        if (isLoggedIn) {
-          return <UserGreeting />;
-        }
-        return <GuestGreeting />;
-      }
-    }
-  - Объявлять переменные не так: let variable = ""; а так: let variable;
-  - Вввести && вместо IF {
-    function Mailbox(props) {
-      const unreadMessages = props.unreadMessages;
-      return (
-          <div>
-            <h1>Здравствуйте!</h1>
-            {unreadMessages.length > 0 &&
-            <h2>
-              У вас {unreadMessages.length} непрочитанных сообщений.
-            </h2>
-            }
-          </div>
-      );
-    }
-  }
-  - реализовать кнопку Login/Logout {
-    https://ru.reactjs.org/docs/conditional-rendering.html
-  }
-  - Проверить работу map
-  - Вынести AJAX-запрос в промежуточную контейнеруню компоненту https://www.youtube.com/watch?v=D0kB1IvCKrI
-  - Pagination - https://www.youtube.com/watch?v=ap8HxJPwJhY
-  - Правильно реализовать поиск сущности с конкретным ID по всему стэйту {
-    - https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
-    - reducer-task - правильно прописать изменение объекта в UPDATE_TASK_TEXT и UPDATE_TASK_STATUS
-    ОТ ВЕРЫ {
-      Я бы не стала создавать кучу объектов. Если нужно обязательно копирование, то поначалу бы так сделала.
-
-          let stateCopy = {...state}
-      let tasks = stateCopy['message']['tasks']
-      for (let i=0;i<tasks.length;i++){
-
-        if (tasks[i]['id'] == taskId){
-          tasks[i]['text'] = newString;
-        }
-      }
-      В питоне бы такое проканало. в js, возможно, придется делать как-то так.
-
-      for (let i=0;i<stateCopy['message']['tasks'].length;i++){
-
-        if (stateCopy['message']['tasks'][i]['id'] == taskId){
-          stateCopy['message']['tasks'][i]['text'] = newString;
-        }
-      }
-
-      Хотя в es6, кажется, должно быть решение поизящней.
-
-      for (let i=0;i<stateCopy.message.tasks.length;i++){
-
-        if (stateCopy.message.tasks[i].id == taskId){
-          stateCopy.message.tasks[i].text = newString;
-        }
-      }
-
-      Кстати, попробуй этот вариант без строк:
-
-          stateCopy.message = {...state.message};
-      stateCopy.message.tasks = [...state.message.tasks];
-
-      Может сработает.
-    }
-  }
-  - Reducer - как менять массив объектов {
-    - https://www.youtube.com/watch?v=ceSZUZZaW30
-  }
-  - Править копирование стэйта {
-    let stateCopy = {
-      ...state,
-      messages: {...state.messages}
-    }
-
-    вместо
-    let stateCopy = {
-      ...state,
-    }
-    StateCopy.newMessagesBody = action.body
-    делаем
-    return {
-      ...state,
-      newMessagesBody = action.body
-    }
-
-
-    вместо
-    let stateCopy = {
-      ...state
-    }
-    let body = stateNewMessages.body
-    StateCopy.newMessagesBody = ''
-    StateCopy.messages.push({id:6, message: body})
-    делаем {
-      let body = stateNewMessages.body
-      return {
-        ...state,
-        messages: {
-          ...state.messages,
-      {id:6, message: body}
-    }
-      newMessagesBody = '',
-    }
-    }
-  }
-  - Добавление данных через спред-оператор {
-    let variable = {
-      ...state,
-      action.new_data
-  }
-  }
+  - Переименовать контейнеры и все переменные в camelCase
   - Сделать loader на время подгрузки AJAX {
     https://www.youtube.com/watch?v=qE8ThPt1EIM
         http://abcinblog.blogspot.com/2019/02/react-i.html
             http://jsraccoon.ru/react-sort-and-search - подумать о том, что будет происходить, если мы не получили данные.
                 }
-  +
+  - Вынести AJAX-запрос в промежуточную контейнеруню компоненту {
+    https://www.youtube.com/watch?v=D0kB1IvCKrI
+        }
+  - Pagination {
+    - https://www.youtube.com/watch?v=ap8HxJPwJhY\
+  }
+  - Разбираться с checkbox
   - Обмен данными с бэкендом {
     - Получение и вывод задач при инициализации приложения. Вынести из App в Redux
     - Пуш новых задач и изменений старых
@@ -188,60 +61,49 @@
     http://jsraccoon.ru/react-sort-and-search
 
         }
-  - Проверить, откуда вызывается функция соритировки данных. Из самой компоненты, либо снаружи {
-      http://abcinblog.blogspot.com/2019/02/react-i.html
-
-      Наша задача сделать так, чтобы по клику на заголовок таблицы, данные в каждом столбце сортировались в порядке возрастания (чисел и по алфавиту). При повторном клике, сортировка в обратную сторону. Для этого нам нужно написать функцию сортировки (мы это сделаем с помощью библиотеки Lodash), передать ее в виде props компоненту Table, повесить событие onClickс этой функцией на заголовок таблицы и передать в эту функцию название столбца ( id, firstName, lastName или phone ). Там же - проверить как работает сортировка столбцов при получении данных с сервреа. Настроить её. Особенно - если листаем страницы пейджером
-
-  }
+  - Баг: когда админ переходит по другому адресу (набирает в адресной строке) - он вылетает из админки
   - При первом запуске сразу направлять на index {
     - искать
     - https://habr.com/ru/post/329996/
     - https://toster.ru/q/355686
   }
-  - Проверить все ToDo
+  - Стрелки-индикаторы на шапке таблицы можно добавлять с помощью модуля bem-cn {
+    https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
+        }
+  - Уменьшить ширину формы входа (адаптивно)
 }
 
 <ПРОЧЕЕ /> {
-  - Выложить на сервер
-  - Прикрутить их редактор кода, проверить права
-  - Админка - экранирование текста задачи
-  - объединить задачи UpdateTaskText & UpdateNewTaskText в редусере. Реально?
-  - разобраться с thunk. Например, в TaskTable можно было бы вынести <tbody> в отдельную перемнную/метод (tableElements). Но, для этого надо реализовать нормальную асинхронность
-  - переписать на хуки
-}
+  - Админка и основная таблица сильно повторяют друг-друга. Подумать
+  - Проверить, откуда вызывается функция соритировки данных. Из самой компоненты, либо снаружи {
+    http://abcinblog.blogspot.com/2019/02/react-i.html
 
-<В_КОНЦЕ /> {
+        Наша задача сделать так, чтобы по клику на заголовок таблицы, данные в каждом столбце сортировались в порядке возрастания (чисел и по алфавиту). При повторном клике, сортировка в обратную сторону. Для этого нам нужно написать функцию сортировки (мы это сделаем с помощью библиотеки Lodash), передать ее в виде props компоненту Table, повесить событие onClickс этой функцией на заголовок таблицы и передать в эту функцию название столбца ( id, firstName, lastName или phone ). Там же - проверить как работает сортировка столбцов при получении данных с сервреа. Настроить её. Особенно - если листаем страницы пейджером
 
-  - Стрелки-индикаторы на шапке таблицы можно добавлять с помощью модуля bem-cn {
-      https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
-    }
-  - Использование react-router-redux (надо ли?) {
-      https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
-    }
-  - Смена состояния кнопки Войти-Выйти - вынести из чистой компоненты? В контейнер? В Redux?
-  - Чистить {
-      - убрать все лишние todo,
-      - комментарии,
-      - консоль-логи
-      - проверить все импорты
-      - убрать подвал (перенести в hotquotes)
-      - убрать чекбоксы?
-      - убрать кнопку "Сохранить" в админке?
   }
-  - Валидируем любой пользовательский ввод - https://bootstrap-4.ru/docs/4.0/components/forms/
-  - Экранируем вывод
-  - Favicon - их лого
-  - вход - ширину формы сделать меньше (адаптивно)
+  - isLogout, props.login и т.д. - прописать более внятные названия методов и переменных. Проверить логику
+  - Почему не добаляется ToDo.js в .gitignore ?.
+  - Сортировка таблицы - первый клик (после загрузки страницы) ничего не делает
+  - Объединить задачи UpdateTaskText & UpdateNewTaskText в редусере. Реально?
+  - Разобраться с thunk. Например, в TaskTable можно было бы вынести <tbody> в отдельную перемнную/метод (tableElements). Но, для этого надо реализовать нормальную асинхронность
+  - Переписать на хуки
   - Проверить мобильную версию?
+  - Проверить все ToDo
   - Админка
-      - если хоть что-то изменили в textarea - активируется кнопка сохранить (убираем класс d-none)
-      - в админке добавить кнопку "отменить изменения" - для  этого до момента сохзранения надо где-то хранить данные
+    - если хоть что-то изменили в textarea - активируется кнопка сохранить (убираем класс d-none)
+    - в админке добавить кнопку "отменить изменения" - для  этого до момента сохзранения надо где-то хранить данные
+  - Валидируем любой пользовательский ввод - https://bootstrap-4.ru/docs/4.0/components/forms/
+  - Экранируем вывод. Админка - экранирование текста задачи&
+  - Чистить {
+    - убрать все лишние todo,
+        - комментарии,
+    - консоль-логи
+    - проверить все импорты
+    - убрать подвал (перенести в hotquotes)
+    - убрать чекбоксы?
+        - убрать кнопку "Сохранить" в админке?
+  }
 }
-
-
-===========
-
 
 <ВОПРОСЫ /> {
   - Actions - основное поле переименовать в payload. Было: action.inf стало action.payload
@@ -256,6 +118,11 @@
   - Избавиться от страницы admin?
   - У меня в трёх разных компонентах исполььзуется одинаковый код для запроса на сервер (ComponentDidMount) - хорошо бы его вынести
   - В таблице админа (может и в обычной) работаю с методами типа document.getElementById - это нормально?
+  - Использование react-router-redux (надо ли?) {
+    https://www.youtube.com/watch?v=lrPp-A9f80M&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=9
+        }
+  - Смена состояния кнопки Войти-Выйти - вынести из чистой компоненты? В контейнер? В Redux?..
+  - TaskTable & TaskTableAdmin - надо ли добавить let перед isLoggedUser, sortDirection, sortDirection? Скореев сего нте, т.к. это методы/свойства класса
 }
 
 <РЕКОМЕНДАЦИИ /> {
@@ -267,4 +134,92 @@
   - Заботимся о юзабилити.
   - Следим за отсутствием мусора в коде (отладочные инструкции, закомментированные строки)
   - Называем методы и переменные так, чтобы по одному названию было понятно что к чему
+}
+
+<BEST_PRACTICES /> {
+  - Вывод разных компонент по условию {
+      https://ru.reactjs.org/docs/conditional-rendering.html
+
+      function Greeting(props) {
+        const isLoggedIn = props.isLoggedIn;
+        if (isLoggedIn) {
+          return <UserGreeting />;
+        }
+        return <GuestGreeting />;
+      }
+  }
+  - Reducer - как менять массив объектов при помощи Map {
+    - https://www.youtube.com/watch?v=ceSZUZZaW30
+  }
+  - Править копирование стэйта {
+    let stateCopy = {
+      ...state,
+      messages: {...state.messages}
+    }
+
+    вместо
+    let stateCopy = {
+      ...state,
+    }
+    StateCopy.newMessagesBody = action.body
+    делаем
+    return {
+      ...state,
+      newMessagesBody = action.body
+    }
+
+
+    вместо
+    let stateCopy = {
+      ...state
+    }
+    let body = stateNewMessages.body
+    StateCopy.newMessagesBody = ''
+    StateCopy.messages.push({id:6, message: body})
+
+    делаем {
+      let body = stateNewMessages.body
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+      {id:6, message: body}
+    }
+      newMessagesBody = '',
+    }
+    }
+  }
+  - Добавление данных через спред-оператор {
+    let variable = {
+      ...state,
+      action.new_data
+  }
+  }
+  - Если в фигурных скобках if или else только одно выражение, эти скобки можно не писать {
+      if (a == 0)
+        alert('Верно!');
+      else
+        alert('Неверно!');
+  }
+  - Как объявлять пустые переменные {
+    не так:
+        let variable = "";
+    а так:
+        let variable;
+  }
+  - Использование && вместо IF {
+    function Mailbox(props) {
+      const unreadMessages = props.unreadMessages;
+      return (
+          <div>
+            <h1>Здравствуйте!</h1>
+            {unreadMessages.length > 0 &&
+            <h2>
+              У вас {unreadMessages.length} непрочитанных сообщений.
+            </h2>
+            }
+          </div>
+      );
+    }
+  }
 }

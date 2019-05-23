@@ -5,7 +5,7 @@ import Paginator from "./Paginator";
 
 let mapStateToProps = (state) => {
   return {
-    actualPage: state.tables.actualPage,
+    actualPage:     state.tables.actualPage,
     tasksCountAll:  state.tasks.message.total_task_count,
   }
 }

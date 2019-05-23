@@ -10,7 +10,6 @@ import {
 } from '../Actions/tasks_actions'
 import _ from "lodash";
 
-
 const initialState = {
     "isLoading": false,
     "message": {
@@ -76,25 +75,9 @@ const tasks_reducer = (state = initialState, action) => {
 
       let newString = action.newTaskText;
       let taskId = action.taskId;
-
       stateCopy.message.tasks.map((task) => {
-        if(task.id == taskId) {
-          console.log(task.id);
-          task.text = newString;
-        }
+        task.id == taskId && (task.text = newString);
       })
-
-/*
-      if (stateCopy.message.tasks[0].id == taskId) {
-        stateCopy.message.tasks[0].text = newString;
-      }
-      else if (stateCopy.message.tasks[1].id == taskId) {
-        stateCopy.message.tasks[1].text = newString;
-      }
-      else {
-        stateCopy.message.tasks[2].text = newString;
-      }
-*/
 
       return stateCopy;
     }
@@ -131,12 +114,8 @@ const tasks_reducer = (state = initialState, action) => {
 
       let newStatus = action.newStatus;
       let taskId = action.taskId;
-
       stateCopy.message.tasks.map((task) => {
-         if(task.id == taskId) {
-           console.log(task.id);
-           task.status = newStatus;
-        }
+         task.id == taskId && (task.status = newStatus);
       })
 
       return stateCopy;
@@ -152,12 +131,10 @@ const tasks_reducer = (state = initialState, action) => {
       };
 
       if (action.sortField === state.sortField) {
-        if (stateCopy.sortDirection === 'asc') {
+        if (stateCopy.sortDirection === 'asc')
           stateCopy.sortDirection = 'desc';
-        }
-        else {
+        else
           stateCopy.sortDirection = 'asc';
-        }
       }
 
       stateCopy.message.tasks = _.orderBy(

@@ -3,19 +3,14 @@ import {Redirect} from 'react-router-dom'
 
 const LoginForm = (props) => {
 
-  let isLoggedUser = props.isLoggedUser;
-
-  let doRedirect = () => {
-    props.redirectToAdmin(true);
-  }
+ let isLoggedUser = props.isLoggedUser;
 
  let isLogin = (e) => {
     e.preventDefault();
-    let login = document.login_form.login.value;
+    let login    = document.login_form.login.value;
     let password = document.login_form.password.value;
-    if (isLoggedUser === false) {
-      props.isLogin(login, password);
-    };
+
+    isLoggedUser === false && props.isLogin(login, password);
   }
 
   if (!isLoggedUser) {
@@ -23,7 +18,6 @@ const LoginForm = (props) => {
         <div>
           <form name="login_form">
             <div className="form-group">
-              {/*<label htmlFor="exampleInputEmail1">Email</label>*/}
               <input
                   type="text"
                   name="login"
@@ -34,7 +28,6 @@ const LoginForm = (props) => {
                   autoFocus="autofocus" />
             </div>
             <div className="form-group">
-              {/*<label htmlFor="exampleInputPassword1">Пароль</label>*/}
               <input
                   type="password"
                   name="password"
@@ -58,9 +51,7 @@ const LoginForm = (props) => {
         </div>
     )
   }
-  else {
-    return <Redirect to='/admin'/>
-  }
+  return <Redirect to='/admin'/>
 }
 
 

@@ -8,8 +8,10 @@ const initialState = {
     loggedUser: false,
 };
 
-const adminLogin = "admin";
-const adminPassword = "123";
+/*const adminLogin = "admin";
+const adminPassword = "123";*/
+const adminLogin = "1";
+const adminPassword = "1";
 
 const users_reducer = (state = initialState, action) => {
   switch(action.type) {
@@ -22,7 +24,7 @@ const users_reducer = (state = initialState, action) => {
     case IS_LOGIN: {
       let stateCopy = {...state};
       if (
-          (stateCopy.loggedUser === false) &&
+          (!stateCopy.loggedUser) &&
           (action.login === adminLogin) &&
           (action.password === adminPassword)
       ) {
@@ -32,9 +34,6 @@ const users_reducer = (state = initialState, action) => {
         alert('Неверный логин или пароль');
       }
       return stateCopy;
-    }
-    case REDIRECT_TO_ADMIN: {
-      return {...state}; //Todo: we need to remove this reducer.
     }
     default:
       return state;

@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {
-  isLogin,
-  redirectToAdmin} from "../../Redux/Actions/users_actions";
+import { isLogin } from "../../Redux/Actions/users_actions";
 import LoginForm from "./LoginForm";
 
 let mapStateToProps = (state) => {
@@ -11,9 +9,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-const LoginForm_Container = connect(mapStateToProps, {//mapDispatchToProps
-  isLogin,
-  redirectToAdmin
-})(LoginForm);
+const LoginForm_Container = connect(mapStateToProps, { isLogin })(LoginForm);
 
 export default LoginForm_Container;
