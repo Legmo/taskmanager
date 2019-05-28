@@ -9,6 +9,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-const Navigation_Container = connect(mapStateToProps, {isLogout})(Navigation);
+const NavigationContainer = connect(mapStateToProps, {isLogout})(Navigation);
 
-export default Navigation_Container;
+export default NavigationContainer;

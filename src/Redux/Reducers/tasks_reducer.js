@@ -7,43 +7,44 @@ import {
   UPDATE_TASK_STATUS,
   TABLE_SORT,
   SET_TASKS,
+  TOGGLE_IS_FETCHING
 } from '../Actions/tasks_actions'
 import _ from "lodash";
 
 const initialState = {
-    "isLoading": false,
-    "message": {
-      "tasks": [],
-      "total_task_count": "579"
+    message: {
+      tasks: [],
+      total_task_count: "579"
     },
-    "new_task": {},
+    table_headers: [
+    {
+      "header_id":"id",
+      "header_name":"ID"
+    },
+    {
+      "header_id":"username",
+      "header_name":"Пользователь"
+    },
+    {
+      "header_id":"email",
+      "header_name":"Email"
+    },
+    {
+      "header_id":"text",
+      "header_name":"Задача"
+    },
+    {
+      "header_id":"status",
+      "header_name":"Статус"
+    },
+  ],
+    new_task: {},
     newTaskText: "",
     newMailText: "",
     newAuthorText: "",
-    "table_headers": [
-      {
-        "header_id":"id",
-        "header_name":"ID"
-      },
-      {
-        "header_id":"username",
-        "header_name":"Пользователь"
-      },
-      {
-        "header_id":"email",
-        "header_name":"Email"
-      },
-      {
-        "header_id":"text",
-        "header_name":"Задача"
-      },
-      {
-        "header_id":"status",
-        "header_name":"Статус"
-      },
-    ],
     sortField: "id",
     sortDirection: "asc",
+    isFetching: false,
 };
 
 const tasks_reducer = (state = initialState, action) => {
@@ -151,6 +152,12 @@ const tasks_reducer = (state = initialState, action) => {
           ...state.message,
           tasks: action.tasks,
         },
+      };
+    }
+    case TOGGLE_IS_FETCHING: {
+      return {
+        ...state,
+        isFetching: action.isFetching,
       };
     }
     default:

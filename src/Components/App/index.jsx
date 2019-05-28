@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Route} from "react-router-dom";
 import Header from '../Header';
-import TaskTable_Container from "../TaskTable/Container";
-import LoginForm_Container from "../LoginForm/Container";
-import AddTaskForm_Container from "../AddTaskForm/Container";
-import TaskTableAdmin_Container from "../TaskTableAdmin/Container";
+import TaskTableContainer from "../TaskTable/Container";
+import LoginFormContainer from "../LoginForm/Container";
+import AddTaskFormContainer from "../AddTaskForm/Container";
+import TaskTableAdminContainer from "../TaskTableAdmin/Container";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'semantic-ui-css/semantic.min.css'
 import style from './style.module.css'
@@ -13,16 +13,16 @@ class App extends Component {
 
   render() {
     let pageIndex = () => {
-      return <TaskTable_Container />
+      return <TaskTableContainer />
     }
     let pageAddTask = () => {
-      return <AddTaskForm_Container />
+      return <AddTaskFormContainer />
     }
     let pageLogin = () => {
-      return <LoginForm_Container />
+      return <LoginFormContainer />
     }
     let pageAdmin = () => {
-      return <TaskTableAdmin_Container />
+      return <TaskTableAdminContainer />
     }
 
     return (

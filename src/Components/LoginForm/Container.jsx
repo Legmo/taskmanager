@@ -9,6 +9,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-const LoginForm_Container = connect(mapStateToProps, { isLogin })(LoginForm);
+const LoginFormContainer = connect(mapStateToProps, { isLogin })(LoginForm);
 
-export default LoginForm_Container;
+export default LoginFormContainer;

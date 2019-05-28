@@ -16,11 +16,11 @@ let mapStateToProps = (state) => {
   }
 }
 
-const AddTaskForm_Container = connect(mapStateToProps, {//mapDispatchToProps
+const AddTaskFormContainer = connect(mapStateToProps, {//mapDispatchToProps
   addTask,
   updateNewTaskText,
   updateMailText,
   updateAuthorText
 })(AddTaskForm);
 
-export default AddTaskForm_Container;
+export default AddTaskFormContainer;

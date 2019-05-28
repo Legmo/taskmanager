@@ -10,6 +10,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-const Paginator_Container = connect(mapStateToProps, {isPagination})(Paginator);
+const PaginatorContainer = connect(mapStateToProps, {isPagination})(Paginator);
 
-export default Paginator_Container;
+export default PaginatorContainer;

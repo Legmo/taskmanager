@@ -1,11 +1,12 @@
-export const ADD_TASK =                'ADD-TASK';
-export const UPDATE_TASK_TEXT =        'UPDATE-TASK-TEXT';
-export const UPDATE_NEW_TASK_TEXT =    'UPDATE-NEW-TASK-TEXT';
-export const UPDATE_MAIL_TEXT =        'UPDATE-NEW-MAIL-TEXT';
-export const UPDATE_AUTHOR_TEXT =      'UPDATE-NEW-AUTHOR-TEXT';
-export const UPDATE_TASK_STATUS =      'UPDATE-TASK-STATUS';
-export const TABLE_SORT =              'TABLE-SORT';
-export const SET_TASKS =               'SET-TASKS';
+export const ADD_TASK                 = 'ADD-TASK';
+export const UPDATE_TASK_TEXT         = 'UPDATE-TASK-TEXT';
+export const UPDATE_NEW_TASK_TEXT     = 'UPDATE-NEW-TASK-TEXT';
+export const UPDATE_MAIL_TEXT         = 'UPDATE-NEW-MAIL-TEXT';
+export const UPDATE_AUTHOR_TEXT       = 'UPDATE-NEW-AUTHOR-TEXT';
+export const UPDATE_TASK_STATUS       = 'UPDATE-TASK-STATUS';
+export const TABLE_SORT               = 'TABLE-SORT';
+export const SET_TASKS                = 'SET-TASKS';
+export const TOGGLE_IS_FETCHING       = 'TOGGLE-IS-FETCHING';
 
 export const addTask = () => ({
   type: ADD_TASK,
@@ -39,5 +40,9 @@ export const tableSort = (sort_field) => ({
 export const setTasks = (tasks) => ({
   type: SET_TASKS,
   tasks: tasks,
+});
+export const toggleIsFetching = (isFetching) => ({
+  type: TOGGLE_IS_FETCHING,
+  isFetching: isFetching,
 });
 

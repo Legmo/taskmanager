@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './style.module.css'
-import Navigation_Container from "../Navigation/Container"
+import NavigationContainer from "../Navigation/Container"
 
 const Header = (props) => {
   return (
@@ -11,7 +11,7 @@ const Header = (props) => {
             <div>
               <h1>Задачник</h1>
             </div>
-            <Navigation_Container />
+            <NavigationContainer />
           </div>
         </div>
       </div>

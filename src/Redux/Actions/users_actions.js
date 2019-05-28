@@ -1,5 +1,5 @@
-export const IS_LOGOUT =         'IS-LOGOUT';
-export const IS_LOGIN =          'IS-LOGIN';
+export const IS_LOGOUT         = 'IS-LOGOUT';
+export const IS_LOGIN          = 'IS-LOGIN';
 
 export const isLogout = (loginLogout) => ({
   type: IS_LOGOUT,
