@@ -33,7 +33,7 @@ class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-10 mt-5">
-                    <Route path='/index'    render={pageIndex}/>
+                    <Route path='/' exact   render={pageIndex}/>
                     <Route path='/add_task' render={pageAddTask}/>
                     <Route path='/login'    render={pageLogin}/>
                     <Route path='/admin'    render={pageAdmin}/>

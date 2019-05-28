@@ -3,8 +3,8 @@ import style from './style.module.css'
 import {NavLink} from 'react-router-dom';
 
 const Navigation = (props) => {
-  let taskListLinkURL = props.login ? "/admin" : "/index";
-  let adminLinkURL    = props.login ? "/index" : "/login";
+  let taskListLinkURL = props.login ? "/admin" : "/";
+  let adminLinkURL    = props.login ? "/" : "/login";
   let adminLinkText   = props.login ? "Выйти" : "Войти";
 
   let isLogout = () => {
@@ -14,6 +14,7 @@ const Navigation = (props) => {
   return (
       <div className={style.nav_parent + ' mt-3'}>
         <NavLink
+            exact
             to={taskListLinkURL}
             activeClassName={style.active}
             className="font-weight-light mx-auto pr-3"

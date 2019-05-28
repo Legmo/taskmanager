@@ -1,15 +1,13 @@
-import TaskTableAdmin from "./src/Components/TaskTableAdmin/TaskTableAdmin";
-
 <БЛИЖАЙШИЕ /> {
   - Переименовать контейнеры и все переменные в camelCase
   - Сделать loader на время подгрузки AJAX {
-    https://www.youtube.com/watch?v=qE8ThPt1EIM
-        http://abcinblog.blogspot.com/2019/02/react-i.html
-            http://jsraccoon.ru/react-sort-and-search - подумать о том, что будет происходить, если мы не получили данные.
-                }
+      https://www.youtube.com/watch?v=qE8ThPt1EIM
+      http://abcinblog.blogspot.com/2019/02/react-i.html
+      http://jsraccoon.ru/react-sort-and-search - подумать о том, что будет происходить, если мы не получили данные.
+    }
   - Вынести AJAX-запрос в промежуточную контейнеруню компоненту {
-    https://www.youtube.com/watch?v=D0kB1IvCKrI
-        }
+      https://www.youtube.com/watch?v=D0kB1IvCKrI
+    }
   - Pagination {
     - https://www.youtube.com/watch?v=ap8HxJPwJhY\
   }
@@ -62,15 +60,11 @@ import TaskTableAdmin from "./src/Components/TaskTableAdmin/TaskTableAdmin";
 
         }
   - Баг: когда админ переходит по другому адресу (набирает в адресной строке) - он вылетает из админки
-  - При первом запуске сразу направлять на index {
-    - искать
-    - https://habr.com/ru/post/329996/
-    - https://toster.ru/q/355686
-  }
   - Стрелки-индикаторы на шапке таблицы можно добавлять с помощью модуля bem-cn {
-    https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
-        }
+      https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
+    }
   - Уменьшить ширину формы входа (адаптивно)
+  - Перевести на Material UI (https://material-ui.com/)
 }
 
 <ПРОЧЕЕ /> {
@@ -123,6 +117,12 @@ import TaskTableAdmin from "./src/Components/TaskTableAdmin/TaskTableAdmin";
         }
   - Смена состояния кнопки Войти-Выйти - вынести из чистой компоненты? В контейнер? В Redux?..
   - TaskTable & TaskTableAdmin - надо ли добавить let перед isLoggedUser, sortDirection, sortDirection? Скореев сего нте, т.к. это методы/свойства класса
+}
+
+<ТЕХНОЛОГИИ /> {
+  - React Material-UI (https://material-ui.com/)
+  - Тестирование (Mocha, Chai и Sinon)
+  - Настроить ESLint
 }
 
 <РЕКОМЕНДАЦИИ /> {
