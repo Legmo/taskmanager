@@ -19,6 +19,10 @@ code {
     monospace;
 }
 
+textarea {
+  padding: 7px 10px;
+}
+
 /*For App component*/
 .App {
   text-align: center;
@@ -84,7 +88,27 @@ table.table.sort_desc thead tr th.active_col span {
   }
 
 /*For Checkboxes*/
-#root .ui.toggle.checkbox input:checked ~ .box::before,
-#root .ui.toggle.checkbox input:checked ~ label::before {
+#root .form-check .ui.toggle.checkbox {
+  margin-bottom: -7px;
+}
+#root .form-check .ui.toggle.checkbox.checked input {
+  display: block;
+}
+#root .form-check .ui.toggle.checkbox + label {
+  display: block;
+  margin-left: -1.25rem;
+}
+#root .form-check .ui.toggle.checkbox.checked input:checked ~ .box::before,
+#root .form-check .ui.toggle.checkbox.checked input:checked ~ label::before {
   background-color: green !important;
+}
+#root .form-check .ui.toggle.checkbox.checked + label {
+  color: green !important;
+}
+#root .form-check .ui.toggle.checkbox:not(.checked) input ~ .box::before,
+#root .form-check .ui.toggle.checkbox:not(.checked) input ~ label::before {
+  background-color: #dc3545 !important;
+}
+#root .form-check .ui.toggle.checkbox:not(.checked) + label {
+  color: #dc3545 !important;
 }

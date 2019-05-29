@@ -2,7 +2,7 @@ import React from 'react';
 import style from './style.module.css'
 import PagerContainer from "../Helpers/Pager/Container";
 import Preloader from "../Helpers/Preloader/Preloader";
-// import {CheckboxToggle, CheckboxChecked} from "../Checkbox"
+import { Checkbox } from 'semantic-ui-react'
 
 const TaskTableAdmin = (props) => {
   let sortFieldDefault  = props.sortField
@@ -59,57 +59,32 @@ const TaskTableAdmin = (props) => {
               let status_color = task.status !== 0 ? "success" : "danger";
               let status_text  = task.status !== 0 ? "решено" : "открыто";
 
-              //Todo: разобраться с подключением чекбоксов
-              // let status_cheсk = props.status !== 0 ? true : false;
-              // let checkbox = "";
-              // if(status_cheсk) {
-              //   checkbox = <CheckboxChecked
-              //       className="form-check-input"
-              //       name="exampleRadios"
-              //       id={"exampleRadios" + props.id}
-              //       value={"option" + props.id}
-              //       // onChange={onStatusChange}
-              //       onChange={onStatusChange}
-              //   />;
-              // } else {
-              //   checkbox = <CheckboxToggle
-              //       toggle
-              //       className="form-check-input"
-              //       name="exampleRadios"
-              //       id={"exampleRadios" + props.id}
-              //       value={"option" + props.id}
-              //       onChange={onStatusChange}
-              //   />;
-              // }
-
               return (
                 <tr className={style.table_row} key={task.id}>
                   <th scope="row">{task.id}</th>
                   <td>{task.username}</td>
                   <td>{task.email}</td>
                   <td>
-                  <textarea
+                    <textarea
                       value={task.text}
                       onChange={onTaskTextChange}
                       id={task.id}
                       className="d-block mb-2"
                   />
-                    <button type="submit" className="d-none btn btn-primary">Сохранить</button>
                   </td>
                   <td className={'text-' + status_color}>
                     <div className="form-check">
-                      {/*{checkbox}*/}
-                      <input
+                      <Checkbox
+                          key={'checkbox-'+task.id}
+                          toggle
+                          defaultChecked={task.status}
                           className="form-check-input"
-                          type="checkbox"
                           name="exampleRadios"
                           id={"exampleRadios" + task.id}
                           value={"option" + task.id}
-                          checked={status_check}
                           onChange={onStatusChange}
                       />
-                      <label className="form-check-label"
-                             htmlFor={"exampleRadios" + task.id}>{status_text}</label>
+                      <label className="form-check-label" htmlFor={"exampleRadios" + task.id}>{status_text}</label>
                     </div>
                   </td>
                 </tr>
@@ -127,7 +102,6 @@ const TaskTableAdmin = (props) => {
       <p className="text-center text-danger">Страница доступна только для авторизованных пользователей.</p>
     </div>
   )
-
 }
 
 export default TaskTableAdmin;
