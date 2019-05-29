@@ -55,7 +55,7 @@ let mapStateToProps = (state) => {
     sortField:      state.tasks.sortField,
     sortDirection:  state.tasks.sortDirection,
     isFetching:     state.tasks.isFetching,
-    currentPage:     state.tasks.currentPage,
+    currentPage:    state.tasks.currentPage,
     tasksCountAll:  state.tasks.message.total_task_count,
   }
 }

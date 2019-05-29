@@ -4,13 +4,10 @@ import style from './style.module.css'
 import Preloader from "../Helpers/Preloader/Preloader";
 
 const TaskTable = (props) => {
-
-  console.log(props.tableHeaders[1])
-
-  let sortDirection     = props.sortDirection
-  let isFetching        = props.isFetching
-  let onSortTable       = props.onSortTable
   let sortFieldDefault  = props.sortField
+  let sortDirection     = props.sortDirection
+  let onSortTable       = props.onSortTable
+  let isFetching        = props.isFetching
 
   if(isFetching) {
     return <Preloader />
