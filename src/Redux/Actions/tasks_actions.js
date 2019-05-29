@@ -7,6 +7,8 @@ export const UPDATE_TASK_STATUS       = 'UPDATE-TASK-STATUS';
 export const TABLE_SORT               = 'TABLE-SORT';
 export const SET_TASKS                = 'SET-TASKS';
 export const TOGGLE_IS_FETCHING       = 'TOGGLE-IS-FETCHING';
+export const UPDATE_CURRENT_PAGE      = 'UPDATE-CURRENT-PAGE';
+export const UPDATE_TOTAL_TASK_COUNT  = 'UPDATE-TOTAL-TASK-COUNT';
 
 export const addTask = () => ({
   type: ADD_TASK,
@@ -45,4 +47,11 @@ export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching: isFetching,
 });
-
+export const setCurrentPage = (pageNumber) => ({
+  type: UPDATE_CURRENT_PAGE,
+  pageNumber: pageNumber,
+});
+export const updateTotalTaskCount = (taskCount) => ({
+  type: UPDATE_TOTAL_TASK_COUNT,
+  taskCount: taskCount,
+});

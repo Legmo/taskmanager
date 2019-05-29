@@ -1,73 +1,53 @@
 import React from 'react';
-import PaginatorContainer from "../Paginator/Container";
+import PagerContainer from "../Helpers/Pager/Container";
 import style from './style.module.css'
 import Preloader from "../Helpers/Preloader/Preloader";
 
 const TaskTable = (props) => {
 
-  let sortDirection = props.sortDirection;
-  let isFetching    = props.isFetching;
+  console.log(props.tableHeaders[1])
 
-  const onSortTable = (event) => {
-    let sortField = event.target.id;
-    let firstActiveTh = document.getElementsByClassName("active_col")[0];
-    firstActiveTh && firstActiveTh.classList.remove("active_col");
-
-    document.getElementById(sortField).classList.add("active_col");
-    props.tableSort(sortField);
-  }
+  let sortDirection     = props.sortDirection
+  let isFetching        = props.isFetching
+  let onSortTable       = props.onSortTable
+  let sortFieldDefault  = props.sortField
 
   if(isFetching) {
     return <Preloader />
   }
   return (
-      <div>
-        <table className={"table sort_" + sortDirection}>
-          <thead className="thead-light">
+    <div>
+      <table className={"table sort_" + sortDirection}>
+        <thead className="thead-light">
           <tr>
-            <th onClick={onSortTable} id="id">
-              ID
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="username">
-              Пользователь
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="email">
-              Email
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="text">
-              Задача
-              <span className="indicator"></span>
-            </th>
-            <th onClick={onSortTable} id="status">
-              Статус
-              <span className="indicator"></span>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            props.tasks.map((task) => {
-              let status_text  = (task.status !== 0) ? "решено" : "открыто";
-              let status_color = (task.status !== 0) ? "success" : "danger";
-
+            {props.tableHeaders.map((h) => {
               return (
-                  <tr className={style.table_row} key={task.id}>
-                    <th scope="row">{task.id}</th>
-                    <td>{task.username}</td>
-                    <td>{task.email}</td>
-                    <td>{task.text}</td>
-                    <td className={'text-' + status_color}>{status_text}</td>
-                  </tr>
+                <th onClick={onSortTable} id={h.header_id} className={sortFieldDefault === h.header_id ? "active_col" : ""}>
+                  {h.header_name}
+                  <span className="indicator"></span>
+                </th>
               )
-            })
-          }
-          </tbody>
-        </table>
-        <PaginatorContainer/>
-      </div>
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {props.tasks.map((task) => {
+            let status_text  = (task.status !== 0) ? "решено" : "открыто";
+            let status_color = (task.status !== 0) ? "success" : "danger";
+            return (
+              <tr className={style.table_row} key={task.id}>
+                <th scope="row">{task.id}</th>
+                <td>{task.username}</td>
+                <td>{task.email}</td>
+                <td>{task.text}</td>
+                <td className={'text-' + status_color}>{status_text}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      <PagerContainer/>
+    </div>
   )
 }
 

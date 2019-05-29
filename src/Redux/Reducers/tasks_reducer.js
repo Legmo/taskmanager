@@ -7,14 +7,16 @@ import {
   UPDATE_TASK_STATUS,
   TABLE_SORT,
   SET_TASKS,
-  TOGGLE_IS_FETCHING
+  TOGGLE_IS_FETCHING,
+  UPDATE_CURRENT_PAGE,
+  UPDATE_TOTAL_TASK_COUNT
 } from '../Actions/tasks_actions'
 import _ from "lodash";
 
 const initialState = {
     message: {
       tasks: [],
-      total_task_count: "579"
+      total_task_count: ""
     },
     table_headers: [
     {
@@ -44,6 +46,7 @@ const initialState = {
     newAuthorText: "",
     sortField: "id",
     sortDirection: "asc",
+    currentPage: 1,
     isFetching: false,
 };
 
@@ -75,9 +78,9 @@ const tasks_reducer = (state = initialState, action) => {
       };
 
       let newString = action.newTaskText;
-      let taskId = action.taskId;
+      let taskId = +action.taskId;
       stateCopy.message.tasks.map((task) => {
-        task.id == taskId && (task.text = newString);
+        +task.id === taskId && (task.text = newString);
       })
 
       return stateCopy;
@@ -114,9 +117,9 @@ const tasks_reducer = (state = initialState, action) => {
       };
 
       let newStatus = action.newStatus;
-      let taskId = action.taskId;
+      let taskId = +action.taskId;
       stateCopy.message.tasks.map((task) => {
-         task.id == taskId && (task.status = newStatus);
+         +task.id === taskId && (task.status = newStatus);
       })
 
       return stateCopy;
@@ -158,6 +161,22 @@ const tasks_reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
+      };
+    }
+    case UPDATE_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.pageNumber,
+      };
+    }
+    case UPDATE_TOTAL_TASK_COUNT: {
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          tasks: [...state.message.tasks],
+          total_task_count: action.taskCount
+        },
       };
     }
     default:

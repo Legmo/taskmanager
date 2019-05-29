@@ -1,7 +1,6 @@
 import {
   IS_LOGIN,
   IS_LOGOUT,
-  REDIRECT_TO_ADMIN,
 } from '../Actions/users_actions'
 
 const initialState = {

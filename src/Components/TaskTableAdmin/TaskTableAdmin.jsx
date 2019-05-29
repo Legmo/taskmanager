@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './style.module.css'
-import PaginatorContainer from "../Paginator/Container";
+import PagerContainer from "../Helpers/Pager/Container";
 import Preloader from "../Helpers/Preloader/Preloader";
 // import {tableSort} from "../../Redux/Actions/tasks_actions";
 // import {CheckboxToggle, CheckboxChecked} from "../Checkbox"
@@ -141,7 +141,7 @@ const TaskTableAdmin = (props) => {
                 </tbody>
               </table>
             </form>
-            <PaginatorContainer/>
+            <PagerContainer/>
           </div>
     )
   }

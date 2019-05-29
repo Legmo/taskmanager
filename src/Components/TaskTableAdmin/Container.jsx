@@ -1,39 +1,39 @@
 import React from 'react';
 import {connect} from "react-redux";
-import TaskTableAdmin from "./TaskTableAdmin";
+import * as axios from "axios";
 import {
   tableSort,
   updateTaskText,
   updateTaskStatus,
-  setTasks,
   toggleIsFetching,
+  updateTotalTaskCount,
+  setTasks,
 } from "../../Redux/Actions/tasks_actions";
-import * as axios from "axios";
-import TaskTable from "../TaskTable/TaskTable";
+import TaskTableAdmin from "./TaskTableAdmin";
 
 
 class TaskTableAdminContainer extends React.Component {
   componentDidMount() {
+    let currentPage = this.props.currentPage
     this.props.toggleIsFetching(true);
-    axios.get('https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=1')
-        .then(response => {
-          this.props.toggleIsFetching(false);
-          this.props.setTasks(response.data.message.tasks)
-        });
-    this.props.tasks.isFetching = false;
+    axios.get(`https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}`)
+      .then(response => {
+        this.props.toggleIsFetching(false);
+        this.props.updateTotalTaskCount(response.data.message.total_task_count)
+        this.props.setTasks(response.data.message.tasks)
+      });
   }
+
   render() {
-      return (
-          <TaskTableAdmin
-              login             = {this.props.login}
-              sortDirection     = {this.props.sortDirection}
-              tableSort         = {this.props.tableSort}
-              updateTaskStatus  = {this.props.updateTaskStatus}
-              updateTaskText    = {this.props.updateTaskText}
-              tasks             = {this.props.tasks}
-              isFetching        = {this.props.isFetching}
-          />
-      )
+    return <TaskTableAdmin
+        login             = {this.props.login}
+        sortDirection     = {this.props.sortDirection}
+        tableSort         = {this.props.tableSort}
+        tasks             = {this.props.tasks}
+        updateTaskStatus  = {this.props.updateTaskStatus}
+        updateTaskText    = {this.props.updateTaskText}
+        isFetching        = {this.props.isFetching}
+    />
   }
 }
 
@@ -43,9 +43,11 @@ let mapStateToProps = (state) => {
     tasks:          state.tasks.message.tasks,
     newTaskText:    state.tasks.newTaskText,
     tableHeaders:   state.tasks.table_headers,
-    sortField:      state.tasks.sortField,
     sortDirection:  state.tasks.sortDirection,
-    isFetching:     state.tasks.isFetching
+    sortField:      state.tasks.sortField,
+    isFetching:     state.tasks.isFetching,
+    currentPage:    state.tasks.currentPage,
+    tasksCountAll:  state.tasks.message.total_task_count,
   }
 }
 
@@ -53,6 +55,7 @@ export default connect(mapStateToProps, {//mapDispatchToProps
   tableSort,
   updateTaskText,
   updateTaskStatus,
+  toggleIsFetching,
+  updateTotalTaskCount,
   setTasks,
-  toggleIsFetching
 })(TaskTableAdminContainer);;
