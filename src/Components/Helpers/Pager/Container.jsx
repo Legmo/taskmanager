@@ -13,10 +13,14 @@ import Pager from "./Pager";
 class PagerContainer extends React.Component {
 
   isPagination = (event) => {
-    let pageNumber = event.target.getAttribute('value');
+    let pageNumber    = event.target.getAttribute('value');
+    let sortField     = this.props.sortField //id | username | email | status
+    let sortDirection = this.props.sortDirection //asc | desc
+    let url           = `https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${pageNumber}&sort_field=${sortField}&sort_direction=${sortDirection}`
+
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
-    axios.get(`https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${pageNumber}`)
+    axios.get(url)
       .then(response => {
         this.props.toggleIsFetching(false);
         this.props.setCurrentPage(pageNumber)
@@ -39,6 +43,8 @@ class PagerContainer extends React.Component {
 let mapStateToProps = (state) => {
   return {
     currentPage:    state.tasks.currentPage,
+    sortField:      state.tasks.sortField,
+    sortDirection:  state.tasks.sortDirection,
     tasksCountAll:  state.tasks.message.total_task_count,
     isFetching:     state.tasks.isFetching
   }

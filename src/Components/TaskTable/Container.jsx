@@ -13,11 +13,12 @@ import TaskTable from "./TaskTable";
 class TaskTableContainer extends React.Component {
   componentDidMount() {
     let currentPage   = this.props.currentPage
-    let sortField     = this.props.sortField
-    let sortDirection = this.props.sortDirection
+    let sortField     = this.props.sortField //id | username | email | status
+    let sortDirection = this.props.sortDirection //asc | desc
+    let url           = `https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}&sort_field=${sortField}&sort_direction=${sortDirection}`
 
     this.props.toggleIsFetching(true);
-    axios.get(`https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}&sort_field=${sortField}&sort_direction=${sortDirection}`)
+    axios.get(url)
       .then(response => {
         this.props.toggleIsFetching(false);
         this.props.updateTotalTaskCount(response.data.message.total_task_count)
@@ -32,7 +33,28 @@ class TaskTableContainer extends React.Component {
     firstActiveTh && firstActiveTh.classList.remove("active_col");
     document.getElementById(sortField).classList.add("active_col");
 
-    this.props.tableSort(sortField);
+    //TODO: KISS
+    let wasSortDirectionAsc = document.getElementById("table").classList.contains("sort_asc");
+    let sortDirection;
+    wasSortDirectionAsc ? sortDirection = "desc" : sortDirection = "asc";
+
+    this.props.tableSort(sortField, sortDirection);
+
+    //TODO: (state, props) => ({counter: state.counter + props.increment})
+    //let sortFieldState = this.props.sortField
+    //let sortDirectionState = this.props.sortDirection
+
+    //TODO: DRY
+    let currentPage   = this.props.currentPage
+    let url           = `https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}&sort_field=${sortField}&sort_direction=${sortDirection}`
+
+    this.props.toggleIsFetching(true);
+    axios.get(url)
+      .then(response => {
+        this.props.toggleIsFetching(false);
+        this.props.updateTotalTaskCount(response.data.message.total_task_count)
+        this.props.setTasks(response.data.message.tasks)
+      });
   }
 
   render() {

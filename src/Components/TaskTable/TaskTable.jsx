@@ -14,12 +14,12 @@ const TaskTable = (props) => {
   }
   return (
     <div>
-      <table className={"table sort_" + sortDirection}>
+      <table className={"table sort_" + sortDirection} id={"table"}>
         <thead className="thead-light">
           <tr>
             {props.tableHeaders.map((h) => {
               return (
-                <th onClick={onSortTable} id={h.header_id} className={sortFieldDefault === h.header_id ? "active_col" : ""}>
+                <th onClick={onSortTable} id={h.header_id} key={h.header_id} className={sortFieldDefault === h.header_id ? "active_col" : ""}>
                   {h.header_name}
                   <span className="indicator"></span>
                 </th>

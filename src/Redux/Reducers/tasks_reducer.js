@@ -149,20 +149,17 @@ const tasks_reducer = (state = initialState, action) => {
           tasks : [...state.message.tasks],
         },
         sortField: action.sortField,
+        sortDirection: action.sortDirection,
       };
 
-      if (action.sortField === state.sortField) {
-        if (stateCopy.sortDirection === 'asc')
-          stateCopy.sortDirection = 'desc';
-        else
-          stateCopy.sortDirection = 'asc';
-      }
-
+    //If we need to sort this page only - use lodash. Without all tasks sorting & reload.
+    /*
       stateCopy.message.tasks = _.orderBy(
           stateCopy.message.tasks,
           stateCopy.sortField,
           stateCopy.sortDirection
       );
+    */
       return stateCopy;
     }
     case SET_TASKS: {

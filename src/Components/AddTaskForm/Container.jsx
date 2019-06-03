@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from "react-redux";
 import AddTaskForm from "./AddTaskForm";
 import {
-  addTask,
   clearNewTask,
   toggleIsFetching,
   updateNewTaskText,
@@ -62,15 +61,6 @@ class AddTaskFormContainer extends React.Component {
 
   render() {
     return <AddTaskForm
-        // tasks               = {this.props.tasks}
-        // isFetching          = {this.props.isFetching}
-        // newTaskText         = {this.props.newTaskText}
-        // newMailText         = {this.props.newMailText}
-        // newAuthorText       = {this.props.newAuthorText}
-        // addTask             = {this.props.addTask}
-        // updateNewTaskText   = {this.props.updateNewTaskText}
-        // updateMailText      = {this.props.updateMailText}
-        // updateAuthorText    = {this.props.updateAuthorText}
         onNewTaskTextChange = {this.onNewTaskTextChange }
         onAuthorChange      = {this.onAuthorChange}
         onMailChange        = {this.onMailChange}
@@ -81,7 +71,6 @@ class AddTaskFormContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    // tasks:          state.tasks.message.tasks,
     newTaskText:    state.tasks.newTask.text,
     newAuthorText:  state.tasks.newTask.author,
     newMailText:    state.tasks.newTask.mail,
@@ -89,7 +78,6 @@ let mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {//mapDispatchToProps
-  addTask,
   clearNewTask,
   updateNewTaskText,
   updateMailText,

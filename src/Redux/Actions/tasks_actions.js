@@ -39,9 +39,10 @@ export const updateTaskStatus = (status, id) => ({
   newStatus: status,
   taskId: id,
 });
-export const tableSort = (sort_field) => ({
+export const tableSort = (sort_field, sort_direction) => ({
   type: TABLE_SORT,
   sortField: sort_field,
+  sortDirection: sort_direction,
 });
 export const setTasks = (tasks) => ({
   type: SET_TASKS,
