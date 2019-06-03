@@ -1,4 +1,5 @@
 export const ADD_TASK                 = 'ADD-TASK';
+export const CLEAR_NEW_TASK           = 'CLEAR-NEW-TASK';
 export const UPDATE_TASK_TEXT         = 'UPDATE-TASK-TEXT';
 export const UPDATE_NEW_TASK_TEXT     = 'UPDATE-NEW-TASK-TEXT';
 export const UPDATE_MAIL_TEXT         = 'UPDATE-NEW-MAIL-TEXT';
@@ -12,6 +13,9 @@ export const UPDATE_TOTAL_TASK_COUNT  = 'UPDATE-TOTAL-TASK-COUNT';
 
 export const addTask = () => ({
   type: ADD_TASK,
+});
+export const clearNewTask = () => ({
+  type: CLEAR_NEW_TASK,
 });
 export const updateTaskText = (text, id) => ({
   type: UPDATE_TASK_TEXT,

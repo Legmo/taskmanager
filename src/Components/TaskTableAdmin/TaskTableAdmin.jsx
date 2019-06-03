@@ -8,24 +8,9 @@ const TaskTableAdmin = (props) => {
   let sortFieldDefault  = props.sortField
   let sortDirection     = props.sortDirection;
   let onSortTable       = props.onSortTable
+  let onStatusChange    = props.onStatusChange
   let isFetching        = props.isFetching;
   let isLoggedUser      = props.login;
-
-  const onStatusChange = (event) => {
-    let checkbox = document.getElementById(event.target.id);
-    let id = (event.target.id).replace('exampleRadios', '');
-    let status = 0;
-
-    if (checkbox.hasAttribute('checked')) {
-      (event.target).removeAttribute ("checked");
-    }
-    else {
-      (event.target).setAttribute("checked","checked");
-      status = 10;
-    }
-
-    props.updateTaskStatus(status, id);
-  }
 
   const onTaskTextChange = (event) => {
     let text = event.target.value;
@@ -33,7 +18,8 @@ const TaskTableAdmin = (props) => {
     props.updateTaskText(text, id);
   }
 
-  if(isLoggedUser) {
+  // if(isLoggedUser) {
+  if(true) {
     if(isFetching) {
       return <Preloader />
     }

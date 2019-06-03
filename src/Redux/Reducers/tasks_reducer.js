@@ -1,5 +1,6 @@
 import {
   ADD_TASK,
+  CLEAR_NEW_TASK,
   UPDATE_NEW_TASK_TEXT,
   UPDATE_TASK_TEXT,
   UPDATE_AUTHOR_TEXT,
@@ -40,10 +41,11 @@ const initialState = {
         "header_name":"Статус"
       },
     ],
-    new_task: {},
-    newTaskText: "",
-    newMailText: "",
-    newAuthorText: "",
+    newTask: {
+      text: "",
+      author: "",
+      mail: "",
+    },
     sortField: "id",
     sortDirection: "asc",
     currentPage: 1,
@@ -62,10 +64,20 @@ const tasks_reducer = (state = initialState, action) => {
       };
       return {
         ...state,
-        new_task: {...newElement},
+        newTask: {...newElement},
         newTaskText: "",
         newMailText: "",
         newAuthorText: "",
+      };
+    }
+    case CLEAR_NEW_TASK: {
+      return {
+        ...state,
+        newTask: {
+          text: "",
+          author: "",
+          mail: "",
+        },
       };
     }
     case UPDATE_TASK_TEXT: {
@@ -88,23 +100,28 @@ const tasks_reducer = (state = initialState, action) => {
     case UPDATE_NEW_TASK_TEXT: {
       return {
         ...state,
-        message: {
-          ...state.message,
-          tasks: [...state.message.tasks],
+        newTask: {
+          ...state.newTask,
+          text: action.newTaskText,
         },
-        newTaskText: action.newTaskText,
-      };
-    }
-    case UPDATE_MAIL_TEXT: {
-      return {
-        ...state,
-        newMailText: action.newMailText,
       };
     }
     case UPDATE_AUTHOR_TEXT: {
       return {
         ...state,
-        newAuthorText: action.newAuthorText,
+        newTask: {
+          ...state.newTask,
+          author: action.newAuthorText,
+        },
+      };
+    }
+    case UPDATE_MAIL_TEXT: {
+      return {
+        ...state,
+        newTask: {
+          ...state.newTask,
+          mail: action.newMailText,
+        },
       };
     }
     case UPDATE_TASK_STATUS: {

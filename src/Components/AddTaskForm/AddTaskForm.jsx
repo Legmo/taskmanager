@@ -1,79 +1,51 @@
 import React from 'react';
 
-class AddTaskForm extends React.Component {
+const AddTaskForm = (props) => {
+  let onNewTaskTextChange = props.onNewTaskTextChange
+  let onAuthorChange      = props.onAuthorChange
+  let onMailChange        = props.onMailChange
+  let newTaskSubmit       = props.newTaskSubmit
 
-  onTaskTextChange = (event) => {
-    let text = event.target.value;
-    let id =  event.target.id;
-    this.props.updateNewTaskText(text, id);
-  }
-
-  onNameChange = (event) => {
-    let name = event.target.value;
-    this.props.updateAuthorText(name);
-  }
-
-  onMailChange = (event) => {
-    let mail = event.target.value;
-    this.props.updateMailText(mail);
-  }
-
-  addNewTask = (event) => {
-    event.preventDefault();
-    this.props.addTask();
-
-    //textareaValue
-    event.target.elements.taskText.value = '';
-    event.target.elements.author_name.value = '';
-    event.target.elements.email.value = '';
-
-    alert('Задача отправлена');
-  }
-
-  render() {
-    return (
-        <div>
-          <form onSubmit={this.addNewTask}>
-            <div className="form-group">
-            <textarea
-                onClick={this.onTaskTextChange}
-                onChange={this.onTaskTextChange}
-                rows="7"
-                id="task_text"
-                name="taskText"
+  return (
+      <div>
+        <form onSubmit={newTaskSubmit}>
+          <div className="form-group">
+          <textarea onChange={onNewTaskTextChange}
+              rows="7"
+              id="taskText"
+              name="taskText"
+              className="form-control"
+              placeholder="Текст задачи"
+              required="on"
+              autoFocus="on" />
+          </div>
+          <div className="form-group">
+            <input
+                onChange={onAuthorChange}
+                type="text"
+                id="taskAuthor"
+                name="taskAuthor"
                 className="form-control"
-                placeholder="Текст задачи"
-                required></textarea>
-            </div>
-            <div className="form-group">
-              <input
-                  onChange={this.onNameChange}
-                  type="text"
-                  id="author_name"
-                  name="author_name"
-                  className="form-control"
-                  placeholder="Ваше имя"
-                  required/>
-            </div>
-            <div className="form-group">
-              <input
-                  onChange={this.onMailChange}
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="form-control"
-                  placeholder="Email"
-                  required/>
-            </div>
-            <button
-                type="submit"
-                className="btn btn-primary">Отправить задачу
-            </button>
-          </form>
-        </div>
-    )
-  }
+                placeholder="Ваше имя"
+                required/>
+          </div>
+          <div className="form-group">
+            <input
+                onChange={onMailChange}
+                type="email"
+                id="taskMail"
+                name="taskMail"
+                className="form-control"
+                placeholder="Email"
+                required/>
+          </div>
+          <button
+              type="submit"
+              className="btn btn-primary">Отправить задачу
+          </button>
+        </form>
+      </div>
+  )
 }
-
 
 export default AddTaskForm;
