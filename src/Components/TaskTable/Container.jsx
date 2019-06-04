@@ -45,6 +45,7 @@ class TaskTableContainer extends React.Component {
     //let sortDirectionState = this.props.sortDirection
 
     //TODO: DRY
+    //TODO: we need to use Flux here. Data from state only (sortFieldState, sortDirectionState)
     let currentPage   = this.props.currentPage
     let url           = `https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}&sort_field=${sortField}&sort_direction=${sortDirection}`
 

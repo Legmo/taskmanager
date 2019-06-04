@@ -9,29 +9,23 @@ const TaskTableAdmin = (props) => {
   let sortDirection     = props.sortDirection;
   let onSortTable       = props.onSortTable
   let onStatusChange    = props.onStatusChange
+  let onTaskTextChange  = props.onTaskTextChange
   let isFetching        = props.isFetching;
   let isLoggedUser      = props.login;
 
-  const onTaskTextChange = (event) => {
-    let text = event.target.value;
-    let id   = event.target.id;
-    props.updateTaskText(text, id);
-  }
-
-  // if(isLoggedUser) {
-  if(true) {
+  if(isLoggedUser) {
     if(isFetching) {
       return <Preloader />
     }
     return (
       <div>
         <form>
-          <table className={"table sort_"+sortDirection}>
+          <table className={"table sort_"+sortDirection} id={"table"}>
             <thead className="thead-light">
               <tr>
                 {props.tableHeaders.map((h) => {
                   return (
-                      <th onClick={onSortTable} id={h.header_id} className={sortFieldDefault === h.header_id ? "active_col" : ""}>
+                      <th onClick={onSortTable} id={h.header_id} key={h.header_id} className={sortFieldDefault === h.header_id ? "active_col" : ""}>
                         {h.header_name}
                         <span className="indicator"></span>
                       </th>
@@ -44,6 +38,7 @@ const TaskTableAdmin = (props) => {
               let status_check = task.status !== 0 ? "checked" : "";
               let status_color = task.status !== 0 ? "success" : "danger";
               let status_text  = task.status !== 0 ? "решено" : "открыто";
+              let task_status_boolean = Boolean(task.status);
 
               return (
                 <tr className={style.table_row} key={task.id}>
@@ -63,7 +58,7 @@ const TaskTableAdmin = (props) => {
                       <Checkbox
                           key={'checkbox-'+task.id}
                           toggle
-                          defaultChecked={task.status}
+                          defaultChecked={task_status_boolean}
                           className="form-check-input"
                           name="exampleRadios"
                           id={"exampleRadios" + task.id}

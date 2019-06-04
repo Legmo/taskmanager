@@ -35,13 +35,6 @@ class AddTaskFormContainer extends React.Component {
     params.append("email", this.props.newMailText);
     params.append("text", this.props.newTaskText);
 
-/*
-
-    for (var pair of params.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]);
-    }
-*/
-
     this.props.toggleIsFetching(true);
 
     axios.post(url, params)

@@ -10,6 +10,8 @@ import {
   updateTaskStatus,
 } from "../../Redux/Actions/tasks_actions";
 import TaskTableAdmin from "./TaskTableAdmin";
+import StringEncodingToRFC3986 from "../Helpers/StringEncodingToRFC3986/StringEncodingToRFC3986";
+const md5 = require('js-md5');
 
 
 class TaskTableAdminContainer extends React.Component {
@@ -32,90 +34,97 @@ class TaskTableAdminContainer extends React.Component {
     firstActiveTh && firstActiveTh.classList.remove("active_col");
     document.getElementById(sortField).classList.add("active_col");
 
-    this.props.tableSort(sortField);
+    //TODO: KISS
+    let wasSortDirectionAsc = document.getElementById("table").classList.contains("sort_asc");
+    let sortDirection;
+    wasSortDirectionAsc ? sortDirection = "desc" : sortDirection = "asc";
+
+    this.props.tableSort(sortField, sortDirection);
+
+    //TODO: (state, props) => ({counter: state.counter + props.increment})
+    //let sortFieldState = this.props.sortField
+    //let sortDirectionState = this.props.sortDirection
+
+    //TODO: DRY
+    let currentPage   = this.props.currentPage
+    let url           = `https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}&sort_field=${sortField}&sort_direction=${sortDirection}`
+
+    this.props.toggleIsFetching(true);
+    axios.get(url)
+        .then(response => {
+          this.props.toggleIsFetching(false);
+          this.props.updateTotalTaskCount(response.data.message.total_task_count)
+          this.props.setTasks(response.data.message.tasks)
+        });
+  }
+
+  taskChangePOST = ([id, status, text]) => {
+    let token = "beejee";
+    let url = `https://uxcandy.com/~shapoval/test-task-backend/edit/${id}/?developer=Name`;
+
+    //ToDo: KISS
+    let requestWithoutSignature="";
+    if (typeof status !== "undefined") requestWithoutSignature = "status=" + StringEncodingToRFC3986(status) + "&";
+    if (typeof text   !== "undefined") requestWithoutSignature = requestWithoutSignature + "text="  + StringEncodingToRFC3986(text);
+    requestWithoutSignature = requestWithoutSignature + "&token=" + StringEncodingToRFC3986(token);
+
+    console.log(requestWithoutSignature)
+
+    let params = new FormData();
+    (typeof status !== "undefined") && params.append("status", status);
+    (typeof text   !== "undefined") && params.append("text", text);
+    params.append("token", token);
+    params.append("signature", md5(requestWithoutSignature));
+
+    for (var pair of params.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]);
+    }
+
+    this.props.toggleIsFetching(true);
+    axios.post(url, params)
+      .then(response => {
+        this.props.toggleIsFetching(false);
+        console.log(response.data);
+      });
   }
 
   onStatusChange = (event) => {
     let checkbox = document.getElementById(event.target.id);
     let id = (event.target.id).replace('exampleRadios', '');
-    let status = 0;
 
-    this.props.toggleIsFetching(true);
-
-    /*
-        var form = new FormData();
-        form.append("username", "Example");
-        form.append("email", "example@example.com");
-        form.append("text", "Some text");
-
-        $.ajax({
-          url: 'https://uxcandy.com/~shapoval/test-task-backend/create?developer=Example',
-          crossDomain: true,
-          method: 'POST',
-          mimeType: "multipart/form-data",
-          contentType: false,
-          processData: false,
-          data: form,
-          dataType: "json",
-          success: function(data) {
-            console.log(data);
-          }
-        });
-    */
-
-    /*
-       axios({
-          method: 'post',
-          url: 'https://uxcandy.com/~shapoval/test-task-backend/create?developer=Name',
-          // url: 'https://postman-echo.com/post',
-          data: {
-              username: 'Alpha',
-              email:    'alpha@test.ru',
-              text:     'Alpha test task'
-          }
-        }).then(response => {
-         console.log(response)
-         this.props.toggleIsFetching(false);
-         // this.props.setTasks(response.data.message.tasks)
-       })
-    */
-
-    /*
-        axios.post(`https://uxcandy.com/~shapoval/test-task-backend/create?developer=Name`, {
-              username: 'Alpha',
-              email:    'alpha@test.ru',
-              text:     'Alpha test task'
-            })
-            .then(response => {
-              console.log(response)
-              this.props.toggleIsFetching(false);
-              // this.props.setTasks(response.data.message.tasks)
-            })
-            .catch(function (error) {
-              alert(error);
-            });;
-    */
-
+    let status;
     if (checkbox.hasAttribute('checked')) {
-      /*
-         axios.post(`https://uxcandy.com/~shapoval/test-task-backend/edit/${id}?developer=Name&status=0&token=beejee&signature=b1d9ed7820ad045689322c918f68bbc5`)
-          .then(response => {
-            this.props.toggleIsFetching(false);
-            // this.props.setTasks(response.data.message.tasks)
-          });
-       */
-
-      this.props.toggleIsFetching(false);
+      status = 0;
       (event.target).removeAttribute ("checked");
     }
     else {
-      this.props.toggleIsFetching(false);
-      (event.target).setAttribute("checked","checked");
       status = 10;
+      (event.target).setAttribute("checked","checked");
     }
 
+    this.taskChangePOST([id,status,,]);
     this.props.updateTaskStatus(status, id);
   }
+
+  onTaskTextChange = (event) => {
+    let text = event.target.value;
+    let id   = event.target.id;
+    this.taskChangePOST([id,,text]);
+    // this.onTaskTextPOST(event);
+    this.props.updateTaskText(text, id);
+  }
+
+  //ToDo: in progress
+  onTaskTextPOST = (event) => {
+    let id   = event.target.id;
+    let text = "";
+    console.log(this.props.tasks)
+    this.props.tasks.map((el) => (id === {el:id}) ? text = {el:text} : "")
+    // console.log(`text: ${text}`)
+
+    this.taskChangePOST([id,,text]);
+  }
+
 
   render() {
     return <TaskTableAdmin
@@ -126,6 +135,7 @@ class TaskTableAdminContainer extends React.Component {
       isFetching        = {this.props.isFetching}
       onSortTable       = {this.onSortTable}
       onStatusChange    = {this.onStatusChange}
+      onTaskTextChange  = {this.onTaskTextChange}
       tableHeaders      = {this.props.table_headers}
       login             = {this.props.login}
       updateTaskStatus  = {this.props.updateTaskStatus}
