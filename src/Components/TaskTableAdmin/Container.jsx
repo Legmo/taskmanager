@@ -65,8 +65,8 @@ class TaskTableAdminContainer extends React.Component {
     //ToDo: KISS
     let requestWithoutSignature="";
     if (typeof status !== "undefined") requestWithoutSignature = "status=" + StringEncodingToRFC3986(status) + "&";
-    if (typeof text   !== "undefined") requestWithoutSignature = requestWithoutSignature + "text="  + StringEncodingToRFC3986(text);
-    requestWithoutSignature = requestWithoutSignature + "&token=" + StringEncodingToRFC3986(token);
+    if (typeof text   !== "undefined") requestWithoutSignature = requestWithoutSignature + "text="  + StringEncodingToRFC3986(text) + "&";
+    requestWithoutSignature = requestWithoutSignature + "token=" + StringEncodingToRFC3986(token);
 
     console.log(requestWithoutSignature)
 

@@ -7,10 +7,10 @@ const initialState = {
     loggedUser: false,
 };
 
-/*const adminLogin = "admin";
-const adminPassword = "123";*/
-const adminLogin = "1";
-const adminPassword = "1";
+const adminLogin = "admin";
+const adminPassword = "123";
+/*const adminLogin = "1";
+const adminPassword = "1";*/
 
 const users_reducer = (state = initialState, action) => {
   switch(action.type) {
