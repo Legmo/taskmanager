@@ -152,7 +152,7 @@ const tasks_reducer = (state = initialState, action) => {
         sortDirection: action.sortDirection,
       };
 
-    //If we need to sort this page only - use lodash. Without all tasks sorting & reload.
+    //If we need to sort this page only - use lodash. Without all tasks sorting & page reload.
     /*
       stateCopy.message.tasks = _.orderBy(
           stateCopy.message.tasks,

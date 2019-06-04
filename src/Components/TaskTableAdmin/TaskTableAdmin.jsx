@@ -9,7 +9,8 @@ const TaskTableAdmin = (props) => {
   let sortDirection     = props.sortDirection;
   let onSortTable       = props.onSortTable
   let onStatusChange    = props.onStatusChange
-  let onTaskTextChange  = props.onTaskTextChange
+  let onTextChange      = props.onTextChange
+  let taskTextPOST      = props.taskTextPOST
   let isFetching        = props.isFetching;
   let isLoggedUser      = props.login;
 
@@ -48,10 +49,16 @@ const TaskTableAdmin = (props) => {
                   <td>
                     <textarea
                       value={task.text}
-                      onChange={onTaskTextChange}
+                      onChange={onTextChange}
                       id={task.id}
                       className="d-block mb-2"
-                  />
+                    />
+                    <button
+                        type="button"
+                        key={`btn_${task.id}`}
+                        onClick={taskTextPOST}
+                        className="btn btn-outline-primary btn-sm btn-block d-none"
+                    >Сохранить изменения</button>
                   </td>
                   <td className={'text-' + status_color}>
                     <div className="form-check">

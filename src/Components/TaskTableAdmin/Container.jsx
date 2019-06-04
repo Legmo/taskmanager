@@ -58,33 +58,25 @@ class TaskTableAdminContainer extends React.Component {
         });
   }
 
-  taskChangePOST = ([id, status, text]) => {
+  taskChangesPOST = ([id, status, text]) => {
     let token = "beejee";
     let url = `https://uxcandy.com/~shapoval/test-task-backend/edit/${id}/?developer=Name`;
 
     //ToDo: KISS
-    let requestWithoutSignature="";
+    let requestWithoutSignature = "";
     if (typeof status !== "undefined") requestWithoutSignature = "status=" + StringEncodingToRFC3986(status) + "&";
-    if (typeof text   !== "undefined") requestWithoutSignature = requestWithoutSignature + "text="  + StringEncodingToRFC3986(text) + "&";
-    requestWithoutSignature = requestWithoutSignature + "token=" + StringEncodingToRFC3986(token);
-
-    console.log(requestWithoutSignature)
-
+    if (typeof text   !== "undefined") requestWithoutSignature = requestWithoutSignature + "text=" + StringEncodingToRFC3986(text) + "&";
+                                       requestWithoutSignature = requestWithoutSignature + "token=" + StringEncodingToRFC3986(token);
     let params = new FormData();
     (typeof status !== "undefined") && params.append("status", status);
     (typeof text   !== "undefined") && params.append("text", text);
     params.append("token", token);
     params.append("signature", md5(requestWithoutSignature));
 
-    for (var pair of params.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]);
-    }
-
     this.props.toggleIsFetching(true);
     axios.post(url, params)
       .then(response => {
         this.props.toggleIsFetching(false);
-        console.log(response.data);
       });
   }
 
@@ -102,29 +94,30 @@ class TaskTableAdminContainer extends React.Component {
       (event.target).setAttribute("checked","checked");
     }
 
-    this.taskChangePOST([id,status,,]);
+    this.taskChangesPOST([id,status,,]);
     this.props.updateTaskStatus(status, id);
   }
 
-  onTaskTextChange = (event) => {
+  onTextChange = (event) => {
     let text = event.target.value;
     let id   = event.target.id;
-    this.taskChangePOST([id,,text]);
-    // this.onTaskTextPOST(event);
+
+    let button = event.target.nextElementSibling;
+    button.classList.remove("d-none")
+
     this.props.updateTaskText(text, id);
   }
 
-  //ToDo: in progress
-  onTaskTextPOST = (event) => {
-    let id   = event.target.id;
+  taskTextPOST = (event) => {
+    let id   = +event.target.previousElementSibling.id;
     let text = "";
-    console.log(this.props.tasks)
-    this.props.tasks.map((el) => (id === {el:id}) ? text = {el:text} : "")
-    // console.log(`text: ${text}`)
+    let button = event.target;
 
-    this.taskChangePOST([id,,text]);
+    this.props.tasks.map((t) => (id === t.id) ? text = t.text : "")
+
+    this.taskChangesPOST([id,,text]);
+    button.classList.add("d-none");
   }
-
 
   render() {
     return <TaskTableAdmin
@@ -135,7 +128,8 @@ class TaskTableAdminContainer extends React.Component {
       isFetching        = {this.props.isFetching}
       onSortTable       = {this.onSortTable}
       onStatusChange    = {this.onStatusChange}
-      onTaskTextChange  = {this.onTaskTextChange}
+      onTextChange  = {this.onTextChange}
+      taskTextPOST      = {this.taskTextPOST}
       tableHeaders      = {this.props.table_headers}
       login             = {this.props.login}
       updateTaskStatus  = {this.props.updateTaskStatus}
