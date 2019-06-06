@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import * as axios from "axios";
 import {
   tableSort,
   setTasks,
@@ -10,9 +9,7 @@ import {
   updateTaskStatus,
 } from "../../Redux/Actions/tasks_actions";
 import TaskTableAdmin from "./TaskTableAdmin";
-import StringEncodingToRFC3986 from "../Helpers/StringEncodingToRFC3986/StringEncodingToRFC3986";
 import {tasksAPI} from "../../API/api";
-const md5 = require('js-md5');
 
 
 class TaskTableAdminContainer extends React.Component {
@@ -51,43 +48,25 @@ class TaskTableAdminContainer extends React.Component {
         });
   }
 
-  taskChangesPOST = ([id, status, text]) => {
-    let token = "beejee";
-    let url = `https://uxcandy.com/~shapoval/test-task-backend/edit/${id}/?developer=Name`;
+  onStatusChange = (event) => {
+    let id = (event.target.id).replace('exampleRadios', '');
+    let isChecked = document.getElementById(event.target.id).hasAttribute('checked');
+    let status;
 
-    //ToDo: KISS
-    let requestWithoutSignature = "";
-    if (typeof status !== "undefined") requestWithoutSignature = "status=" + StringEncodingToRFC3986(status) + "&";
-    if (typeof text   !== "undefined") requestWithoutSignature = requestWithoutSignature + "text=" + StringEncodingToRFC3986(text) + "&";
-                                       requestWithoutSignature = requestWithoutSignature + "token=" + StringEncodingToRFC3986(token);
-    let params = new FormData();
-    (typeof status !== "undefined") && params.append("status", status);
-    (typeof text   !== "undefined") && params.append("text", text);
-    params.append("token", token);
-    params.append("signature", md5(requestWithoutSignature));
+    if(isChecked) {
+      status = 0;
+      (event.target).removeAttribute ("checked")
+    } else {
+      status = 10;
+      (event.target).setAttribute("checked","checked")
+    }
 
     this.props.toggleIsFetching(true);
-    axios.post(url, params)
+    tasksAPI.postTaskChanges([id,status,,])
       .then(response => {
         this.props.toggleIsFetching(false);
       });
-  }
 
-  onStatusChange = (event) => {
-    let checkbox = document.getElementById(event.target.id);
-    let id = (event.target.id).replace('exampleRadios', '');
-
-    let status;
-    if (checkbox.hasAttribute('checked')) {
-      status = 0;
-      (event.target).removeAttribute ("checked");
-    }
-    else {
-      status = 10;
-      (event.target).setAttribute("checked","checked");
-    }
-
-    this.taskChangesPOST([id,status,,]);
     this.props.updateTaskStatus(status, id);
   }
 
@@ -108,7 +87,12 @@ class TaskTableAdminContainer extends React.Component {
 
     this.props.tasks.map((task) => (id === task.id) ? text = task.text : "")
 
-    this.taskChangesPOST([id,,text]);
+    this.props.toggleIsFetching(true);
+    tasksAPI.postTaskChanges([id,,text])
+      .then(response => {
+        this.props.toggleIsFetching(false);
+      });
+
     button.classList.add("d-none");
   }
 

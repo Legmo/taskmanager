@@ -1,40 +1,5 @@
 <БЛИЖАЙШИЕ /> {
-  1) Вынести работу с AJAX в api. DRY {
-      деструктуризация запроса в функции
-      - Оптимизация получения / отправки данных {
-        - AddTaskForm/Container.jsx
-              - newTaskSubmit {
-          - post ("username", "email", "text")
-          - ghb ответе обновляет clearNewTask и выводит alert
-        }
-        - TaskTable/Container.jsx
-              - componentDidMount - везде одинаков {
-                - get (currentPag, sortField, sortDirection)
-                - при ответе обновляет updateTotalTaskCount и setTasks
-              }
-              - onSortTable - везде одинаков {
-          - get (currentPag, sortField, sortDirection)
-          - при ответе обновляет updateTotalTaskCount и setTasks
-        }
-        - TaskTableAdmin/Container.jsx
-            - componentDidMount - везде одинаков {
-              - get (currentPag)
-              - при ответе обновляет updateTotalTaskCount и setTasks
-            }
-            - onSortTable - везде одинаков {
-              - get (currentPag, sortField, sortDirection)
-              - при ответе обновляет updateTotalTaskCount и setTasks
-            }
-            - taskChangesPOST {
-            - post (token, siagnature, id, status, text,)
-            - ответа нет
-          }
-
-      - Или выносить в отдельные компоненты таблицы авторизированного/нормального пользователя
-
-    }
-    }
-  3) Избавиться от дублирования кода при отрисовке страниц TaskTable & TaskTable Admin
+  1) Избавиться от дублирования кода при отрисовке страниц TaskTable & TaskTable Admin
      - Оптимизировать TaskTable & TaskTableAdmin. Вынести таблицу в отдельный компонент? Тогда строки брать из state, как tableHeader
   2) Менять состояние компоненты только на основании данных из props, а не на основании клика
       - Сортировка - разобраться как правильно принимать направление сортировки asc|desc {
@@ -84,6 +49,38 @@
   - Уменьшить ширину формы входа (адаптивно)
   - Проверить мобильную версию?
   +
+  - Оптимизация получения / отправки данных {
+  - AddTaskForm/Container.jsx
+  - newTaskSubmit {
+    - post ("username", "email", "text")
+    - ghb ответе обновляет clearNewTask и выводит alert
+  }
+  - TaskTable/Container.jsx
+  - componentDidMount - везде одинаков {
+    - get (currentPag, sortField, sortDirection)
+    - при ответе обновляет updateTotalTaskCount и setTasks
+  }
+  - onSortTable - везде одинаков {
+    - get (currentPag, sortField, sortDirection)
+    - при ответе обновляет updateTotalTaskCount и setTasks
+  }
+  - TaskTableAdmin/Container.jsx
+  - componentDidMount - везде одинаков {
+    - get (currentPag)
+    - при ответе обновляет updateTotalTaskCount и setTasks
+  }
+  - onSortTable - везде одинаков {
+    - get (currentPag, sortField, sortDirection)
+    - при ответе обновляет updateTotalTaskCount и setTasks
+  }
+  - taskChangesPOST {
+    - post (token, siagnature, id, status, text,)
+    - ответа нет
+  }
+
+  - Или выносить в отдельные компоненты таблицы авторизированного/нормального пользователя
+
+}
   - Асинхронность + middleware redux-thunk {
     https://www.youtube.com/watch?v=yOcR_flZ0vo&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=8
         }
