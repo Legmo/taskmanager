@@ -8,7 +8,6 @@ import {
   updateMailText,
   updateAuthorText } from "../../Redux/Actions/tasks_actions";
 import * as axios from "axios";
-import TaskTableAdmin from "../TaskTableAdmin/TaskTableAdmin";
 
 
 class AddTaskFormContainer extends React.Component {
@@ -32,8 +31,8 @@ class AddTaskFormContainer extends React.Component {
     let url = `https://uxcandy.com/~shapoval/test-task-backend/create?developer=Name`;
     let params = new FormData();
     params.append("username", this.props.newAuthorText);
-    params.append("email", this.props.newMailText);
-    params.append("text", this.props.newTaskText);
+    params.append("email",    this.props.newMailText);
+    params.append("text",     this.props.newTaskText);
 
     this.props.toggleIsFetching(true);
 
@@ -41,8 +40,6 @@ class AddTaskFormContainer extends React.Component {
       .then(response => {
         this.props.toggleIsFetching(false);
         this.props.clearNewTask();
-
-        console.log(response);
         alert('Задача отправлена');
       });
 

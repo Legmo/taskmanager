@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom';
 
 const Navigation = (props) => {
   let taskListLinkURL = props.login ? "/admin" : "/";
-  let adminLinkURL    = props.login ? "/" : "/login";
   let adminLinkText   = props.login ? "Выйти" : "Войти";
 
   let isLogout = () => {
@@ -29,7 +28,7 @@ const Navigation = (props) => {
           Добавить задачу
         </NavLink>
         <NavLink
-            to={adminLinkURL}
+            to={"/login"}
             onClick ={isLogout}
             activeClassName={style.active}
             className="font-weight-light mx-auto"

@@ -1,33 +1,84 @@
-import TaskTableAdmin from "./src/Components/TaskTableAdmin/TaskTableAdmin";
-import {CLEAR_NEW_TASK} from "./src/Redux/Actions/tasks_actions";
-
 <БЛИЖАЙШИЕ /> {
-  - Кажется можно удалить ADD_TASK - вместо него используется CLEAR_NEW_TASK
-  - Когда я на старнице Админа - активизировать пункт меню "Список задач"
+  1) Вынести работу с AJAX в api. DRY {
+      деструктуризация запроса в функции
+      - Оптимизация получения / отправки данных {
+        - AddTaskForm/Container.jsx
+              - newTaskSubmit {
+          - post ("username", "email", "text")
+          - ghb ответе обновляет clearNewTask и выводит alert
+        }
+        - TaskTable/Container.jsx
+              - componentDidMount - везде одинаков {
+                - get (currentPag, sortField, sortDirection)
+                - при ответе обновляет updateTotalTaskCount и setTasks
+              }
+              - onSortTable - везде одинаков {
+          - get (currentPag, sortField, sortDirection)
+          - при ответе обновляет updateTotalTaskCount и setTasks
+        }
+        - TaskTableAdmin/Container.jsx
+            - componentDidMount - везде одинаков {
+              - get (currentPag)
+              - при ответе обновляет updateTotalTaskCount и setTasks
+            }
+            - onSortTable - везде одинаков {
+              - get (currentPag, sortField, sortDirection)
+              - при ответе обновляет updateTotalTaskCount и setTasks
+            }
+            - taskChangesPOST {
+            - post (token, siagnature, id, status, text,)
+            - ответа нет
+          }
+
+      - Или выносить в отдельные компоненты таблицы авторизированного/нормального пользователя
+
+    }
+    }
+  3) Избавиться от дублирования кода при отрисовке страниц TaskTable & TaskTable Admin
+     - Оптимизировать TaskTable & TaskTableAdmin. Вынести таблицу в отдельный компонент? Тогда строки брать из state, как tableHeader
+  2) Менять состояние компоненты только на основании данных из props, а не на основании клика
+      - Сортировка - разобраться как правильно принимать направление сортировки asc|desc {
+        TaskTable\Container.jsx
+        TaskTableAdmin\Container.jsx
+      }
+      //TODO: (state, props) => ({counter: state.counter + props.increment})
+        let sortFieldState = this.props.sortField
+        let sortDirectionState = this.props.sortDirection
+
++
+  - Кнопки отправки (addTask, adminTable) - ставить disable на время AJAX-запроса {
+      <button disabled={props.following.some(id => id === user.id)} onClick={} />
+      Если в массиве хоть один id совпадёт с user.id (из стэйта) - в disabled будет true
+      https://www.youtube.com/watch?v=iobMksCYGHE&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=63
+    }
+  - Переключение чекбокса + одновременно выставление статуса в state - поробовать консутркцию в стиле {
+    var sayHi = (age >= 18) ?
+        function() { alert('Прошу Вас!');  } :
+        function() { alert('До 18 нельзя'); };
+    sayHi();
+  }
+  - Добавление-удаление id из массива, в зависимости от пришедшего true/false {
+      Если action.isFetching = true  - делаем копию массива state.following и дописываем в конец пришедший action.userId.
+      Если action.isFetching = false - делаем копию массива state.following и убираем из него id = пришедшему action.userId
+        case TOGGLE_FOLLOWING: (
+          return (
+            ...state,
+            following: action.isFetching
+              ? [ ...state.following, action.userId]
+              : state.following.filter( id => id != action.userId)
+          )
+        )
+      https://www.youtube.com/watch?v=iobMksCYGHE&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=63
+    }
   - Обработка ошибок обмена с бэкендом
-  - Админка и основная таблица сильно повторяют друг-друга. Подумать
   +
-  - Править вёрстку - сейчас контент располагается не по центру жкрана (горизонтально)
+  - Править вёрстку - таблицу на всю ширину экрана
+  - Править вёрстку - сейчас контент располагается не по центру экрана (горизонтально)
+  - Править вёрстку - увличить ширину столбца с текстом задачи. Перенос строк?
   - Баг вёрстки: при уменьшении экрана, таблица вылазит за ширину родительского div
   - Уменьшить ширину формы входа (адаптивно)
   - Проверить мобильную версию?
   +
-  - Оптимизация получения / отправки данных {
-    - Можно вынести функцию получения данных в отдельный компонент {
-      http://jsraccoon.ru/react-sort-and-search
-          }
-    - Оптимизировать TaskTable & TaskTableAdmin. Вынести таблицу в отдельный компоненет? Тогда строки брать из state, как tableHeader
-    - Или выносить в отдельные компоненты таблицы авторизированного/нормального пользователя
-    - Оптимизировать AJAX-запрос {
-      http://streletzcoder.ru/pishem-ajax-komponent-na-react-chast-1-osnova-komponenta/
-          Вследствие того, что бизнес-логика приложения может предусматривать неоднократный запрос данных с сервера и обработка полученных данных на клиентской стороне может содержать достаточно сложные операции, настоятельно рекомендуется избегать отправки AJAX запроса непосредственно в методах жизненного цикла компонента. Вместо этого лучше выносить её в отдельные методы и вызывать уже их, как это показано в данной статье.
-    }
-  }
-  - Сортировка - разобраться как правильно принимать направление сортировки asc|desc {
-    TaskTable\Container.jsx
-    TaskTableAdmin\Container.jsx
-  }
-  - Надо ли в setTasks и подобных полностью затирать и презаписывать стэйт, или надо добавлять данные к существующему?.
   - Асинхронность + middleware redux-thunk {
     https://www.youtube.com/watch?v=yOcR_flZ0vo&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=8
         }
@@ -36,12 +87,11 @@ import {CLEAR_NEW_TASK} from "./src/Redux/Actions/tasks_actions";
       - правильно формить
       - прикрепить ссылку в ReadMe проекта (https://clck.ru/GGBno)
   }
-  - Баг: когда админ обновляет страницу - он вылетает из админки. Видимо, потому что используем локальный стэйт, а при обновлении он слетает. Cookies?
-  - Баг: когда админ переходит по другому адресу (набирает в адресной строке) - он вылетает из админки
   - Стрелки-индикаторы на шапке таблицы можно добавлять с помощью модуля bem-cn {
       https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
     }
   - Перевести на Material UI (https://material-ui.com/)
+
 }
 
 <ПРОЧЕЕ /> {
@@ -57,6 +107,10 @@ import {CLEAR_NEW_TASK} from "./src/Redux/Actions/tasks_actions";
   - isLogout, props.login и т.д. - прописать более внятные названия методов и переменных. Проверить логику
   +
   - Форма - при открытии страницы и сразу после отправки стоит красная обводка. Должна появляться только после попытки отправки и исчезать после успешной отправки
+  - Баг: когда админ обновляет страницу - он вылетает из админки. Видимо, потому что используем локальный стэйт, а при обновлении он слетает. Cookies?. {
+      Туда же: когда админ переходит по другому адресу (набирает в адресной строке) - он вылетает из админки
+    }
+  - Надо ли в setTasks и подобных полностью затирать и презаписывать стэйт, или надо добавлять данные к существующему?.
   - Проверить, откуда вызывается функция соритировки данных. Из самой компоненты, либо снаружи {
       http://abcinblog.blogspot.com/2019/02/react-i.html
       Наша задача сделать так, чтобы по клику на заголовок таблицы, данные в каждом столбце сортировались в порядке возрастания (чисел и по алфавиту). При повторном клике, сортировка в обратную сторону. Для этого нам нужно написать функцию сортировки (мы это сделаем с помощью библиотеки Lodash), передать ее в виде props компоненту Table, повесить событие onClickс этой функцией на заголовок таблицы и передать в эту функцию название столбца ( id, firstName, lastName или phone ). Там же - проверить как работает сортировка столбцов при получении данных с сервреа. Настроить её. Особенно - если листаем страницы пейджером
@@ -227,5 +281,51 @@ import {CLEAR_NEW_TASK} from "./src/Redux/Actions/tasks_actions";
       for (var pair of params.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
       }
+  }
+  - Если надо все входящие пропсы прокинуть в дочернюю компоненту {
+      return (
+        <Component {...this.props} />
+      )
+  }
+  - Как получить данные из адресной строки (withRouter) {
+    Например, при клике по item я должен открыть страницу http://bse_url/item/id
+    При помощи Navlink я перехожу на страницу с этим адресом
+    Но как получить в React/Redux этот id из адресной строки? А если адрес открывается не при клике, а из Закладок?
+
+    Используем withRouter
+    https://www.youtube.com/watch?v=e6SpHkb0E3I&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=61
+  }
+  - В reducer можно получать из action объект с данными, и сразу его деструктуризировать {
+      Например:
+        switch (action.type) {
+          case SWITCH_USER {
+            return {
+                ...state, //вернули прежний стэйт
+                ...action.data //деструкторизация объекта data из action. Его значения затирают анадогичные в state
+            }
+          }
+        }
+        export const switchUser = (userId, email) => ({type: SWITCH_USER, data:{userId, email}})
+    https://www.youtube.com/watch?v=b3pU3hsJlNk&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=62
+  }
+  - <button disabled={props.following.some(id => id === user.id)} onClick={} /> {
+      Если в массиве хоть один id совпадёт с user.id (из стэйта) - в disabled будет true
+      https://www.youtube.com/watch?v=iobMksCYGHE&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=63
+    }
+  - Добавление-удаление id из массива, в зависимости от пришедшего true/false {
+      Если action.isFetching = true  - делаем копию массива state.following и дописываем в конец пришедший action.userId.
+      Если action.isFetching = false - делаем копию массива state.following и убираем из него id = пришедшему action.userId
+        case TOGGLE_FOLLOWING: (
+          return (
+              ...state,
+              following: action.isFetching
+              ? [ ...state.following, action.userId]
+              : state.following.filter( id => id != action.userId) //фильтрация верёнт новый мссив, поэтому не надо делать ...state.following (деструктурию)
+          )
+        )
+      https://www.youtube.com/watch?v=iobMksCYGHE&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=63
+    }
+  - AJAX, axios, cookie - follow/unfollow {
+      https://www.youtube.com/watch?v=oLIrtUrm5us
   }
 }

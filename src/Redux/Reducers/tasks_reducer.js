@@ -1,5 +1,4 @@
 import {
-  ADD_TASK,
   CLEAR_NEW_TASK,
   UPDATE_NEW_TASK_TEXT,
   UPDATE_TASK_TEXT,
@@ -54,22 +53,6 @@ const initialState = {
 
 const tasks_reducer = (state = initialState, action) => {
   switch(action.type) {
-    case ADD_TASK: {
-      let newElement = {
-        id: "",
-        username: _.escape(state.newAuthorText),
-        email: state.newMailText,
-        text: _.escape(state.newTaskText),
-        status: 0,
-      };
-      return {
-        ...state,
-        newTask: {...newElement},
-        newTaskText: "",
-        newMailText: "",
-        newAuthorText: "",
-      };
-    }
     case CLEAR_NEW_TASK: {
       return {
         ...state,

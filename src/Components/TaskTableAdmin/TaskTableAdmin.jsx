@@ -9,12 +9,13 @@ const TaskTableAdmin = (props) => {
   let sortDirection     = props.sortDirection;
   let onSortTable       = props.onSortTable
   let onStatusChange    = props.onStatusChange
-  let onTextChange      = props.onTextChange
-  let taskTextPOST      = props.taskTextPOST
+  let onTextChangeLocal = props.onTextChangeLocal
+  let taskTextSend      = props.taskTextSend
   let isFetching        = props.isFetching;
   let isLoggedUser      = props.login;
 
-  if(isLoggedUser) {
+  // if(isLoggedUser) {
+  if(true) {
     if(isFetching) {
       return <Preloader />
     }
@@ -28,7 +29,7 @@ const TaskTableAdmin = (props) => {
                   return (
                       <th onClick={onSortTable} id={h.header_id} key={h.header_id} className={sortFieldDefault === h.header_id ? "active_col" : ""}>
                         {h.header_name}
-                        <span className="indicator"></span>
+                        <span className="indicator">&nbsp;</span>
                       </th>
                   )
                 })}
@@ -49,14 +50,14 @@ const TaskTableAdmin = (props) => {
                   <td>
                     <textarea
                       value={task.text}
-                      onChange={onTextChange}
+                      onChange={onTextChangeLocal}
                       id={task.id}
                       className="d-block mb-2"
                     />
                     <button
                         type="button"
                         key={`btn_${task.id}`}
-                        onClick={taskTextPOST}
+                        onClick={taskTextSend}
                         className="btn btn-outline-primary btn-sm btn-block d-none"
                     >Сохранить изменения</button>
                   </td>

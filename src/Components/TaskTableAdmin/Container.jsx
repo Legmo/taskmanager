@@ -11,19 +11,18 @@ import {
 } from "../../Redux/Actions/tasks_actions";
 import TaskTableAdmin from "./TaskTableAdmin";
 import StringEncodingToRFC3986 from "../Helpers/StringEncodingToRFC3986/StringEncodingToRFC3986";
+import {tasksAPI} from "../../API/api";
 const md5 = require('js-md5');
 
 
 class TaskTableAdminContainer extends React.Component {
   componentDidMount() {
-    let currentPage = this.props.currentPage
-    let url         = `https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}`
     this.props.toggleIsFetching(true);
-    axios.get(url)
-      .then(response => {
+    tasksAPI.getTasksWithSort(this.props.currentPage)
+      .then(data => {
         this.props.toggleIsFetching(false);
-        this.props.updateTotalTaskCount(response.data.message.total_task_count)
-        this.props.setTasks(response.data.message.tasks)
+        this.props.updateTotalTaskCount(data.message.total_task_count)
+        this.props.setTasks(data.message.tasks)
       });
   }
 
@@ -98,7 +97,7 @@ class TaskTableAdminContainer extends React.Component {
     this.props.updateTaskStatus(status, id);
   }
 
-  onTextChange = (event) => {
+  onTextChangeLocal = (event) => {
     let text = event.target.value;
     let id   = event.target.id;
 
@@ -108,12 +107,12 @@ class TaskTableAdminContainer extends React.Component {
     this.props.updateTaskText(text, id);
   }
 
-  taskTextPOST = (event) => {
+  taskTextSend = (event) => {
     let id   = +event.target.previousElementSibling.id;
     let text = "";
     let button = event.target;
 
-    this.props.tasks.map((t) => (id === t.id) ? text = t.text : "")
+    this.props.tasks.map((task) => (id === task.id) ? text = task.text : "")
 
     this.taskChangesPOST([id,,text]);
     button.classList.add("d-none");
@@ -128,8 +127,8 @@ class TaskTableAdminContainer extends React.Component {
       isFetching        = {this.props.isFetching}
       onSortTable       = {this.onSortTable}
       onStatusChange    = {this.onStatusChange}
-      onTextChange  = {this.onTextChange}
-      taskTextPOST      = {this.taskTextPOST}
+      onTextChangeLocal = {this.onTextChangeLocal}
+      taskTextSend      = {this.taskTextSend}
       tableHeaders      = {this.props.table_headers}
       login             = {this.props.login}
       updateTaskStatus  = {this.props.updateTaskStatus}
