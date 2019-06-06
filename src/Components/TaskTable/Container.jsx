@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import * as axios from "axios";
 import {
   tableSort,
   setTasks,
@@ -24,8 +23,9 @@ class TaskTableContainer extends React.Component {
 
   onSortTable = (event) => {
     let sortField = event.target.id;
-    let firstActiveTh = document.getElementsByClassName("active_col")[0];
 
+    //TODO: KISS
+    let firstActiveTh = document.getElementsByClassName("active_col")[0];
     firstActiveTh && firstActiveTh.classList.remove("active_col");
     document.getElementById(sortField).classList.add("active_col");
 

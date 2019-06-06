@@ -71,6 +71,11 @@
       https://www.youtube.com/watch?v=iobMksCYGHE&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=63
     }
   - Обработка ошибок обмена с бэкендом
+  - Написать изящнее - смена активной колонки по клику в onSortTable {
+      let firstActiveTh = document.getElementsByClassName("active_col")[0];
+      firstActiveTh && firstActiveTh.classList.remove("active_col");
+      document.getElementById(sortField).classList.add("active_col");
+  }
   +
   - Править вёрстку - таблицу на всю ширину экрана
   - Править вёрстку - сейчас контент располагается не по центру экрана (горизонтально)

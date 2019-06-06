@@ -40,20 +40,14 @@ class TaskTableAdminContainer extends React.Component {
 
     this.props.tableSort(sortField, sortDirection);
 
-    //TODO: (state, props) => ({counter: state.counter + props.increment})
-    //let sortFieldState = this.props.sortField
-    //let sortDirectionState = this.props.sortDirection
-
-    //TODO: DRY
-    let currentPage   = this.props.currentPage
-    let url           = `https://uxcandy.com/~shapoval/test-task-backend/?developer=Name&page=${currentPage}&sort_field=${sortField}&sort_direction=${sortDirection}`
-
+    //TODO: we need to use Flux here. Data from state only (this.props.sortField, this.props.sortDirection)
     this.props.toggleIsFetching(true);
-    axios.get(url)
-        .then(response => {
+    tasksAPI.getTasksWithSort(this.props.currentPage, sortField, sortDirection)
+    // tasksAPI.getTasksWithSort(this.props.currentPage, this.props.sortField, this.props.sortDirection)
+        .then(data => {
           this.props.toggleIsFetching(false);
-          this.props.updateTotalTaskCount(response.data.message.total_task_count)
-          this.props.setTasks(response.data.message.tasks)
+          this.props.updateTotalTaskCount(data.message.total_task_count)
+          this.props.setTasks(data.message.tasks)
         });
   }
 
