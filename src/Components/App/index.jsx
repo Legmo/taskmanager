@@ -30,9 +30,9 @@ class App extends Component {
           <div className={style.content}>
             <Header />
             <section>
-              <div className="container">
+              <div className="container-fluid">
                 <div className="row">
-                  <div className="col-md-10 mt-5">
+                  <div className="col-md-10 mt-5 mx-auto">
                     <Route path='/' exact   render={pageIndex}/>
                     <Route path='/add_task' render={pageAddTask}/>
                     <Route path='/login'    render={pageLogin}/>

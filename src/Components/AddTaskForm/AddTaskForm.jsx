@@ -1,5 +1,5 @@
 import React from 'react';
-
+import style from './style.module.css'
 const AddTaskForm = (props) => {
   let onNewTaskTextChange = props.onNewTaskTextChange
   let onAuthorChange      = props.onAuthorChange
@@ -10,14 +10,15 @@ const AddTaskForm = (props) => {
       <div>
         <form onSubmit={newTaskSubmit}>
           <div className="form-group">
-          <textarea onChange={onNewTaskTextChange}
+            <textarea
+              onChange={onNewTaskTextChange}
               rows="7"
               id="taskText"
               name="taskText"
-              className="form-control"
+              className={style.textarea + " form-control"}
               placeholder="Текст задачи"
-              required="on"
-              autoFocus="on" />
+              required
+              autoFocus="autoFocus"></textarea>
           </div>
           <div className="form-group">
             <input
@@ -27,7 +28,7 @@ const AddTaskForm = (props) => {
                 name="taskAuthor"
                 className="form-control"
                 placeholder="Ваше имя"
-                required/>
+                required />
           </div>
           <div className="form-group">
             <input
@@ -37,7 +38,7 @@ const AddTaskForm = (props) => {
                 name="taskMail"
                 className="form-control"
                 placeholder="Email"
-                required/>
+                required />
           </div>
           <button
               type="submit"

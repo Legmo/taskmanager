@@ -7,7 +7,7 @@ const Header = (props) => {
     <header className={style.header}>
       <div className="container">
         <div className="row">
-          <div className="col-md-10 text-center mt-3">
+          <div className="col-md-10 text-center mt-3 mx-auto">
             <div>
               <h1>Задачник</h1>
             </div>

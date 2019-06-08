@@ -1,0 +1,12 @@
+.textarea:focus,
+.textarea:empty,
+.textarea:empty:not(:focus){
+  /*box-shadow: none;*/
+}
+.textarea:invalid:empty {
+  /*box-shadow:0 0 3px green;*/
+}
+.textarea:placeholder-shown {
+  /*border: 1px solid #ff3636;*/
+  /*box-shadow: 0 0 3px #ff3636;*/
+}

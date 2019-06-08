@@ -1,7 +1,9 @@
 <БЛИЖАЙШИЕ /> {
-  1) Избавиться от дублирования кода при отрисовке страниц TaskTable & TaskTable Admin
-     - Оптимизировать TaskTable & TaskTableAdmin. Вынести таблицу в отдельный компонент? Тогда строки брать из state, как tableHeader
-  2) Менять состояние компоненты только на основании данных из props, а не на основании клика
+  - Избавиться от дублирования кода при отрисовке страниц TaskTable & TaskTable Admin {
+     - Оптимизировать TaskTable & TaskTableAdmin.
+      Вынести таблицу в отдельный компонент? Тогда строки брать из state, как tableHeader
+        }
+  - Менять состояние компоненты только на основании данных из props, а не на основании клика {
       - Сортировка - разобраться как правильно принимать направление сортировки asc|desc {
         TaskTable\Container.jsx
         TaskTableAdmin\Container.jsx
@@ -9,8 +11,19 @@
       //TODO: (state, props) => ({counter: state.counter + props.increment})
         let sortFieldState = this.props.sortField
         let sortDirectionState = this.props.sortDirection
+  }
+  - Строгая типизация (Flow. Возможно позже - PropTypes) {
+    https://habr.com/ru/post/326304/?_ga=2.268646129.1491001003.1559827573-1008668787.1555910378
+  }
+  - Тесты {
+    https://learn.javascript.ru/testing
+    https://code.tutsplus.com/ru/articles/testing-components-in-react-using-jest-the-basics--cms-28934
+    https://habr.com/ru/post/340514/
+    https://medium.com/devschacht/berry-de-witte-unit-testing-your-react-application-with-jest-and-enzyme-6ef3658fdc93
 
-+
+  }
+  - StyledComponents
+  +
   - Кнопки отправки (addTask, adminTable) - ставить disable на время AJAX-запроса {
       <button disabled={props.following.some(id => id === user.id)} onClick={} />
       Если в массиве хоть один id совпадёт с user.id (из стэйта) - в disabled будет true
@@ -42,48 +55,49 @@
       document.getElementById(sortField).classList.add("active_col");
   }
   +
-  - Править вёрстку - таблицу на всю ширину экрана
-  - Править вёрстку - сейчас контент располагается не по центру экрана (горизонтально)
-  - Править вёрстку - увличить ширину столбца с текстом задачи. Перенос строк?
-  - Баг вёрстки: при уменьшении экрана, таблица вылазит за ширину родительского div
-  - Уменьшить ширину формы входа (адаптивно)
-  - Проверить мобильную версию?
-  +
   - Оптимизация получения / отправки данных {
-  - AddTaskForm/Container.jsx
-  - newTaskSubmit {
-    - post ("username", "email", "text")
-    - ghb ответе обновляет clearNewTask и выводит alert
-  }
-  - TaskTable/Container.jsx
-  - componentDidMount - везде одинаков {
-    - get (currentPag, sortField, sortDirection)
-    - при ответе обновляет updateTotalTaskCount и setTasks
-  }
-  - onSortTable - везде одинаков {
-    - get (currentPag, sortField, sortDirection)
-    - при ответе обновляет updateTotalTaskCount и setTasks
-  }
-  - TaskTableAdmin/Container.jsx
-  - componentDidMount - везде одинаков {
-    - get (currentPag)
-    - при ответе обновляет updateTotalTaskCount и setTasks
-  }
-  - onSortTable - везде одинаков {
-    - get (currentPag, sortField, sortDirection)
-    - при ответе обновляет updateTotalTaskCount и setTasks
-  }
-  - taskChangesPOST {
-    - post (token, siagnature, id, status, text,)
-    - ответа нет
-  }
+      - AddTaskForm/Container.jsx
+      - newTaskSubmit {
+        - post ("username", "email", "text")
+        - ghb ответе обновляет clearNewTask и выводит alert
+      }
+      - TaskTable/Container.jsx
+      - componentDidMount - везде одинаков {
+        - get (currentPag, sortField, sortDirection)
+        - при ответе обновляет updateTotalTaskCount и setTasks
+      }
+      - onSortTable - везде одинаков {
+        - get (currentPag, sortField, sortDirection)
+        - при ответе обновляет updateTotalTaskCount и setTasks
+      }
+      - TaskTableAdmin/Container.jsx
+      - componentDidMount - везде одинаков {
+        - get (currentPag)
+        - при ответе обновляет updateTotalTaskCount и setTasks
+      }
+      - onSortTable - везде одинаков {
+        - get (currentPag, sortField, sortDirection)
+        - при ответе обновляет updateTotalTaskCount и setTasks
+      }
+      - taskChangesPOST {
+        - post (token, siagnature, id, status, text,)
+        - ответа нет
+      }
 
-  - Или выносить в отдельные компоненты таблицы авторизированного/нормального пользователя
+      - Или выносить в отдельные компоненты таблицы авторизированного/нормального пользователя
 
-}
+    }
   - Асинхронность + middleware redux-thunk {
-    https://www.youtube.com/watch?v=yOcR_flZ0vo&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=8
-        }
+      https://www.youtube.com/watch?v=yOcR_flZ0vo&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=8
+    }
+  - Вёрстка. Форма добавления задачи - textarea box-shadow для empty/invalid
+  - Вёрстка. Модильная версия {
+    - пейджер - мобильная вресия?
+        - адаптивность таблицы?
+  }
+  - Вёрстка. Можно заморочиться с красивой валидацией форм на Bootstrap 4 {
+      https://bootstrap-4.ru/docs/4.0/components/forms/#validation
+    }
   - Нарисовать схему приложения {
       - изучить как это делается
       - правильно формить
@@ -93,7 +107,6 @@
       https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
     }
   - Перевести на Material UI (https://material-ui.com/)
-
 }
 
 <ПРОЧЕЕ /> {
@@ -330,4 +343,14 @@
   - AJAX, axios, cookie - follow/unfollow {
       https://www.youtube.com/watch?v=oLIrtUrm5us
   }
+  - Методы работы с массивом {
+      - for
+      - forEach - перебор. Для каждого элемента массива вызывает функцию
+      - filter - фильтрация массива через функцию. Создаст новый массив, туда войдут только элементы, для которых вызов функции возвратит true.
+      - map - трансформация массива. Создаст новый массив, туда войдут результаты вызова функции для каждого элемента.
+      - every/some - проверка массива. Возвращает true если функция возвратит true для каждого/хоть одного элемента.
+      - reduce/reduceRight - для последовательной обработки каждого элемента массива с сохранением промежуточного результата. Вычисление на основе массива какого-либо единого значения ("для свёртки массива"). Например сумма всех элементов массива. Для прохода по массиву с вычислением значения.
+      https://habr.com/ru/post/247857/
+      https://learn.javascript.ru/array-iteration
+      }
 }

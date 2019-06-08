@@ -1,0 +1,14 @@
+.loginGroup i,
+.passwordGroup i {
+  left: 8px;
+  top: 5px;
+  color: #b2b2b2;
+}
+.loginGroup input,
+.passwordGroup input {
+  padding-left: 30px;
+}
+.loginGroup input:focus + i:before,
+.passwordGroup input:focus + i:before {
+  color: #80bdff !important;
+}

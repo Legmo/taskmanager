@@ -1,5 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom'
+import { Icon } from 'semantic-ui-react'
+import style from './style.module.css'
 
 const LoginForm = (props) => {
 
@@ -15,25 +17,31 @@ const LoginForm = (props) => {
 
   if (!isLoggedUser) {
     return (
-        <div>
+        <div className="col-lg-4 col-md-10 mx-auto">
           <form name="login_form">
-            <div className="form-group">
+            <div className={style.loginGroup + " form-group position-relative"}>
               <input
                   type="text"
                   name="login"
                   className="form-control"
                   id="exampleInputLogin"
                   aria-describedby="loginHelp"
-                  placeholder="Введите логин"
-                  autoFocus="autofocus" />
+                  placeholder="Логин"
+                  required="on"
+                  autoFocus="autoFocus"
+              />
+              <Icon name='user' className="position-absolute" />
             </div>
-            <div className="form-group">
+            <div className={style.passwordGroup + " form-group position-relative"}>
               <input
                   type="password"
                   name="password"
                   className="form-control"
                   id="exampleInputPassword1"
-                  placeholder="Пароль" />
+                  required="on"
+                  placeholder="Пароль"
+              />
+              <Icon name='lock' className="position-absolute" />
             </div>
             <button
                 type="submit"
