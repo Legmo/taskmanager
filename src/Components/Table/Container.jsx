@@ -36,6 +36,9 @@ class TableContainer extends React.Component {
 
     //TODO: we need to use Flux here. Data from state only (this.props.sortField, this.props.sortDirection)
     this.props.getTasksWithSort(this.props.currentPage, sortField, sortDirection)
+    if(this.props.errorStatus) {
+      alert('Ошибка. Свяжитесь с администратором')
+    }
 
   }
 
