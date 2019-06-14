@@ -84,7 +84,7 @@ const Table = (props) => {
 
 
   if (isLoggedUser) {
-xes    return (
+    return (
       <form>
         <table className={"table sort_" + sortDirection} id={"table"}>
           <thead className="thead-light">
