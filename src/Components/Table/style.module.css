@@ -1,9 +1,6 @@
 .table_row:hover {
   background-color: #f6f9fc;
 }
-.active_col {
-  border: 10px solid red !important;
-}
 .th:nth-child(1),
 .td:nth-child(1) {
   width: 70px
@@ -30,3 +27,5 @@
 .td:nth-child(5) {
   width: 80px
 }
+
+/*See more styles at src/index.css*/

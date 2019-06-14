@@ -2,25 +2,18 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
   tableSort,
-  setTasks,
   toggleIsFetching,
-  updateTotalTaskCount,
   updateTaskText,
   updateTaskStatus,
+  getTasksWithSort,
+  postTaskChanges,
 } from "../../Redux/Actions/tasks_actions";
-import TaskTableAdmin from "./TaskTableAdmin";
-import {tasksAPI} from "../../API/api";
+import ContainerFetching from "./ContainerFetching";
 
 
-class TaskTableAdminContainer extends React.Component {
+class TableContainer extends React.Component {
   componentDidMount() {
-    this.props.toggleIsFetching(true);
-    tasksAPI.getTasksWithSort(this.props.currentPage)
-      .then(data => {
-        this.props.toggleIsFetching(false);
-        this.props.updateTotalTaskCount(data.message.total_task_count)
-        this.props.setTasks(data.message.tasks)
-      });
+    this.props.getTasksWithSort([this.props.currentPage,,])
   }
 
   onSortTable = (event) => {
@@ -38,20 +31,15 @@ class TaskTableAdminContainer extends React.Component {
     this.props.tableSort(sortField, sortDirection);
 
     //TODO: we need to use Flux here. Data from state only (this.props.sortField, this.props.sortDirection)
-    this.props.toggleIsFetching(true);
-    tasksAPI.getTasksWithSort(this.props.currentPage, sortField, sortDirection)
-    // tasksAPI.getTasksWithSort(this.props.currentPage, this.props.sortField, this.props.sortDirection)
-        .then(data => {
-          this.props.toggleIsFetching(false);
-          this.props.updateTotalTaskCount(data.message.total_task_count)
-          this.props.setTasks(data.message.tasks)
-        });
+    this.props.getTasksWithSort(this.props.currentPage, sortField, sortDirection)
+
   }
 
   onStatusChange = (event) => {
-    let id = (event.target.id).replace('exampleRadios', '');
+    let id = +(event.target.id).replace('exampleRadios', '');
     let isChecked = document.getElementById(event.target.id).hasAttribute('checked');
     let status;
+    let taskIndex;
 
     if(isChecked) {
       status = 0;
@@ -61,23 +49,28 @@ class TaskTableAdminContainer extends React.Component {
       (event.target).setAttribute("checked","checked")
     }
 
-    this.props.toggleIsFetching(true);
-    tasksAPI.postTaskChanges([id,status,,])
-      .then(response => {
-        this.props.toggleIsFetching(false);
-      });
+    this.props.postTaskChanges([id,status,,])
 
-    this.props.updateTaskStatus(status, id);
+    this.props.tasks.map((task, index) => {
+     (+task.id === id) && (taskIndex = index);
+    })
+
+    this.props.updateTaskStatus(status, taskIndex);
   }
 
   onTextChangeLocal = (event) => {
     let text = event.target.value;
-    let id   = event.target.id;
+    let id   = +event.target.id;
+    let taskIndex;
 
     let button = event.target.nextElementSibling;
     button.classList.remove("d-none")
 
-    this.props.updateTaskText(text, id);
+    this.props.tasks.map((task, index) => {
+      (+task.id === id) && (taskIndex = index);
+    })
+
+    this.props.updateTaskText(text, taskIndex);
   }
 
   taskTextSend = (event) => {
@@ -87,17 +80,14 @@ class TaskTableAdminContainer extends React.Component {
 
     this.props.tasks.map((task) => (id === task.id) ? text = task.text : "")
 
-    this.props.toggleIsFetching(true);
-    tasksAPI.postTaskChanges([id,,text])
-      .then(response => {
-        this.props.toggleIsFetching(false);
-      });
+    this.props.postTaskChanges([id,,text])
+    this.props.toggleIsFetching(true)
 
     button.classList.add("d-none");
   }
 
   render() {
-    return <TaskTableAdmin
+    return <ContainerFetching
       sortDirection     = {this.props.sortDirection}
       sortField         = {this.props.sortField}
       tableSort         = {this.props.tableSort}
@@ -107,7 +97,8 @@ class TaskTableAdminContainer extends React.Component {
       onStatusChange    = {this.onStatusChange}
       onTextChangeLocal = {this.onTextChangeLocal}
       taskTextSend      = {this.taskTextSend}
-      tableHeaders      = {this.props.table_headers}
+      tableHeaders      = {this.props.tableHeaders}
+      tableCells        = {this.props.table_cells}
       login             = {this.props.login}
       updateTaskStatus  = {this.props.updateTaskStatus}
       updateTaskText    = {this.props.updateTaskText}
@@ -118,9 +109,10 @@ class TaskTableAdminContainer extends React.Component {
 let mapStateToProps = (state) => {
   return {
     tasks:          state.tasks.message.tasks,
-    table_headers:  state.tasks.table_headers,
-    sortField:      state.tasks.sortField,
-    sortDirection:  state.tasks.sortDirection,
+    tableHeaders:   state.tasks.table.table_headers,
+    tableCells:     state.tasks.table.table_cells,
+    sortField:      state.tasks.table.sortField,
+    sortDirection:  state.tasks.table.sortDirection,
     isFetching:     state.tasks.isFetching,
     currentPage:    state.tasks.currentPage,
     tasksCountAll:  state.tasks.message.total_task_count,
@@ -131,9 +123,11 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {//mapDispatchToProps
   tableSort,
-  setTasks,
+  // setTasks,
   toggleIsFetching,
-  updateTotalTaskCount,
+  //updateTotalTaskCount,
   updateTaskText,
   updateTaskStatus,
-})(TaskTableAdminContainer);;
+  getTasksWithSort,
+  postTaskChanges,
+})(TableContainer);

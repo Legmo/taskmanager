@@ -4,15 +4,21 @@ import { Icon } from 'semantic-ui-react'
 import style from './style.module.css'
 
 const LoginForm = (props) => {
+  let adminLogin    = props.adminLogin;
+  let adminPassword = props.adminPassword;
+  let isLoggedUser  = props.isLoggedUser;
 
- let isLoggedUser = props.isLoggedUser;
-
- let isLogin = (e) => {
+ let doLogin = (e) => {
     e.preventDefault();
-    let login    = document.login_form.login.value;
-    let password = document.login_form.password.value;
+    let loginForm    = document.login_form.login.value;
+    let passwordForm = document.login_form.password.value;
 
-    isLoggedUser === false && props.isLogin(login, password);
+    if ((!isLoggedUser) && (loginForm === adminLogin) && (passwordForm === adminPassword)) {
+      props.doLogin(true);
+    }
+    else {
+      alert('Неверный логин или пароль');
+    }
   }
 
   if (!isLoggedUser) {
@@ -47,7 +53,7 @@ const LoginForm = (props) => {
                 type="submit"
                 to="/admin"
                 name="btn"
-                onClick={isLogin}
+                onClick={doLogin}
                 className="btn btn-primary"
             >
               Войти

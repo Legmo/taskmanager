@@ -46,6 +46,7 @@
 - [Redux](https://redux.js.org/) 4
 - [React-Redux](https://react-redux.js.org/) 6
 - [React Router DOM](https://github.com/ReactTraining/react-router#readme) 5
+- [Redux Thunk] (https://github.com/reduxjs/redux-thunk) 2
 - [Axios](https://github.com/axios/axios#readme) 0.18
 - [Bootstrap](https://getbootstrap.com/) 4
 - [Semantic UI React](https://react.semantic-ui.com/) 0.86

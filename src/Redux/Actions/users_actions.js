@@ -1,12 +1,11 @@
-export const IS_LOGOUT         = 'IS-LOGOUT';
-export const IS_LOGIN          = 'IS-LOGIN';
+export const DO_LOGOUT         = 'DO-LOGOUT';
+export const DO_LOGIN          = 'DO-LOGIN';
 
-export const isLogout = (loginLogout) => ({
-  type: IS_LOGOUT,
-  loggedUser: loginLogout,
+export const doLogout = (isUserLogged) => ({
+  type: DO_LOGOUT,
+  isUserLogged: isUserLogged,
 });
-export const isLogin = (login, password) => ({
-  type: IS_LOGIN,
-  login: login,
-  password: password,
+export const doLogin = (isUserLogged) => ({
+  type: DO_LOGIN,
+  isUserLogged: isUserLogged,
 });

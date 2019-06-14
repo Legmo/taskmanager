@@ -1,12 +1,29 @@
 <БЛИЖАЙШИЕ /> {
-  - Избавиться от дублирования кода при отрисовке страниц TaskTable & TaskTable Admin {
-     - Оптимизировать TaskTable & TaskTableAdmin.
-      Вынести таблицу в отдельный компонент? Тогда строки брать из state, как tableHeader
-        }
+  - redux-thunk
+  - перевести AddTaskForm\Container.jsx и \Helpers\Pager\Container.jsx на thunk
+  - В коде нельзя напрямую манипулировать DOM объектами, это нужно делать средствами React {
+    например, так не надо:
+        document.getElementById(sortField).classList.add("active_col");
+    Если ничего толкового не найду - буду использовать React.createRef()
+  }
+  +
+  - настроить поведение при попадании незарегистрированного пользователя на /admin. В частности - подсветку активного пункта меню
+  - поведение пейджера, при переходе из админки на обычную страницу и назад - сохраняется та же страница. Правильно ли это?
+  - убрать лишние ;
+  - перевести этот файл в формат md (вначале сделать копию, на ней потренироваться) + добавить в gitignore
+  - Есть вызовы экшенов подряд. Это будет приводить к последовательным лишним ререндерам.
+  - api контекста старый {
+    https://learn-reactjs.ru/core/context#395
+    https://reactjs.org/docs/legacy-context.html
+    https://habr.com/ru/post/419449/
+  }
+  - PureComponent не используется
+  +
+  - yarn
   - Менять состояние компоненты только на основании данных из props, а не на основании клика {
       - Сортировка - разобраться как правильно принимать направление сортировки asc|desc {
         TaskTable\Container.jsx
-        TaskTableAdmin\Container.jsx
+        Table\Container.jsx
       }
       //TODO: (state, props) => ({counter: state.counter + props.increment})
         let sortFieldState = this.props.sortField
@@ -23,6 +40,12 @@
 
   }
   - StyledComponents
+  +
+  - HOK
+  - hook
+  - Selectors
+  - reselected
+  - redux form
   +
   - Кнопки отправки (addTask, adminTable) - ставить disable на время AJAX-запроса {
       <button disabled={props.following.some(id => id === user.id)} onClick={} />
@@ -70,7 +93,7 @@
         - get (currentPag, sortField, sortDirection)
         - при ответе обновляет updateTotalTaskCount и setTasks
       }
-      - TaskTableAdmin/Container.jsx
+      - Table/Container.jsx
       - componentDidMount - везде одинаков {
         - get (currentPag)
         - при ответе обновляет updateTotalTaskCount и setTasks
@@ -119,7 +142,6 @@
   - Восстановить логин/пароль админа
   - Настроить ESLint и проверить всё
   - Кавычки к одному стилю
-  - isLogout, props.login и т.д. - прописать более внятные названия методов и переменных. Проверить логику
   +
   - Форма - при открытии страницы и сразу после отправки стоит красная обводка. Должна появляться только после попытки отправки и исчезать после успешной отправки
   - Баг: когда админ обновляет страницу - он вылетает из админки. Видимо, потому что используем локальный стэйт, а при обновлении он слетает. Cookies?. {
@@ -137,14 +159,28 @@
   - Админка - прятать кнопку если textarea вернулся в первоначальное состояние без отправки (отменили правки в поле)
   - Валидируем любой пользовательский ввод - https://bootstrap-4.ru/docs/4.0/components/forms/
   - Экранируем вывод. Админка - экранирование текста задачи&
+  +
+  - компонент Table - генерация строк таблицы через map? {
+    let tableCellsAnonymous = props.tableCells.filter((elem) => {
+      if (elem.allowed_users.indexOf('anonymous') != -1) {
+        return true;
+      }
+    })
+    let tableCellsAdmin = props.tableCells.filter((elem) => {
+      if (elem.allowed_users.indexOf('admin') != -1) {
+        return true;
+      }
+    })
 
+
+  }
 }
 
 <ВОПРОСЫ /> {
-  - Проверить правильно ли я передаю данные на сервер в функции onTaskTextPOST (TaskTableAdmin\Container.jsx)
+  - Проверить правильно ли я передаю данные на сервер в функции onTaskTextPOST (Table\Container.jsx)
   - Actions - основное поле переименовать в payload. Было: action.inf стало action.payload
   - Форма добавления задачи - правильно ли, что я вызываю alert прямо в компоненте?
-  - IS_LOGIN: правильно, ли, что я вызываю alert из reducer?
+  - IS_LOGIN: насколько безопасно хранить логин/пароль администратора в Reducer
   - Правильно ли, что у меня сортировка таблицы нахоится в reducer'e tasks?
   - Компоненты и редусеры должны быть чистыми функциями. Не должны взыимодесйствовать с глобальными объектами! Только props (для редусеров - state & actions)! Ну, и не должны использовать внутренний state.
   - Плохо, что использую Rdirect и if/else в LoginForm & TaskTableAdmin
@@ -196,7 +232,7 @@
   - Reducer - как менять массив объектов при помощи Map {
     - https://www.youtube.com/watch?v=ceSZUZZaW30
   }
-  - Rопирование стэйта {
+  - Копирование стэйта {
     let stateCopy = {
       ...state,
       messages: {...state.messages}
@@ -353,4 +389,51 @@
       https://habr.com/ru/post/247857/
       https://learn.javascript.ru/array-iteration
       }
+  - Передать все пропсы из родителя в дочерний компонент: <Table {...props} />
+  - Из редюсеров логику желательно выносить {
+      например, эту:
+        stateCopy.message.tasks.map((task) => {
+          +task.id === taskId && (task.text = newString);
+        })
+      и эту:
+        case IS_LOGIN: {
+          let stateCopy = {...state};
+          if (
+              (!stateCopy.loggedUser) &&
+              (action.login === adminLogin) &&
+              (action.password === adminPassword)
+          ) {
+            stateCopy.loggedUser = true;
+          }
+          else {
+            alert('Неверный логин или пароль');
+          }
+          return stateCopy;
+        }
+    }
+  - Перебор обектов X в массиве tableCells. Смотрим содержимое массива allowed_users, если там есть значение "anonymous" - выписываем объект X в новый массив {
+    table_cells: [
+      {
+        "cell_id":"id",
+        "cell_type":"integer",
+        "allowed_users": [
+          "anonymous",
+          "admin"
+        ]
+      },
+      {
+        "cell_id":"username",
+        "cell_type":"text",
+        "allowed_users": [
+          "anonymous",
+          "admin"
+        ]
+      },
+    ]
+    let tableCellsAnonymous = props.tableCells.filter((elem) => {
+      if (elem.allowed_users.indexOf('anonymous') != -1) {
+        return true;
+      }
+    })
+  }
 }

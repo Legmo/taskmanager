@@ -3,11 +3,12 @@ import style from './style.module.css'
 import {NavLink} from 'react-router-dom';
 
 const Navigation = (props) => {
-  let taskListLinkURL = props.login ? "/admin" : "/";
-  let adminLinkText   = props.login ? "Выйти" : "Войти";
+  let isUserLogged    = props.login;
+  let taskListLinkURL = isUserLogged ? "/admin" : "/";
+  let adminLinkText   = isUserLogged ? "Выйти" : "Войти";
 
-  let isLogout = () => {
-    props.login && props.isLogout(!props.login);
+  const doLogout = () => {
+    isUserLogged && props.doLogout(!isUserLogged);
   }
 
   return (
@@ -29,7 +30,7 @@ const Navigation = (props) => {
         </NavLink>
         <NavLink
             to={"/login"}
-            onClick ={isLogout}
+            onClick ={doLogout}
             activeClassName={style.active}
             className="font-weight-light mx-auto"
         >

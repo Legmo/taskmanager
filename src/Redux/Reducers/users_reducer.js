@@ -1,36 +1,28 @@
 import {
-  IS_LOGIN,
-  IS_LOGOUT,
+  DO_LOGIN,
+  DO_LOGOUT,
 } from '../Actions/users_actions'
 
 const initialState = {
     loggedUser: false,
+    adminLogin: "admin", //TODO: improve security
+    adminPassword: "123", //TODO: improve security
 };
-
-const adminLogin = "admin";
-const adminPassword = "123";
 
 const users_reducer = (state = initialState, action) => {
   switch(action.type) {
-    case IS_LOGOUT: {
+    case DO_LOGOUT: {
       return  {
         ...state,
-        loggedUser: action.loggedUser,
+        loggedUser: action.isUserLogged,
       };
     }
-    case IS_LOGIN: {
-      let stateCopy = {...state};
-      if (
-          (!stateCopy.loggedUser) &&
-          (action.login === adminLogin) &&
-          (action.password === adminPassword)
-      ) {
-        stateCopy.loggedUser = true;
-      }
-      else {
-        alert('Неверный логин или пароль');
-      }
-      return stateCopy;
+    case DO_LOGIN: {
+      console.log(action)
+      return  {
+        ...state,
+        loggedUser: action.isUserLogged,
+      };
     }
     default:
       return state;

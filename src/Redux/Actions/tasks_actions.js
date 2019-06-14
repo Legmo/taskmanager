@@ -1,3 +1,5 @@
+import {tasksAPI} from "../../API/api";
+
 export const CLEAR_NEW_TASK           = 'CLEAR-NEW-TASK';
 export const UPDATE_TASK_TEXT         = 'UPDATE-TASK-TEXT';
 export const UPDATE_NEW_TASK_TEXT     = 'UPDATE-NEW-TASK-TEXT';
@@ -13,10 +15,10 @@ export const UPDATE_TOTAL_TASK_COUNT  = 'UPDATE-TOTAL-TASK-COUNT';
 export const clearNewTask = () => ({
   type: CLEAR_NEW_TASK,
 });
-export const updateTaskText = (text, id) => ({
+export const updateTaskText = (text, index) => ({
   type: UPDATE_TASK_TEXT,
   newTaskText: text,
-  taskId: id,
+  taskIndex: index,
 });
 export const updateNewTaskText = (text) => ({
   type: UPDATE_NEW_TASK_TEXT,
@@ -30,10 +32,10 @@ export const updateAuthorText = (name) => ({
   type: UPDATE_AUTHOR_TEXT,
   newAuthorText: name,
 });
-export const updateTaskStatus = (status, id) => ({
+export const updateTaskStatus = (status, index) => ({
   type: UPDATE_TASK_STATUS,
   newStatus: status,
-  taskId: id,
+  taskIndex: index,
 });
 export const tableSort = (sort_field, sort_direction) => ({
   type: TABLE_SORT,
@@ -56,3 +58,27 @@ export const updateTotalTaskCount = (taskCount) => ({
   type: UPDATE_TOTAL_TASK_COUNT,
   taskCount: taskCount,
 });
+
+
+//Thunk
+export const getTasksWithSort = (currentPage, sortField, sortDirection) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+
+    tasksAPI.getTasksWithSort([currentPage, sortField, sortDirection])
+      .then(data => {
+        dispatch(toggleIsFetching(false))
+        dispatch(updateTotalTaskCount(data.message.total_task_count))
+        dispatch(setTasks(data.message.tasks))
+      });
+  }
+}
+export const postTaskChanges = (id, status, text) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    tasksAPI.postTaskChanges([id, status, text])
+        .then(response => {
+          dispatch(toggleIsFetching(false))
+        });
+  }
+}

@@ -11,42 +11,118 @@ import {
   UPDATE_CURRENT_PAGE,
   UPDATE_TOTAL_TASK_COUNT
 } from '../Actions/tasks_actions'
-import _ from "lodash";
+// import _ from "lodash";
 
 const initialState = {
     message: {
       tasks: [],
       total_task_count: ""
     },
-    table_headers: [
-      {
-        "header_id":"id",
-        "header_name":"ID"
-      },
-      {
-        "header_id":"username",
-        "header_name":"Пользователь"
-      },
-      {
-        "header_id":"email",
-        "header_name":"Email"
-      },
-      {
-        "header_id":"text",
-        "header_name":"Задача"
-      },
-      {
-        "header_id":"status",
-        "header_name":"Статус"
-      },
-    ],
     newTask: {
       text: "",
       author: "",
       mail: "",
     },
-    sortField: "id",
-    sortDirection: "asc",
+    table: {
+      table_headers: [
+        {
+          "header_id":"id",
+          "header_name":"ID",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+        {
+          "header_id":"username",
+          "header_name":"Пользователь",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+        {
+          "header_id":"email",
+          "header_name":"Email",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+        {
+          "header_id":"text",
+          "header_name":"Задача",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+        {
+          "header_id":"status",
+          "header_name":"Статус",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+      ],
+      table_cells: [
+        {
+          "cell_id":"id",
+          "cell_type":"integer",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+        {
+          "cell_id":"username",
+          "cell_type":"text",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+        {
+          "cell_id":"email",
+          "cell_type":"text",
+          "allowed_users": [
+            "anonymous",
+            "admin"
+          ]
+        },
+        {
+          "cell_id":"text_anonymous",
+          "cell_type":"text",
+          "allowed_users": [
+            "anonymous",
+          ]
+        },
+        {
+          "cell_id":"text_admin",
+          "cell_type":"textarea",
+          "allowed_users": [
+            "admin"
+          ]
+        },
+        {
+          "cell_id":"status_anonymous",
+          "cell_type":"text",
+          "allowed_users": [
+            "anonymous",
+          ]
+        },
+        {
+          "cell_id":"status_admin",
+          "cell_type":"radio-button",
+          "allowed_users": [
+            "admin"
+          ]
+        },
+      ],
+      sortField: "id",
+      sortDirection: "asc",
+    },
     currentPage: 1,
     isFetching: false,
 };
@@ -64,6 +140,8 @@ const tasks_reducer = (state = initialState, action) => {
       };
     }
     case UPDATE_TASK_TEXT: {
+      let taskIndex   = action.taskIndex;
+      let newTaskText = action.newTaskText;
       let stateCopy = {
         ...state,
         message: {
@@ -71,12 +149,7 @@ const tasks_reducer = (state = initialState, action) => {
           tasks : [...state.message.tasks],
         },
       };
-
-      let newString = action.newTaskText;
-      let taskId = +action.taskId;
-      stateCopy.message.tasks.map((task) => {
-        +task.id === taskId && (task.text = newString);
-      })
+      stateCopy.message.tasks[taskIndex].text = newTaskText;
 
       return stateCopy;
     }
@@ -108,6 +181,8 @@ const tasks_reducer = (state = initialState, action) => {
       };
     }
     case UPDATE_TASK_STATUS: {
+      let newStatus = action.newStatus;
+      let taskIndex = action.taskIndex;
       let stateCopy = {
         ...state,
         message: {
@@ -115,12 +190,7 @@ const tasks_reducer = (state = initialState, action) => {
           tasks : [...state.message.tasks],
         },
       };
-
-      let newStatus = action.newStatus;
-      let taskId = +action.taskId;
-      stateCopy.message.tasks.map((task) => {
-         +task.id === taskId && (task.status = newStatus);
-      })
+      stateCopy.message.tasks[taskIndex].status = newStatus;
 
       return stateCopy;
     }
@@ -131,8 +201,11 @@ const tasks_reducer = (state = initialState, action) => {
           ...state.message,
           tasks : [...state.message.tasks],
         },
-        sortField: action.sortField,
-        sortDirection: action.sortDirection,
+        table: {
+          ...state.table,
+          sortField: action.sortField,
+          sortDirection: action.sortDirection,
+        },
       };
 
     //If we need to sort this page only - use lodash. Without all tasks sorting & page reload.
