@@ -18,7 +18,6 @@ const users_reducer = (state = initialState, action) => {
       };
     }
     case DO_LOGIN: {
-      console.log(action)
       return  {
         ...state,
         loggedUser: action.isUserLogged,

@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom';
 
 const Navigation = (props) => {
   let isUserLogged    = props.login;
-  let taskListLinkURL = isUserLogged ? "/admin" : "/";
   let adminLinkText   = isUserLogged ? "Выйти" : "Войти";
 
   const doLogout = () => {
@@ -15,7 +14,7 @@ const Navigation = (props) => {
       <div className={style.nav_parent + ' mt-3'}>
         <NavLink
             exact
-            to={taskListLinkURL}
+            to={"/"}
             activeClassName={style.active}
             className="font-weight-light mx-auto pr-3"
         >

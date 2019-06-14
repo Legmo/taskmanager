@@ -125,6 +125,7 @@ const initialState = {
     },
     currentPage: 1,
     isFetching: false,
+    hasError: false,
 };
 
 const tasks_reducer = (state = initialState, action) => {

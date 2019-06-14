@@ -9,18 +9,7 @@ import 'semantic-ui-css/semantic.min.css'
 import style from './style.module.css'
 
 class App extends Component {
-
   render() {
-    let pageAddTask = () => {
-      return <AddTaskFormContainer />
-    }
-    let pageLogin = () => {
-      return <LoginFormContainer />
-    }
-    let pageTable = () => {
-      return <TableContainer />
-    }
-
     return (
         <div className={style.wrapper}>
           <div className={style.content}>
@@ -29,10 +18,9 @@ class App extends Component {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-10 mt-5 mx-auto">
-                    <Route path='/' exact   render={pageTable}/>
-                    <Route path='/add_task' render={pageAddTask}/>
-                    <Route path='/login'    render={pageLogin}/>
-                    <Route path='/admin'    render={pageTable}/>
+                    <Route path='/' exact   render={() => <TableContainer />}/>
+                    <Route path='/add_task' render={() => <AddTaskFormContainer />}/>
+                    <Route path='/login'    render={() => <LoginFormContainer />}/>
                   </div>
                 </div>
               </div>

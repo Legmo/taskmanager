@@ -6,7 +6,8 @@ import {
   updateTaskText,
   updateTaskStatus,
   getTasksWithSort,
-  postTaskChanges,
+  postTaskStatus,
+  postTaskText, updateTotalTaskCount, setTasks,
 } from "../../Redux/Actions/tasks_actions";
 import ContainerFetching from "./ContainerFetching";
 
@@ -14,6 +15,9 @@ import ContainerFetching from "./ContainerFetching";
 class TableContainer extends React.Component {
   componentDidMount() {
     this.props.getTasksWithSort([this.props.currentPage,,])
+    if(this.props.errorStatus) {
+      alert('Ошибка. Свяжитесь с администратором')
+    }
   }
 
   onSortTable = (event) => {
@@ -41,21 +45,21 @@ class TableContainer extends React.Component {
     let status;
     let taskIndex;
 
-    if(isChecked) {
-      status = 0;
-      (event.target).removeAttribute ("checked")
-    } else {
-      status = 10;
-      (event.target).setAttribute("checked","checked")
+    isChecked ? status = 0 : status = 10;
+
+    this.props.postTaskStatus([id,status])
+
+    if(!this.props.errorStatus) {
+      isChecked ? (event.target).removeAttribute ("checked") : (event.target).setAttribute("checked","checked");
+
+      this.props.tasks.map((task, index) => {
+       (+task.id === id) && (taskIndex = index);
+      })
+      this.props.updateTaskStatus(status, taskIndex);
     }
-
-    this.props.postTaskChanges([id,status,,])
-
-    this.props.tasks.map((task, index) => {
-     (+task.id === id) && (taskIndex = index);
-    })
-
-    this.props.updateTaskStatus(status, taskIndex);
+    else {
+      alert('Ошибка отправки. Свяжитесь с администратором')
+    }
   }
 
   onTextChangeLocal = (event) => {
@@ -64,7 +68,7 @@ class TableContainer extends React.Component {
     let taskIndex;
 
     let button = event.target.nextElementSibling;
-    button.classList.remove("d-none")
+    button.classList.remove("d-none");
 
     this.props.tasks.map((task, index) => {
       (+task.id === id) && (taskIndex = index);
@@ -78,30 +82,35 @@ class TableContainer extends React.Component {
     let text = "";
     let button = event.target;
 
-    this.props.tasks.map((task) => (id === task.id) ? text = task.text : "")
+    this.props.tasks.map((task) => (id === task.id) ? text = task.text : "");
 
-    this.props.postTaskChanges([id,,text])
-    this.props.toggleIsFetching(true)
+    this.props.postTaskText([id,text]);
 
-    button.classList.add("d-none");
+    if(!this.props.errorStatus) {
+      this.props.toggleIsFetching(true);
+      button.classList.add("d-none");
+    }
+    else {
+      alert('Ошибка отправки. Свяжитесь с администратором')
+    }
   }
 
   render() {
     return <ContainerFetching
+      tasks             = {this.props.tasks}
       sortDirection     = {this.props.sortDirection}
       sortField         = {this.props.sortField}
       tableSort         = {this.props.tableSort}
-      tasks             = {this.props.tasks}
       isFetching        = {this.props.isFetching}
-      onSortTable       = {this.onSortTable}
-      onStatusChange    = {this.onStatusChange}
-      onTextChangeLocal = {this.onTextChangeLocal}
-      taskTextSend      = {this.taskTextSend}
       tableHeaders      = {this.props.tableHeaders}
       tableCells        = {this.props.table_cells}
       login             = {this.props.login}
       updateTaskStatus  = {this.props.updateTaskStatus}
       updateTaskText    = {this.props.updateTaskText}
+      onSortTable       = {this.onSortTable}
+      onStatusChange    = {this.onStatusChange}
+      onTextChangeLocal = {this.onTextChangeLocal}
+      taskTextSend      = {this.taskTextSend}
     />
   }
 }
@@ -109,25 +118,24 @@ class TableContainer extends React.Component {
 let mapStateToProps = (state) => {
   return {
     tasks:          state.tasks.message.tasks,
+    errorStatus:    state.tasks.hasError,
+    tasksCountAll:  state.tasks.message.total_task_count,
     tableHeaders:   state.tasks.table.table_headers,
     tableCells:     state.tasks.table.table_cells,
     sortField:      state.tasks.table.sortField,
     sortDirection:  state.tasks.table.sortDirection,
     isFetching:     state.tasks.isFetching,
     currentPage:    state.tasks.currentPage,
-    tasksCountAll:  state.tasks.message.total_task_count,
-    newTaskText:    state.tasks.newTaskText,
     login:          state.users.loggedUser,
   }
 }
 
 export default connect(mapStateToProps, {//mapDispatchToProps
   tableSort,
-  // setTasks,
   toggleIsFetching,
-  //updateTotalTaskCount,
   updateTaskText,
   updateTaskStatus,
   getTasksWithSort,
-  postTaskChanges,
+  postTaskStatus,
+  postTaskText,
 })(TableContainer);

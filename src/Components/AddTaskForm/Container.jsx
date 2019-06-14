@@ -6,7 +6,9 @@ import {
   toggleIsFetching,
   updateNewTaskText,
   updateMailText,
-  updateAuthorText } from "../../Redux/Actions/tasks_actions";
+  updateAuthorText,
+  postNewTask,
+} from "../../Redux/Actions/tasks_actions";
 import * as axios from "axios";
 
 
@@ -28,25 +30,22 @@ class AddTaskFormContainer extends React.Component {
 
   newTaskSubmit = (event) => {
     event.preventDefault();
-    let url = `https://uxcandy.com/~shapoval/test-task-backend/create?developer=Name`;
-    let params = new FormData();
-    params.append("username", this.props.newAuthorText);
-    params.append("email",    this.props.newMailText);
-    params.append("text",     this.props.newTaskText);
+    let username = this.props.newAuthorText
+    let email    = this.props.newMailText
+    let text     = this.props.newTaskText
 
-    this.props.toggleIsFetching(true);
+    this.props.postNewTask([username, email, text])
 
-    axios.post(url, params)
-      .then(response => {
-        this.props.toggleIsFetching(false);
-        this.props.clearNewTask();
-        alert('Задача отправлена');
-      });
-
-    event.target.elements.taskText.value = '';
-    event.target.elements.taskAuthor.value = '';
-    event.target.elements.taskMail.value = '';
-
+    if(!this.props.errorStatus) {
+      this.props.clearNewTask()
+      alert('Задача отправлена')
+      event.target.elements.taskText.value = '';
+      event.target.elements.taskAuthor.value = '';
+      event.target.elements.taskMail.value = '';
+    }
+    else {
+      alert('Ошибка отправки. Свяжитесь с администратором')
+    }
   }
 
   render() {
@@ -73,5 +72,6 @@ export default connect(mapStateToProps, {//mapDispatchToProps
   updateMailText,
   updateAuthorText,
   toggleIsFetching,
+  postNewTask,
 })(AddTaskFormContainer);
 

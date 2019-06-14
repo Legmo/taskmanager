@@ -1,4 +1,4 @@
-import {tasksAPI} from "../../API/api";
+import {tasksAPI, pagesAPI} from "../../API/api";
 
 export const CLEAR_NEW_TASK           = 'CLEAR-NEW-TASK';
 export const UPDATE_TASK_TEXT         = 'UPDATE-TASK-TEXT';
@@ -9,6 +9,7 @@ export const UPDATE_TASK_STATUS       = 'UPDATE-TASK-STATUS';
 export const TABLE_SORT               = 'TABLE-SORT';
 export const SET_TASKS                = 'SET-TASKS';
 export const TOGGLE_IS_FETCHING       = 'TOGGLE-IS-FETCHING';
+export const SET_ERROR_STATUS         = 'SET_ERROR-STATUS';
 export const UPDATE_CURRENT_PAGE      = 'UPDATE-CURRENT-PAGE';
 export const UPDATE_TOTAL_TASK_COUNT  = 'UPDATE-TOTAL-TASK-COUNT';
 
@@ -58,9 +59,12 @@ export const updateTotalTaskCount = (taskCount) => ({
   type: UPDATE_TOTAL_TASK_COUNT,
   taskCount: taskCount,
 });
+export const setErrorStatus = (status) => ({
+  type: SET_ERROR_STATUS,
+  status: status,
+});
 
-
-//Thunk
+//Thunks
 export const getTasksWithSort = (currentPage, sortField, sortDirection) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
@@ -68,12 +72,80 @@ export const getTasksWithSort = (currentPage, sortField, sortDirection) => {
     tasksAPI.getTasksWithSort([currentPage, sortField, sortDirection])
       .then(data => {
         dispatch(toggleIsFetching(false))
-        dispatch(updateTotalTaskCount(data.message.total_task_count))
-        dispatch(setTasks(data.message.tasks))
+        if(data.status !== "error") {
+          dispatch(setErrorStatus(false))
+          dispatch(updateTotalTaskCount(data.message.total_task_count))
+          dispatch(setTasks(data.message.tasks))
+        }
+        else {
+          dispatch(setErrorStatus(true))
+        }
       });
   }
 }
-export const postTaskChanges = (id, status, text) => {
+export const postTaskStatus = ([id, status]) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    tasksAPI.postTaskStatus([id, status])
+        .then(response => {
+          dispatch(toggleIsFetching(false))
+          if(response.data.status !== "error") {
+            dispatch(setErrorStatus(false))
+          }
+          else {
+            dispatch(setErrorStatus(true))
+          }
+        });
+  }
+}
+export const postTaskText = ([id, text]) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    tasksAPI.postTaskText([id, text])
+        .then(response => {
+          dispatch(toggleIsFetching(false))
+          if(response.data.status !== "error") {
+            dispatch(setErrorStatus(false))
+          }
+          else {
+            dispatch(setErrorStatus(true))
+          }
+        });
+  }
+}
+export const postNewTask = ([username, email, text]) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    tasksAPI.postNewTask([username, email, text])
+      .then(response => {
+          dispatch(toggleIsFetching(false))
+          if(response.data.status !== "error") {
+            dispatch(setErrorStatus(false))
+          }
+          else {
+            dispatch(setErrorStatus(true))
+          }
+        });
+  }
+}
+export const getURL = (pageNumber, sortField, sortDirection) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    pagesAPI.getURL(pageNumber, sortField, sortDirection)
+        .then(response => {
+          dispatch(toggleIsFetching(false))
+          if(response.data.status !== "error") {
+            dispatch(setErrorStatus(false))
+            dispatch(setTasks(response.data.message.tasks))
+          }
+          else {
+            dispatch(setErrorStatus(true))
+          }
+        });
+  }
+}
+/*
+export const postTaskChanges = ([id, status, text]) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true))
     tasksAPI.postTaskChanges([id, status, text])
@@ -82,3 +154,4 @@ export const postTaskChanges = (id, status, text) => {
         });
   }
 }
+*/

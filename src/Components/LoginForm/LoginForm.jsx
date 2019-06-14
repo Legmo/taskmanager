@@ -51,7 +51,7 @@ const LoginForm = (props) => {
             </div>
             <button
                 type="submit"
-                to="/admin"
+                to="/"
                 name="btn"
                 onClick={doLogin}
                 className="btn btn-primary"
@@ -65,7 +65,7 @@ const LoginForm = (props) => {
         </div>
     )
   }
-  return <Redirect to='/admin'/>
+  return <Redirect to='/'/>
 }
 
 

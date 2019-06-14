@@ -83,7 +83,8 @@ const Table = (props) => {
   })
 
 
-  if (isLoggedUser) {
+  // if (isLoggedUser) {
+  if (true) {
     return (
       <form>
         <table className={"table sort_" + sortDirection} id={"table"}>
