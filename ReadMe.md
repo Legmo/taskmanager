@@ -119,7 +119,7 @@ There are no special requirements for design.<br>
 **Backend API**    
 - backend documentation is [here](https://uxcandy.com/~shapoval/test-task-backend/docs.html)   
 
-:arrow_up: [Оглавление](#table_of_contents)    
+:arrow_up: [Table of contents](#table_of_contents)    
 
 <a name="en_stack"></a>
 ## Technologies stack
@@ -135,7 +135,7 @@ There are no special requirements for design.<br>
           
 This project on [GitHub](https://github.com/Legmo/taskmanager).
    
-:arrow_up: [Оглавление](#table_of_contents)    
+:arrow_up: [Table of contents](#table_of_contents)    
 
 <a name="en_commands"></a>
 ## Basic console commands
@@ -164,4 +164,4 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
    
 
-:arrow_up: [Оглавление](#table_of_contents)    
+:arrow_up: [Table of contents](#table_of_contents)    
