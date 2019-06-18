@@ -1,58 +1,64 @@
 ## БЛИЖАЙШИЕ
   - Ещё раз всё проверить
-  - В коде нельзя напрямую манипулировать DOM объектами, это нужно делать средствами React
-    - например, так не надо: document.getElementById(sortField).classList.add("active_col");
-    - Если ничего толкового не найду - буду использовать React.createRef()
-    - event.target.getAttribute - видимо туда же
-  +
-  - убрать лишние ;
-  - Есть вызовы экшенов подряд. Это будет приводить к последовательным лишним ререндерам.
-  - API - вернуть единый метод для отправки status & text?
-  - api контекста старый
-    - https://learn-reactjs.ru/core/context#395
-    - https://reactjs.org/docs/legacy-context.html
-    - https://habr.com/ru/post/419449/
-  - PureComponent не используется
-  +
-  - yarn
-  - Менять состояние компоненты только на основании данных из props, а не на основании клика {
-      - Сортировка - разобраться как правильно принимать направление сортировки asc|desc {
+  - Redux-thunk
+      https://www.youtube.com/watch?v=yOcR_flZ0vo&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=8
+  - Не манипулировать DOM объектами напрямую, это нужно делать средствами React
+     например, так не надо: document.getElementById(sortField).classList.add("active_col");
+     Если ничего толкового не найду - буду использовать React.createRef()
+     event.target.getAttribute - видимо туда же
+  - Менять состояние компоненты только на основании данных из props, а не на основании клика 
+    Сортировка - разобраться как правильно принимать направление сортировки asc|desc {
         TaskTable\Container.jsx
         Table\Container.jsx
       }
-      //TODO: (state, props) => ({counter: state.counter + props.increment})
+    //TODO: (state, props) => ({counter: state.counter + props.increment})
         let sortFieldState = this.props.sortField
         let sortDirectionState = this.props.sortDirection
-  }
-  - Строгая типизация (Flow. Возможно позже - PropTypes) {
-    https://habr.com/ru/post/326304/?_ga=2.268646129.1491001003.1559827573-1008668787.1555910378
-  }
-  - Тесты {
-    https://learn.javascript.ru/testing
-    https://code.tutsplus.com/ru/articles/testing-components-in-react-using-jest-the-basics--cms-28934
-    https://habr.com/ru/post/340514/
-    https://medium.com/devschacht/berry-de-witte-unit-testing-your-react-application-with-jest-and-enzyme-6ef3658fdc93
-
-  }
+  - Есть вызовы экшенов подряд. Это будет приводить к последовательным лишним ререндерам.
+  +
+  - Настроить ESLint и проверить всё
+  - Убрать лишние точки с запятой в концах строк
+  - Кавычки к одному стилю
+  - Нарисовать схему приложения
+      изучить как это делается
+      правильно формить
+      прикрепить ссылку в ReadMe проекта - https://clck.ru/GGBno
+  - Убрать все лишние todo
+  - Убрать все лишние комментарии, подправить те что нужны
+  - Убрать все консоль-логи
+  - Проверить все импорты
+  +
+  - Yarn
+  - Строгая типизация (Flow. Возможно позже - PropTypes) 
+      https://habr.com/ru/post/326304/?_ga=2.268646129.1491001003.1559827573-1008668787.1555910378
+  - Тесты
+      https://learn.javascript.ru/testing
+      https://code.tutsplus.com/ru/articles/testing-components-in-react-using-jest-the-basics--cms-28934
+      https://habr.com/ru/post/340514/
+      https://medium.com/devschacht/berry-de-witte-unit-testing-your-react-application-with-jest-and-enzyme-6ef3658fdc93
   - StyledComponents
-  +
   - HOK
-  - hook
+  - Hook
   - Selectors
-  - reselected
-  - redux form
-  +
-  - Кнопки отправки (addTask, adminTable) - ставить disable на время AJAX-запроса {
+  - Reselected
+  - Redux form
+  - Context API старый
+      https://learn-reactjs.ru/core/context#395
+      https://reactjs.org/docs/legacy-context.html
+      https://habr.com/ru/post/419449/
+  - PureComponent не используется
+  - Перевести на Material UI (https://material-ui.com/)
+
+## Прочее
+  - Кнопки отправки (addTask, adminTable) - ставить disable на время AJAX-запроса 
       <button disabled={props.following.some(id => id === user.id)} onClick={} />
       Если в массиве хоть один id совпадёт с user.id (из стэйта) - в disabled будет true
       https://www.youtube.com/watch?v=iobMksCYGHE&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=63
-    }
   - Переключение чекбокса + одновременно выставление статуса в state - поробовать консутркцию в стиле {
     var sayHi = (age >= 18) ?
         function() { alert('Прошу Вас!');  } :
         function() { alert('До 18 нельзя'); };
     sayHi();
-  }
   - Добавление-удаление id из массива, в зависимости от пришедшего true/false {
       Если action.isFetching = true  - делаем копию массива state.following и дописываем в конец пришедший action.userId.
       Если action.isFetching = false - делаем копию массива state.following и убираем из него id = пришедшему action.userId
@@ -65,103 +71,36 @@
           )
         )
       https://www.youtube.com/watch?v=iobMksCYGHE&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=63
-    }
-  - Обработка ошибок обмена с бэкендом
   - Написать изящнее - смена активной колонки по клику в onSortTable {
       let firstActiveTh = document.getElementsByClassName("active_col")[0];
       firstActiveTh && firstActiveTh.classList.remove("active_col");
       document.getElementById(sortField).classList.add("active_col");
-  }
-  +
-  - Оптимизация получения / отправки данных {
-      - AddTaskForm/Container.jsx
-      - newTaskSubmit {
-        - post ("username", "email", "text")
-        - ghb ответе обновляет clearNewTask и выводит alert
-      }
-      - TaskTable/Container.jsx
-      - componentDidMount - везде одинаков {
-        - get (currentPag, sortField, sortDirection)
-        - при ответе обновляет updateTotalTaskCount и setTasks
-      }
-      - onSortTable - везде одинаков {
-        - get (currentPag, sortField, sortDirection)
-        - при ответе обновляет updateTotalTaskCount и setTasks
-      }
-      - Table/Container.jsx
-      - componentDidMount - везде одинаков {
-        - get (currentPag)
-        - при ответе обновляет updateTotalTaskCount и setTasks
-      }
-      - onSortTable - везде одинаков {
-        - get (currentPag, sortField, sortDirection)
-        - при ответе обновляет updateTotalTaskCount и setTasks
-      }
-      - taskChangesPOST {
-        - post (token, siagnature, id, status, text,)
-        - ответа нет
-      }
-
-      - Или выносить в отдельные компоненты таблицы авторизированного/нормального пользователя
-
-    }
-  - Асинхронность + middleware redux-thunk {
-      https://www.youtube.com/watch?v=yOcR_flZ0vo&list=PLIcAMDxr6tprSzqKmfhDiW00GWbDcs8lE&index=8
-    }
-  - Вёрстка. Форма добавления задачи - textarea box-shadow для empty/invalid
-  - Вёрстка. Мо,ильная версия {
-    - пейджер - мобильная вресия?
-        - адаптивность таблицы?
-  }
-  - Вёрстка. Можно заморочиться с красивой валидацией форм на Bootstrap 4 {
+  - Вёрстка. Красная рамка формы добавления задачи 
+    textarea box-shadow для empty/invalid
+    Форма - при открытии страницы и сразу после отправки стоит красная обводка. Должна появляться только после попытки отправки и исчезать после успешной отправки
+  - Вёрстка. Мобильная версия 
+      пейджер - мобильная вресия?
+      адаптивность таблицы?
+  - Вёрстка. Красивая валидация форм на Bootstrap 4. Можно заморочиться 
       https://bootstrap-4.ru/docs/4.0/components/forms/#validation
-    }
-  - Нарисовать схему приложения {
-      - изучить как это делается
-      - правильно формить
-      - прикрепить ссылку в ReadMe проекта (https://clck.ru/GGBno)
-  }
-  - Стрелки-индикаторы на шапке таблицы можно добавлять с помощью модуля bem-cn {
+  - Стрелки-индикаторы в шапке таблицы можно добавлять с помощью модуля bem-cn
       https://vaeum.com/2017/03/08/sozdaiem-tablitsu-s-sortirovkoi-strok-na-react-js/
-    }
-  - Перевести на Material UI (https://material-ui.com/)
-  - Может быть стоит вынести работу со страницами в отдельный блок (reducer, actions)?.
-  - Обработка ошибок thunk (alert, изменение статуса задачи...) Паравильно ли делаю?. {
     - может надо вынести свойство hasError из task_reducer в другую ветку стэйта?
         - должно ли это свойство быть по умолчанию false?
         - может вообще нужен другой метод?
-  }
-}
-
-## Прочее
-  - Чистить {
-    - убрать все лишние todo
-    - комментарии
-    - консоль-логи
-    - проверить все импорты
-  }
-  - Восстановить логин/пароль админа
-  - Настроить ESLint и проверить всё
-  - Кавычки к одному стилю
-  +
-  - Форма - при открытии страницы и сразу после отправки стоит красная обводка. Должна появляться только после попытки отправки и исчезать после успешной отправки
-  - Баг: когда админ обновляет страницу - он вылетает из админки. Видимо, потому что используем локальный стэйт, а при обновлении он слетает. Cookies?. {
+  - Баг: когда админ обновляет страницу - он вылетает из админки. 
+      Видимо, потому что используем локальный стэйт, а при обновлении он слетает. Cookies?. {
       Туда же: когда админ переходит по другому адресу (набирает в адресной строке) - он вылетает из админки
     }
-  - Надо ли в setTasks и подобных полностью затирать и презаписывать стэйт, или надо добавлять данные к существующему?.
   - Проверить, откуда вызывается функция соритировки данных. Из самой компоненты, либо снаружи {
       http://abcinblog.blogspot.com/2019/02/react-i.html
       Наша задача сделать так, чтобы по клику на заголовок таблицы, данные в каждом столбце сортировались в порядке возрастания (чисел и по алфавиту). При повторном клике, сортировка в обратную сторону. Для этого нам нужно написать функцию сортировки (мы это сделаем с помощью библиотеки Lodash), передать ее в виде props компоненту Table, повесить событие onClickс этой функцией на заголовок таблицы и передать в эту функцию название столбца ( id, firstName, lastName или phone ). Там же - проверить как работает сортировка столбцов при получении данных с сервреа. Настроить её. Особенно - если листаем страницы пейджером
   }
-  - Почему не добавляется ToDo.js в .gitignore ?.
-  - Объединить задачи UpdateTaskText & UpdateNewTaskText в редусере. Реально?
-  - Разобраться с thunk. Например, в TaskTable можно было бы вынести <tbody> в отдельную перемнную/метод (tableElements). Но, для этого надо реализовать нормальную асинхронность
-  - Переписать на хуки
-  - Админка - прятать кнопку если textarea вернулся в первоначальное состояние без отправки (отменили правки в поле)
+  - Админка - прятать кнопку если textarea вернулся в первоначальное состояние без отправки 
+      Если отменили правки в textarea, и вренули текст "как было"
   - Валидируем любой пользовательский ввод - https://bootstrap-4.ru/docs/4.0/components/forms/
   - Экранируем вывод. Админка - экранирование текста задачи&
-  +
-  - компонент Table - генерация строк таблицы через map? {
+  - Компонент Table - настроить генерацию строк таблицы через map?
     let tableCellsAnonymous = props.tableCells.filter((elem) => {
       if (elem.allowed_users.indexOf('anonymous') != -1) {
         return true;
@@ -172,10 +111,11 @@
         return true;
       }
     })
-
-
-  }
-}
+  - API - вернуть единый метод для отправки status & text?
+  - Может быть стоит вынести работу со страницами в отдельный блок (reducer, actions)?
+  - Обработка ошибок обмена с бэкендом
+  - Обработка ошибок thunk (alert, изменение статуса задачи...) Паравильно ли делаю?
+  - Объединить задачи UpdateTaskText & UpdateNewTaskText в редусере. Реально? Стоит ли?
 
 ## Вопросы
   - Проверить правильно ли я передаю данные на сервер в функции onTaskTextPOST (Table\Container.jsx)
@@ -220,57 +160,55 @@
 
 ## Best practices
   - Вывод разных компонент по условию {
-      https://ru.reactjs.org/docs/conditional-rendering.html
-
-      function Greeting(props) {
+      - https://ru.reactjs.org/docs/conditional-rendering.html
+      - function Greeting(props) {
         const isLoggedIn = props.isLoggedIn;
         if (isLoggedIn) {
           return <UserGreeting />;
         }
         return <GuestGreeting />;
       }
-  }
   - Reducer - как менять массив объектов при помощи Map {
     - https://www.youtube.com/watch?v=ceSZUZZaW30
   }
   - Копирование стэйта {
-    let stateCopy = {
-      ...state,
-      messages: {...state.messages}
-    }
-
-    вместо
-    let stateCopy = {
-      ...state,
-    }
-    StateCopy.newMessagesBody = action.body
-    делаем
-    return {
-      ...state,
-      newMessagesBody = action.body
-    }
-
-
-    вместо
-    let stateCopy = {
-      ...state
-    }
-    let body = stateNewMessages.body
-    StateCopy.newMessagesBody = ''
-    StateCopy.messages.push({id:6, message: body})
-
-    делаем {
-      let body = stateNewMessages.body
+      let stateCopy = {
+        ...state,
+        messages: {...state.messages}
+      }
+  
+      вместо
+      let stateCopy = {
+        ...state,
+      }
+      StateCopy.newMessagesBody = action.body
+      делаем
       return {
         ...state,
-        messages: {
-          ...state.messages,
-      {id:6, message: body}
+        newMessagesBody = action.body
+      }
+  
+  
+      вместо
+      let stateCopy = {
+        ...state
+      }
+      let body = stateNewMessages.body
+      StateCopy.newMessagesBody = ''
+      StateCopy.messages.push({id:6, message: body})
+  
+      делаем {
+        let body = stateNewMessages.body
+        return {
+          ...state,
+          messages: {
+            ...state.messages,
+        {id:6, message: body}
+      }
+        newMessagesBody = '',
+      }
+      }
     }
-      newMessagesBody = '',
-    }
-    }
-  }
   - Добавление данных через спред-оператор {
     let variable = {
       ...state,
@@ -438,3 +376,6 @@
     })
   }
 }
+
+
+

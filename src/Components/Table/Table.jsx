@@ -88,9 +88,9 @@ const Table = (props) => {
       <form>
         <table className={"table sort_" + sortDirection} id={"table"}>
           <thead className="thead-light">
-          <tr>
-            {tableHeaderTh.map(th => th)}
-          </tr>
+            <tr>
+              {tableHeaderTh.map(th => th)}
+            </tr>
           </thead>
           <tbody>
             {tableBodyTdAdmin.map(td => td)}

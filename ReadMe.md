@@ -46,7 +46,7 @@
 - [Redux](https://redux.js.org/) 4
 - [React-Redux](https://react-redux.js.org/) 6
 - [React Router DOM](https://github.com/ReactTraining/react-router#readme) 5
-- [Redux Thunk] (https://github.com/reduxjs/redux-thunk) 2
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk) 2
 - [Axios](https://github.com/axios/axios#readme) 0.18
 - [Bootstrap](https://getbootstrap.com/) 4
 - [Semantic UI React](https://react.semantic-ui.com/) 0.86
@@ -86,7 +86,11 @@
 
 :arrow_up: [Оглавление](#table_of_contents)    
 
-____
+<br/>
+
+***
+
+<br/>
 
 <a name="en_task"></a>
 ## Technical task
@@ -119,10 +123,11 @@ There are no special requirements for design.<br>
 
 <a name="en_stack"></a>
 ## Technologies stack
-- [React JS](https://reactjs.org/) 16
+- [React JS](https://ru.reactjs.org/) 16
 - [Redux](https://redux.js.org/) 4
 - [React-Redux](https://react-redux.js.org/) 6
 - [React Router DOM](https://github.com/ReactTraining/react-router#readme) 5
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk) 2
 - [Axios](https://github.com/axios/axios#readme) 0.18
 - [Bootstrap](https://getbootstrap.com/) 4
 - [Semantic UI React](https://react.semantic-ui.com/) 0.86
