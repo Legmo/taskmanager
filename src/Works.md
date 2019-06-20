@@ -42,6 +42,7 @@
   - Selectors
   - Reselected
   - Redux form
+      https://www.youtube.com/watch?v=wlXWYztWdUE
   - Context API старый
       https://learn-reactjs.ru/core/context#395
       https://reactjs.org/docs/legacy-context.html
@@ -159,6 +160,7 @@
 }
 
 ## Best practices
+  - Не должно быть вызовов экшенов подряд. Это будет приводить к последовательным лишним ререндерам.
   - Вывод разных компонент по условию {
       - https://ru.reactjs.org/docs/conditional-rendering.html
       - function Greeting(props) {
