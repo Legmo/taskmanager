@@ -1,24 +1,25 @@
 import {
   DO_LOGIN,
   DO_LOGOUT,
-} from '../Actions/users_actions'
+} from '../Actions/usersActions';
 
 const initialState = {
-    loggedUser: false,
-    adminLogin: "admin", //TODO: improve security
-    adminPassword: "123", //TODO: improve security
+  loggedUser: false,
+  //TODO: improve security
+  adminLogin: 'admin',
+  adminPassword: '123',
 };
 
-const users_reducer = (state = initialState, action) => {
-  switch(action.type) {
+const usersReducer = (state = initialState, action) => {
+  switch (action.type) {
     case DO_LOGOUT: {
-      return  {
+      return {
         ...state,
         loggedUser: action.isUserLogged,
       };
     }
     case DO_LOGIN: {
-      return  {
+      return {
         ...state,
         loggedUser: action.isUserLogged,
       };
@@ -26,6 +27,6 @@ const users_reducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
-export default users_reducer;
+export default usersReducer;

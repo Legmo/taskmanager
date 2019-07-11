@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {doLogout} from "../../Redux/Actions/users_actions";
+import {doLogout} from "../../Redux/Actions/usersActions";
 import Navigation from "./Navigation";
 
 let mapStateToProps = (state) => {

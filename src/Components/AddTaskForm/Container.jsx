@@ -8,7 +8,7 @@ import {
   updateMailText,
   updateAuthorText,
   postNewTask,
-} from "../../Redux/Actions/tasks_actions";
+} from "../../Redux/Actions/tasksActions";
 import * as axios from "axios";
 
 

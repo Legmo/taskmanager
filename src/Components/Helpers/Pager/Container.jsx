@@ -6,7 +6,7 @@ import {
   toggleIsFetching,
   setTasks,
   getURL,
-} from "../../../Redux/Actions/tasks_actions";
+} from "../../../Redux/Actions/tasksActions";
 import Pager from "./Pager";
 
 

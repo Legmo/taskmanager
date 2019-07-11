@@ -1,10 +1,10 @@
-import {combineReducers} from 'redux';
-import tasks_reducer from './tasks_reducer';
-import users_reducer from './users_reducer';
+import { combineReducers } from 'redux';
+import tasksReducer from './tasksReducer';
+import usersReducer from './usersReducer';
 
-let reducers  = combineReducers({
-  users:  users_reducer,
-  tasks:  tasks_reducer,
-})
+const reducers = combineReducers({
+  users: usersReducer,
+  tasks: tasksReducer,
+});
 
 export default reducers;
