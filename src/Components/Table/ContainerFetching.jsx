@@ -4,7 +4,7 @@ import Preloader from '../Helpers/Preloader/Preloader';
 import Table from './Table';
 
 const ContainerFetching = (props) => {
-  const isFetching = props.isFetching;
+  const { isFetching } = props;
 
   if (isFetching) {
     return <Preloader />;

@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from "react-redux";
-import AddTaskForm from "./AddTaskForm";
+import { connect } from 'react-redux';
+import AddTaskForm from './AddTaskForm';
 import {
   clearNewTask,
   toggleIsFetching,
@@ -8,65 +8,62 @@ import {
   updateMailText,
   updateAuthorText,
   postNewTask,
-} from "../../Redux/Actions/tasksActions";
-import * as axios from "axios";
-
+} from '../../Redux/Actions/tasksActions';
 
 class AddTaskFormContainer extends React.Component {
   onNewTaskTextChange = (event) => {
-    let text = event.target.value;
+    const text = event.target.value;
     this.props.updateNewTaskText(text);
-  }
+  };
 
   onAuthorChange = (event) => {
-    let name = event.target.value;
+    const name = event.target.value;
     this.props.updateAuthorText(name);
-  }
+  };
 
   onMailChange = (event) => {
-    let mail = event.target.value;
+    const mail = event.target.value;
     this.props.updateMailText(mail);
-  }
+  };
 
   newTaskSubmit = (event) => {
     event.preventDefault();
-    let username = this.props.newAuthorText
-    let email    = this.props.newMailText
-    let text     = this.props.newTaskText
+    const { newAuthorText: username } = this.props;
+    const { newMailText: email }      = this.props;
+    const { newTaskText: text }       = this.props;
 
-    this.props.postNewTask([username, email, text])
+    this.props.postNewTask([username, email, text]);
 
-    if(!this.props.errorStatus) {
-      this.props.clearNewTask()
-      alert('Задача отправлена')
+    if (!this.props.errorStatus) {
+      this.props.clearNewTask();
+      alert('Задача отправлена'); // eslint-disable-line no-alert
       event.target.elements.taskText.value = '';
       event.target.elements.taskAuthor.value = '';
       event.target.elements.taskMail.value = '';
+    } else {
+      alert('Ошибка отправки. Свяжитесь с администратором'); // eslint-disable-line no-alert
     }
-    else {
-      alert('Ошибка отправки. Свяжитесь с администратором')
-    }
-  }
+  };
 
   render() {
-    return <AddTaskForm
-        onNewTaskTextChange = {this.onNewTaskTextChange }
+    return (
+      <AddTaskForm
+        onNewTaskTextChange = {this.onNewTaskTextChange}
         onAuthorChange      = {this.onAuthorChange}
         onMailChange        = {this.onMailChange}
         newTaskSubmit       = {this.newTaskSubmit}
-    />
+      />
+    );
   }
 }
 
-let mapStateToProps = (state) => {
-  return {
-    newTaskText:    state.tasks.newTask.text,
-    newAuthorText:  state.tasks.newTask.author,
-    newMailText:    state.tasks.newTask.mail,
-  }
-}
+const mapStateToProps = state => ({
+  newTaskText:   state.tasks.newTask.text,
+  newAuthorText: state.tasks.newTask.author,
+  newMailText:   state.tasks.newTask.mail,
+});
 
-export default connect(mapStateToProps, {//mapDispatchToProps
+export default connect(mapStateToProps, {// mapDispatchToProps
   clearNewTask,
   updateNewTaskText,
   updateMailText,
@@ -74,4 +71,3 @@ export default connect(mapStateToProps, {//mapDispatchToProps
   toggleIsFetching,
   postNewTask,
 })(AddTaskFormContainer);
-

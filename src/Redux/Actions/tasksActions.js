@@ -17,24 +17,24 @@ export const clearNewTask = () => ({
   type: CLEAR_NEW_TASK,
 });
 export const updateTaskText = (text, index) => ({
-  type: UPDATE_TASK_TEXT,
+  type:        UPDATE_TASK_TEXT,
   newTaskText: text,
-  taskIndex: index,
+  taskIndex:   index,
 });
 export const updateNewTaskText = text => ({
-  type: UPDATE_NEW_TASK_TEXT,
+  type:        UPDATE_NEW_TASK_TEXT,
   newTaskText: text,
 });
 export const updateMailText = mail => ({
-  type: UPDATE_MAIL_TEXT,
+  type:        UPDATE_MAIL_TEXT,
   newMailText: mail,
 });
 export const updateAuthorText = name => ({
-  type: UPDATE_AUTHOR_TEXT,
+  type:          UPDATE_AUTHOR_TEXT,
   newAuthorText: name,
 });
 export const updateTaskStatus = (status, index) => ({
-  type: UPDATE_TASK_STATUS,
+  type:      UPDATE_TASK_STATUS,
   newStatus: status,
   taskIndex: index,
 });

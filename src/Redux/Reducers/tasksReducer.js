@@ -15,51 +15,51 @@ import {
 
 const initialState = {
   message: {
-    tasks: [],
+    tasks:            [],
     total_task_count: '',
   },
   newTask: {
-    text: '',
+    text:   '',
     author: '',
-    mail: '',
+    mail:   '',
   },
   table: {
     table_headers: [
       {
-        header_id: 'id',
-        header_name: 'ID',
+        header_id:     'id',
+        header_name:   'ID',
         allowed_users: [
           'anonymous',
           'admin',
         ],
       },
       {
-        header_id: 'username',
-        header_name: 'Пользователь',
+        header_id:     'username',
+        header_name:   'Пользователь',
         allowed_users: [
           'anonymous',
           'admin',
         ],
       },
       {
-        header_id: 'email',
-        header_name: 'Email',
+        header_id:     'email',
+        header_name:   'Email',
         allowed_users: [
           'anonymous',
           'admin',
         ],
       },
       {
-        header_id: 'text',
-        header_name: 'Задача',
+        header_id:     'text',
+        header_name:   'Задача',
         allowed_users: [
           'anonymous',
           'admin',
         ],
       },
       {
-        header_id: 'status',
-        header_name: 'Статус',
+        header_id:     'status',
+        header_name:   'Статус',
         allowed_users: [
           'anonymous',
           'admin',
@@ -68,64 +68,64 @@ const initialState = {
     ],
     table_cells: [
       {
-        cell_id: 'id',
-        cell_type: 'integer',
+        cell_id:       'id',
+        cell_type:     'integer',
         allowed_users: [
           'anonymous',
           'admin',
         ],
       },
       {
-        cell_id: 'username',
-        cell_type: 'text',
+        cell_id:       'username',
+        cell_type:     'text',
         allowed_users: [
           'anonymous',
           'admin',
         ],
       },
       {
-        cell_id: 'email',
-        cell_type: 'text',
+        cell_id:       'email',
+        cell_type:     'text',
         allowed_users: [
           'anonymous',
           'admin',
         ],
       },
       {
-        cell_id: 'text_anonymous',
-        cell_type: 'text',
+        cell_id:       'text_anonymous',
+        cell_type:     'text',
         allowed_users: [
           'anonymous',
         ],
       },
       {
-        cell_id: 'text_admin',
-        cell_type: 'textarea',
+        cell_id:       'text_admin',
+        cell_type:     'textarea',
         allowed_users: [
           'admin',
         ],
       },
       {
-        cell_id: 'status_anonymous',
-        cell_type: 'text',
+        cell_id:       'status_anonymous',
+        cell_type:     'text',
         allowed_users: [
           'anonymous',
         ],
       },
       {
-        cell_id: 'status_admin',
-        cell_type: 'radio-button',
+        cell_id:       'status_admin',
+        cell_type:     'radio-button',
         allowed_users: [
           'admin',
         ],
       },
     ],
-    sortField: 'id',
+    sortField:     'id',
     sortDirection: 'asc',
   },
   currentPage: 1,
-  isFetching: false,
-  hasError: false,
+  isFetching:  false,
+  hasError:    false,
 };
 
 const tasksReducer = (state = initialState, action) => {
@@ -134,9 +134,9 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         newTask: {
-          text: '',
+          text:   '',
           author: '',
-          mail: '',
+          mail:   '',
         },
       };
     }
@@ -204,7 +204,7 @@ const tasksReducer = (state = initialState, action) => {
         },
         table: {
           ...state.table,
-          sortField: action.sortField,
+          sortField:     action.sortField,
           sortDirection: action.sortDirection,
         },
       };
@@ -243,7 +243,7 @@ const tasksReducer = (state = initialState, action) => {
         ...state,
         message: {
           ...state.message,
-          tasks: [...state.message.tasks],
+          tasks:            [...state.message.tasks],
           total_task_count: action.taskCount,
         },
       };

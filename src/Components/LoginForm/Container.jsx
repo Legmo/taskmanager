@@ -1,15 +1,13 @@
-import React from 'react';
-import {connect} from "react-redux";
-import { doLogin } from "../../Redux/Actions/usersActions";
-import LoginForm from "./LoginForm";
+import React from 'react'; // eslint-disable-line no-unused-vars
+import { connect } from 'react-redux';
+import { doLogin } from '../../Redux/Actions/usersActions';
+import LoginForm from './LoginForm';
 
-let mapStateToProps = (state) => {
-  return {
-    isLoggedUser:  state.users.loggedUser,
-    adminLogin:    state.users.adminLogin,
-    adminPassword: state.users.adminPassword,
-  }
-}
+const mapStateToProps = state => ({
+  isLoggedUser:  state.users.loggedUser,
+  adminLogin:    state.users.adminLogin,
+  adminPassword: state.users.adminPassword,
+});
 
 const LoginFormContainer = connect(mapStateToProps, { doLogin })(LoginForm);
 

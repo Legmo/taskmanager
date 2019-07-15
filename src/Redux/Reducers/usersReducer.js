@@ -4,9 +4,9 @@ import {
 } from '../Actions/usersActions';
 
 const initialState = {
-  loggedUser: false,
+  loggedUser:    false,
   //TODO: improve security
-  adminLogin: 'admin',
+  adminLogin:    'admin',
   adminPassword: '123',
 };
 
