@@ -43,6 +43,7 @@
 <a name="ru_stack"></a>
 ## Стэк технологий
 - [React JS](https://ru.reactjs.org/) 16
+- [Create React App](https://github.com/facebook/create-react-app)
 - [Redux](https://redux.js.org/) 4
 - [React-Redux](https://react-redux.js.org/) 6
 - [React Router DOM](https://github.com/ReactTraining/react-router#readme) 5
@@ -124,6 +125,7 @@ There are no special requirements for design.<br>
 <a name="en_stack"></a>
 ## Technologies stack
 - [React JS](https://ru.reactjs.org/) 16
+- [Create React App](https://github.com/facebook/create-react-app)
 - [Redux](https://redux.js.org/) 4
 - [React-Redux](https://react-redux.js.org/) 6
 - [React Router DOM](https://github.com/ReactTraining/react-router#readme) 5

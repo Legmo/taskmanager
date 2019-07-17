@@ -31,10 +31,11 @@ class AddTaskFormContainer extends React.Component {
     const { newAuthorText: username } = this.props;
     const { newMailText: email }      = this.props;
     const { newTaskText: text }       = this.props;
+    const { errorStatus }             = this.props;
 
     this.props.postNewTask([username, email, text]);
 
-    if (!this.props.errorStatus) {
+    if (!errorStatus) {
       this.props.clearNewTask();
       alert('Задача отправлена'); // eslint-disable-line no-alert
       event.target.elements.taskText.value = '';

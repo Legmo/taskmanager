@@ -13,15 +13,20 @@ import ContainerFetching from './ContainerFetching';
 
 class TableContainer extends React.Component {
   componentDidMount() {
-    this.props.getTasksWithSort([this.props.currentPage, , ]);
-    if (this.props.errorStatus) {
-      alert('Ошибка. Свяжитесь с администратором');
+    const { errorStatus } = this.props;
+    const { currentPage } = this.props;
+
+    this.props.getTasksWithSort([currentPage, , ]);
+    if (errorStatus) {
+      alert('Ошибка. Свяжитесь с администратором'); // eslint-disable-line no-alert
     }
   }
 
   onSortTable = (event) => {
     const sortField = event.target.id;
     const firstActiveTh = document.getElementsByClassName('active_col')[0];
+    const { errorStatus } = this.props;
+    const { currentPage } = this.props;
 
     if (firstActiveTh) { firstActiveTh.classList.remove('active_col'); }
 
@@ -34,9 +39,9 @@ class TableContainer extends React.Component {
 
     this.props.tableSort(sortField, sortDirection);
 
-    // TODO: we need to use Flux here. Data from state only (this.props.sortField, this.props.sortDirection)
-    this.props.getTasksWithSort(this.props.currentPage, sortField, sortDirection);
-    if (this.props.errorStatus) {
+    // TODO: use Flux here. Data from state only (this.props.sortField, this.props.sortDirection)
+    this.props.getTasksWithSort(currentPage, sortField, sortDirection);
+    if (errorStatus) {
       alert('Ошибка. Свяжитесь с администратором'); // eslint-disable-line no-alert
     }
   };
@@ -46,12 +51,13 @@ class TableContainer extends React.Component {
     const isChecked = document.getElementById(event.target.id).hasAttribute('checked');
     let status = '';
     let taskIndex = '';
+    const { errorStatus } = this.props;
 
     isChecked ? status = 0 : status = 10;
 
     this.props.postTaskStatus([id, status]);
 
-    if (!this.props.errorStatus) {
+    if (!errorStatus) {
       isChecked ? (event.target).removeAttribute('checked') : (event.target).setAttribute('checked', 'checked');
 
       this.props.tasks.map((task, index) => ((+task.id === id) && (taskIndex = index)));
@@ -77,11 +83,12 @@ class TableContainer extends React.Component {
     const id = +event.target.previousElementSibling.id;
     let text = '';
     const button = event.target;
+    const { errorStatus } = this.props;
 
-    this.props.tasks.map((task) => (id === task.id) ? text = task.text : '');
+    this.props.tasks.map((task) => (id === task.id) ? { text } = task : '');
     this.props.postTaskText([id, text]);
 
-    if (!this.props.errorStatus) {
+    if (!errorStatus) {
       this.props.toggleIsFetching(true);
       button.classList.add('d-none');
     } else {

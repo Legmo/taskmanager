@@ -15,10 +15,11 @@ class PagerContainer extends React.Component {
     const { sortField }     = this.props; // id | username | email | status
     const { sortDirection } = this.props; // asc | desc
     const { setCurrentPage: setCurrentPageA } = this.props;
+    const { errorStatus } = this.props;
 
     setCurrentPageA(pageNumber);
     this.props.getURL(pageNumber, sortField, sortDirection);
-    if (!this.props.errorStatus) {
+    if (!errorStatus) {
       setCurrentPageA(pageNumber);
     } else {
       alert('Ошибка. Свяжитесь с администратором'); // eslint-disable-line no-alert
